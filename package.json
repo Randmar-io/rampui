@@ -1,0 +1,19 @@
+{
+  "name": "rampui",
+  "version": "0.0.1",
+  "description": "The UI library for effortlessly creating beatiful and responsive admin dashboards in React.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Randmar/rampui.git"
+  },
+  "author": "Randmar Inc.",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Randmar/rampui/issues"
+  },
+  "homepage": "https://github.com/Randmar/rampui#readme"
+}
