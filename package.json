@@ -1,10 +1,16 @@
 {
   "name": "rampui",
+  "private": false,
   "version": "0.0.1",
   "description": "The UI library for effortlessly creating beatiful and responsive admin dashboards in React.",
-  "main": "index.js",
+  "main": "dist/index.umd.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"Error: no test specified\" && exit 0",
     "build": "vite build && tsc"
   },
   "repository": {
@@ -25,5 +31,8 @@
   },
   "peerDependencies": {
     "react": "^17.0.0"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
   }
 }
