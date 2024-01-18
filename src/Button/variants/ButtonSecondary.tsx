@@ -10,24 +10,23 @@ export const ButtonSecondary = styled(ButtonBase)<ButtonProps>((props) => {
   return (
     `
     background: white;
-    border: 1px solid ${grey[200]};
+    border-color: ${grey[200]};
     color: ${color[700]};
 
     &:hover {
       background: ${grey[50]};
-      border-color: ${color[300]};
+      border-color: ${color[300]};  
     }
     
     &:active {
       background: ${grey[50]};
       border-color: ${color[300]};
-      box-shadow: inset 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      box-shadow: inset 0 0.5px 2px 0 ${grey[300]};
     }
 
-    &.Mui-disabled {
+    &:disabled {
       box-shadow: none;
       background: ${grey[100]};
-      border: 1px solid ${grey[100]};
       color: ${grey[400]};
     }
   `

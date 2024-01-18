@@ -7,8 +7,8 @@ export const height = {
 }
 
 export const thickness = {
-  "small": 2,
-  "medium": 3,
+  "small": 1,
+  "medium": 2,
   "large": 3,
 }
 

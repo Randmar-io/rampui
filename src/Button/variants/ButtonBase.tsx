@@ -21,10 +21,10 @@ export const ButtonBase = styled(MuiBaseButton)<ButtonProps>((props) => {
     width: ${width};
     cursor: pointer;
     user-select: none;
-    transition: all 100ms cubic-bezier(0.25, 0.1, 0.25, 1);
+    border: 1px solid;
 
     &:active {
-      transform: translateY(1px);
+      transform: translateY(0.5px);
     }
 
     &:focus-visible {
@@ -32,8 +32,8 @@ export const ButtonBase = styled(MuiBaseButton)<ButtonProps>((props) => {
       outline-offset: 1.5px;
     }
 
-    &.Mui-disabled {
-      border: 0;
+    &:disabled {
+      border-color: transparent;
       cursor: default;
       box-shadow: none;
       transform: scale(1);

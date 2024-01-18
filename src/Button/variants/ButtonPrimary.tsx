@@ -9,22 +9,23 @@ export const ButtonPrimary = styled(ButtonBase)<ButtonProps>((props) => {
 
   return (
     `
-    background: linear-gradient(${color[800]}, ${color[700]});
-    border: none;
+    background: linear-gradient(${color[800]}, ${color[600]});
     color: white;
     box-shadow: inset 0 1px ${color[600]};
+    border-color: ${color[700]};
 
     &:hover {
-      background: linear-gradient(${color[800]}, ${color[800]});
-    }
+      background: linear-gradient(${color[700]}, ${color[700]});
+    } 
 
     &:active {
-      background: linear-gradient(${color[800]}, ${color[800]});
-      box-shadow: inset 0 1px 1px ${grey[800]};
+      background: linear-gradient(${color[700]}, ${color[700]});
+      box-shadow: inset 0 1px 1px ${grey[900]};
+      border-color: transparent;
     }
 
-    &.Mui-disabled {
-      background: ${grey[400]};
+    &:disabled {
+      background: ${grey[300]};
       box-shadow: none;
     }
   `

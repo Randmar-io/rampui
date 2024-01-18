@@ -9,8 +9,8 @@ export const ButtonTertiary = styled(ButtonBase)<ButtonProps>((props) => {
 
   return (
     `
+    border-color: transparent;
     background: transparent;
-    border: none;
     color: ${color[700]};
 
     &:hover {
@@ -19,10 +19,10 @@ export const ButtonTertiary = styled(ButtonBase)<ButtonProps>((props) => {
 
     &:active {
       background: ${grey[100]};
-      box-shadow: inset 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      box-shadow: inset 0 0.5px 2px 0 ${grey[400]};
     }
 
-    &.Mui-disabled {
+    &:disabled {
       background: none;
       box-shadow: none;
       color: ${grey[400]};
