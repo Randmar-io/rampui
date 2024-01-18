@@ -2,7 +2,7 @@ import { Stack } from "@mui/system";
 import React from "react";
 import { NavLink, NavLinkProps } from "./NavLink/NavLink";
 
-interface NavMenuProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface NavMenuProps extends React.HTMLAttributes<HTMLDivElement> {
   menuItems: NavLinkProps[];
 }
 

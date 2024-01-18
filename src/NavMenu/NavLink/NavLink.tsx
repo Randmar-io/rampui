@@ -3,7 +3,7 @@ import { Icon as PhosphorIcon } from "@phosphor-icons/react";
 import React from "react";
 import { CenteredFlexbox } from "../../utility/CenteredFlexbox";
 
-interface NavLinkContainerProps {
+export interface NavLinkContainerProps {
   selected?: boolean;
 }
 

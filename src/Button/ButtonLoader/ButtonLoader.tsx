@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-interface ButtonLoaderProps {
+export interface ButtonLoaderProps {
 	height?: number;
 	thickness?: number;
 	color?: string;
