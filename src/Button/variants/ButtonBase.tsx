@@ -11,7 +11,6 @@ export const ButtonBase = styled(MuiBaseButton)<ButtonProps>((props) => {
 
   return (
     `
-    font-family: 'DM Sans', sans-serif;
     font-weight: 500;
     font-size: ${fontSize};
     line-height: 1.5;

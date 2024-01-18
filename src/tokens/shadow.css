@@ -1,0 +1,4 @@
+:root {
+  --r-shadow-centered-sm: 0px 0px 2px rgba(26, 26, 26, 0.1);
+  --r-shadow-centered-md: 0px 0px 4px rgba(26, 26, 26, 0.07);
+}
