@@ -1,7 +1,7 @@
 {
   "name": "rampui",
   "private": false,
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "The UI library for effortlessly creating beatiful and responsive admin dashboards in React.",
   "main": "dist/index.umd.js",
   "module": "dist/index.mjs",
@@ -11,7 +11,7 @@
   ],
   "scripts": {
     "test": "vitest",
-    "build": "vite build && tsc --declaration",
+    "build": "vite build && tsc",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
