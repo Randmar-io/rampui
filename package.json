@@ -10,8 +10,10 @@
     "dist"
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 0",
-    "build": "vite build && tsc"
+    "test": "vitest",
+    "build": "vite build && tsc",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "repository": {
     "type": "git",
@@ -24,15 +26,35 @@
   },
   "homepage": "https://github.com/Randmar/rampui#readme",
   "devDependencies": {
+    "@mui/base": "^5.0.0-beta.32",
+    "@mui/system": "^5.15.5",
+    "@storybook/addon-essentials": "^7.6.9",
+    "@storybook/addon-interactions": "^7.6.9",
+    "@storybook/addon-links": "^7.6.9",
+    "@storybook/addon-onboarding": "^1.0.10",
+    "@storybook/blocks": "^7.6.9",
+    "@storybook/react": "^7.6.9",
+    "@storybook/react-vite": "^7.6.9",
+    "@storybook/test": "^7.6.9",
+    "@testing-library/jest-dom": "^6.2.0",
+    "@testing-library/react": "^14.1.2",
     "@types/react": "^18.2.48",
+    "@vitejs/plugin-react": "^4.2.1",
+    "jsdom": "^23.2.0",
     "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "storybook": "^7.6.9",
     "typescript": "^5.3.3",
-    "vite": "^5.0.11"
+    "vite": "^5.0.11",
+    "vitest": "^1.2.1"
   },
   "peerDependencies": {
     "react": "^18.0.0"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
+  },
+  "dependencies": {
+    "@emotion/styled": "^11.11.0"
   }
 }
