@@ -37,7 +37,7 @@ const renderContent = ({ startIcon, endIcon, children, loading, variant, size }:
     </span>
     <Stack sx={{ color: loading ? 'transparent' : 'none' }} direction="row" alignItems="center" justifyContent="center" spacing={0.5}>
       {startIcon}
-      <div>{children}</div>
+      {children && <div>{children}</div>}
       {endIcon}
     </Stack>
   </div >

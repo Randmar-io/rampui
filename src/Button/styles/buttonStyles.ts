@@ -5,9 +5,9 @@ import purple from "../../colors/purple"
 import red from "../../colors/red"
 
 export const fontSizes = {
-  "small": "0.7rem",
-  "medium": "0.75rem",
-  "large": "0.8 rem",
+  "small": "0.75rem",
+  "medium": "0.8rem",
+  "large": "0.85 rem",
 }
 
 export const paddings = {

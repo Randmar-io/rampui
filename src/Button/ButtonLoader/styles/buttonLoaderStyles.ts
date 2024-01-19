@@ -7,9 +7,9 @@ export const height = {
 }
 
 export const thickness = {
-  "small": 1,
+  "small": 1.5,
   "medium": 2,
-  "large": 3,
+  "large": 2.5,
 }
 
 export const color = {

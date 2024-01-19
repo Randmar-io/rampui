@@ -14,19 +14,18 @@ export const ButtonSecondary = styled(ButtonBase)<ButtonProps>((props) => {
     color: ${color[700]};
 
     &:hover {
-      background: ${grey[50]};
-      border-color: ${color[300]};  
+      background: ${grey[100]};
+      border-color: ${grey[300]};
     }
     
     &:active {
-      background: ${grey[50]};
-      border-color: ${color[300]};
-      box-shadow: inset 0 0.5px 2px 0 ${grey[300]};
+      background: ${grey[100]};
+      border-color: ${grey[300]};
+      box-shadow: inset 0 1px 2px 0 ${grey[300]};
     }
 
     &:disabled {
       box-shadow: none;
-      background: ${grey[100]};
       color: ${grey[400]};
     }
   `

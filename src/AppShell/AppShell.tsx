@@ -14,7 +14,7 @@ const AppShellContainer = styled('div')(
     display: flex;
     flex-direction: column;
   `
-)
+);
 
 const AppShellContent = styled('div')(
   `
@@ -24,7 +24,7 @@ const AppShellContent = styled('div')(
     height: 100%;
     box-shadow: var(--r-shadow-centered-md);
   `
-)
+);
 
 export function AppShell({ children, topBar, navMenu, ...rest }: AppShellProps) {
   return (
@@ -34,7 +34,7 @@ export function AppShell({ children, topBar, navMenu, ...rest }: AppShellProps) 
         <div style={{ flexShrink: 0, width: 240 }}>
           {navMenu}
         </div>
-        <div style={{ flexGrow: 1, padding: 12, paddingTop: 0 }}>
+        <div style={{ flexGrow: 1, padding: 'var(--r-spacing-30)', paddingTop: 0 }}>
           <AppShellContent>
             {children}
           </AppShellContent>

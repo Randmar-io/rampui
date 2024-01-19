@@ -23,7 +23,7 @@ export const ButtonBase = styled(MuiBaseButton)<ButtonProps>((props) => {
     border: 1px solid;
 
     &:active {
-      transform: translateY(0.5px);
+      transform: translateY(1px);
     }
 
     &:focus-visible {
