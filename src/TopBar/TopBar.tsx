@@ -1,6 +1,5 @@
 import { styled } from "@mui/system";
 import React from "react";
-import "../tokens/height.css";
 import { CenteredFlexbox } from "../utility/CenteredFlexbox";
 
 

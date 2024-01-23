@@ -1,9 +1,9 @@
-import "../tokens/border.css";
-import "../tokens/height.css";
-import "../tokens/shadow.css";
-import "../tokens/spacing.css";
-import "../tokens/width.css";
-import "./Provider.css";
+import "../styles/base.css";
+import "../styles/tokens/border.css";
+import "../styles/tokens/height.css";
+import "../styles/tokens/shadow.css";
+import "../styles/tokens/spacing.css";
+import "../styles/tokens/width.css";
 
 interface ProviderProps {
   children: React.ReactNode;
