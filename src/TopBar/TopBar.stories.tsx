@@ -8,7 +8,7 @@ const meta: Meta<typeof TopBar> = {
   title: 'Top Bar',
   component: TopBar,
   parameters: {
-    layout: 'centered',
+    layout: 'fullscreen',
   },
   tags: ['autodocs'],
 };

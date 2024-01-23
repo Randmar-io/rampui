@@ -50,7 +50,7 @@ const ActionsContainer = styled('div')(
 
 export function Page({ children, heading, subHeading, primaryAction, secondaryActions, ...rest }: PageProps) {
   return (
-    <PageContainer {...rest} style={{ backgroundColor: "white" }}>
+    <PageContainer {...rest}>
       <PageHeaderContainer>
         <HeadingsContainer>
           <div>
