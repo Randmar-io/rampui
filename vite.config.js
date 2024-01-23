@@ -3,9 +3,9 @@ import { resolve } from "path";
 import { defineConfig } from "vite";
 import svgr from 'vite-plugin-svgr';
 
-export default defineConfig ({
+export default defineConfig({
   plugins: [
-    react(), 
+    react(),
     svgr(),
   ],
   test: {
@@ -17,7 +17,6 @@ export default defineConfig ({
     lib: {
       entry: resolve(__dirname, "src/index.ts"),
       name: "rampui",
-   		 
       fileName: "index",
     },
     rollupOptions: {

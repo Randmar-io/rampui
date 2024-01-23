@@ -9,7 +9,10 @@ import { AppShell } from './AppShell';
 const meta: Meta<typeof AppShell> = {
   title: 'App Shell',
   component: AppShell,
-  tags: ['autodocs'],
+  parameters: {
+    layout: "fullscreen"
+  },
+  tags: ['autodocs']
 };
 
 export default meta;
