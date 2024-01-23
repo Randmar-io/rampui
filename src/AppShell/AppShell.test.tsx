@@ -1,33 +1,33 @@
+import { Stack } from "@mui/system";
 import { House, Notebook, Users } from "@phosphor-icons/react";
 import { render } from '@testing-library/react';
 import React from "react";
 import { describe, expect, it } from 'vitest';
-import { NavMenu } from '../NavMenu/NavMenu';
+import { NavLink } from '../NavLink/NavLink';
 import { TopBar } from '../TopBar/TopBar';
 import { AppShell } from './AppShell';
 
 describe('<AppShell />', () => {
   const topBar = <TopBar data-testid="topBar" />;
+  const menuItems = [
+    {
+      icon: House,
+      label: "Home",
+      selected: true
+    },
+    {
+      icon: Users,
+      label: "Users"
+    },
+    {
+      icon: Notebook,
+      label: "Logs"
+    },
+  ]
   const navMenu = (
-    <NavMenu
-      data-testid="navMenu"
-      menuItems={[
-        {
-          icon: House,
-          label: "Home",
-          selected: true
-        },
-        {
-          icon: Users,
-          label: "Users"
-        },
-        {
-          icon: Notebook,
-          label: "Logs"
-        },
-
-      ]}
-    />
+    <Stack spacing={1} data-testid="navMenu">
+      {menuItems.map(({...props}) => <NavLink {...props} />)}
+    </Stack>
   );
   const children = <div data-testid="content">Content</div>;
 
