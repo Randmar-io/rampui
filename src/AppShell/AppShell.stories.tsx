@@ -11,9 +11,9 @@ const meta: Meta<typeof AppShell> = {
   title: 'App Shell',
   component: AppShell,
   parameters: {
-    layout: "fullscreen",
+    layout: "fullscreen"
   },
-  tags: ['autodocs'],
+  tags: ['autodocs']
 };
 
 export default meta;

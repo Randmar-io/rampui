@@ -1,10 +1,7 @@
 import { Stack } from "@mui/system";
 import React from "react";
+import { ButtonBase } from "./ButtonBase";
 import { ButtonLoader } from './ButtonLoader/ButtonLoader';
-import { color, height, thickness } from './ButtonLoader/styles/buttonLoaderStyles';
-import { ButtonPrimary } from './variants/ButtonPrimary';
-import { ButtonSecondary } from './variants/ButtonSecondary';
-import { ButtonTertiary } from './variants/ButtonTertiary';
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children?: React.ReactNode;
@@ -29,11 +26,7 @@ const renderContent = ({ startIcon, endIcon, children, loading, variant, size }:
       alignItems: 'center',
       justifyContent: 'center',
     }}>
-      <ButtonLoader
-        height={height[size || "medium"]}
-        thickness={thickness[size || "medium"]}
-        color={color[variant || "primary"]}
-      />
+      <ButtonLoader size={size} variant={variant} />
     </span>
     <Stack sx={{ color: loading ? 'transparent' : 'none' }} direction="row" alignItems="center" justifyContent="center" spacing={0.5}>
       {startIcon}
@@ -43,16 +36,10 @@ const renderContent = ({ startIcon, endIcon, children, loading, variant, size }:
   </div >
 );
 
-export function Button({ variant, loading, ...rest }: ButtonProps) {
-  function ButtonVariant(props: ButtonProps) {
-    if (variant === "primary") return <ButtonPrimary {...props} />
-    if (variant === "tertiary") return <ButtonTertiary {...props} />
-    return <ButtonSecondary {...props} />
-  }
-
+export function Button({ loading, disabled, ...rest }: ButtonProps) {
   return (
-    <ButtonVariant disabled={loading} {...rest}>
-      {renderContent({ variant, loading, ...rest })}
-    </ButtonVariant>
+    <ButtonBase disabled={loading || disabled} {...rest}>
+      {renderContent({ loading, ...rest })}
+    </ButtonBase>
   )
 }
