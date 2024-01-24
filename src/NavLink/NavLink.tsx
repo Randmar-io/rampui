@@ -1,18 +1,17 @@
 import styled from '@emotion/styled';
 import { Icon as PhosphorIcon } from "@phosphor-icons/react";
 import React from "react";
-import { CenteredFlexbox } from "../../utility/CenteredFlexbox";
+import "../tokens/border.css";
+import "../tokens/spacing.css";
+import { CenteredFlexbox } from "../utility/CenteredFlexbox";
 
-export interface NavLinkContainerProps {
+export interface NavLinkProps {
+  icon?: PhosphorIcon;
+  label?: string;
   selected?: boolean;
 }
 
-export interface NavLinkProps extends NavLinkContainerProps {
-  icon?: PhosphorIcon;
-  label: string;
-}
-
-const NavLinkContainer = styled('div')<NavLinkContainerProps>((props) =>
+const NavLinkContainer = styled('div')<NavLinkProps>((props) =>
   `
     display: flex;
     align-items: center;

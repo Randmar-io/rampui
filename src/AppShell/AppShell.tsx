@@ -2,9 +2,9 @@ import styled from '@emotion/styled';
 import React from "react";
 
 export interface AppShellProps extends React.HTMLAttributes<HTMLDivElement> {
-  children: React.ReactNode;
-  topBar: React.ReactElement;
-  navMenu: React.ReactElement;
+  children?: React.ReactNode;
+  topBar?: React.ReactElement;
+  navMenu?: React.ReactElement;
 }
 
 const AppShellContainer = styled('div')(
