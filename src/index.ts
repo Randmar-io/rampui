@@ -1,3 +1,4 @@
+import "./index.css";
 export * from "./AppShell";
 export * from "./Button";
 export * from "./NavMenu";

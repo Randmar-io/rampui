@@ -1,3 +1,9 @@
+@import "./tokens/border.css";
+@import "./tokens/height.css";
+@import "./tokens/shadow.css";
+@import "./tokens/spacing.css";
+@import "./tokens/width.css";
+
 * {
   margin: 0;
   padding: 0;
