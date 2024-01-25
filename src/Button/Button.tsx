@@ -1,4 +1,5 @@
 import { Stack } from "@mui/system";
+import { Icon as PhosphorIcon } from "@phosphor-icons/react";
 import React from "react";
 import { ButtonBase } from "./ButtonBase";
 import { ButtonLoader } from './ButtonLoader/ButtonLoader';
@@ -8,33 +9,53 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   variant?: "primary" | "secondary" | "tertiary";
   size?: "small" | "medium" | "large";
   color?: "default" | "reseller" | "manufacturer" | "success" | "error";
-  startIcon?: React.ReactElement;
-  endIcon?: React.ReactElement;
+  startIcon?: PhosphorIcon;
+  endIcon?: PhosphorIcon;
   fullWidth?: boolean;
   loading?: boolean;
 }
 
-const renderContent = ({ startIcon, endIcon, children, loading, variant, size }: ButtonProps) => (
-  <div style={{ position: 'relative' }}>
-    <span style={{
-      position: 'absolute',
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)',
-      height: '100%',
-      display: loading ? 'flex' : 'none',
-      alignItems: 'center',
-      justifyContent: 'center',
-    }}>
-      <ButtonLoader size={size} variant={variant} />
-    </span>
-    <Stack sx={{ color: loading ? 'transparent' : 'none' }} direction="row" alignItems="center" justifyContent="center" spacing={0.5}>
-      {startIcon}
-      <div>{children}</div>
-      {endIcon}
-    </Stack>
-  </div >
-);
+const renderContent = ({ startIcon: StartIcon, endIcon: EndIcon, children, loading, variant, size }: ButtonProps) => {
+  const iconSize = {
+    small: 13,
+    medium: 15,
+    large: 18
+  }
+
+  const spacing = {
+    small: 0.5,
+    medium: 0.75,
+    large: 1
+  }
+
+  return (
+    <div style={{ position: 'relative' }}>
+      <span style={{
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        height: '100%',
+        display: loading ? 'flex' : 'none',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}>
+        <ButtonLoader size={size} variant={variant} />
+      </span>
+      <Stack
+        sx={{ color: loading ? 'transparent' : 'none' }}
+        direction="row"
+        alignItems="center"
+        justifyContent="center"
+        spacing={spacing[size || "medium"]}
+      >
+        {StartIcon && <StartIcon size={iconSize[size || "medium"]} />}
+        {children && <div>{children}</div>}
+        {EndIcon && <EndIcon size={iconSize[size || "medium"]} />}
+      </Stack>
+    </div >
+  )
+};
 
 export function Button({ loading, disabled, ...rest }: ButtonProps) {
   return (

@@ -1,9 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
+import { Airplane } from '@phosphor-icons/react';
 import { Button } from './Button';
 
 const meta: Meta<typeof Button> = {
-  title: 'Example/Button',
+  title: 'Button',
   component: Button,
   parameters: {
     layout: 'centered',
@@ -21,9 +22,12 @@ export const Primary: Story = {
   },
 };
 
-export const Secondary: Story = {
+export const WithStartIcon: Story = {
   args: {
-    children: 'Button',
+    children: 'Icon',
+    startIcon: Airplane,
+    size: 'medium',
+    variant: 'primary'
   },
 };
 
