@@ -1,8 +1,7 @@
-import { Stack } from '@mui/system';
 import { House, Notebook, Users } from "@phosphor-icons/react";
 import type { Meta, StoryObj } from '@storybook/react';
 import React from "react";
-import { NavLink } from '../NavLink';
+import { NavMenuWithItems } from '../NavMenu/NavMenu.stories';
 import { TopBarWithItems } from '../TopBar/TopBar.stories';
 import { AppShell } from './AppShell';
 
@@ -38,102 +37,8 @@ export const AppShellWithItems = () => {
   return (
     <AppShell
       topBar={<TopBarWithItems />}
-      navMenu={
-        <Stack>
-          {menuItems.map(({ ...props }) => <NavLink {...props} />)}
-        </Stack>
-      }
+      navMenu={<NavMenuWithItems />}
     >
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
-      <div>H</div>
 
     </AppShell>
   )

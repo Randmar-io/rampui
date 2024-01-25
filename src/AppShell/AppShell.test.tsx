@@ -3,7 +3,7 @@ import { House, Notebook, Users } from "@phosphor-icons/react";
 import { render } from '@testing-library/react';
 import React from "react";
 import { describe, expect, it } from 'vitest';
-import { NavLink } from '../NavLink/NavLink';
+import { NavLink } from '../NavMenu/NavLink/NavLink';
 import { TopBar } from '../TopBar/TopBar';
 import { AppShell } from './AppShell';
 
@@ -26,7 +26,7 @@ describe('<AppShell />', () => {
   ]
   const navMenu = (
     <Stack spacing={1} data-testid="navMenu">
-      {menuItems.map(({...props}) => <NavLink {...props} />)}
+      {menuItems.map(({ ...props }) => <NavLink {...props} />)}
     </Stack>
   );
   const children = <div data-testid="content">Content</div>;

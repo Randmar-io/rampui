@@ -1,14 +1,13 @@
 import styled from '@emotion/styled';
 import { Icon as PhosphorIcon } from "@phosphor-icons/react";
 import React from "react";
-import "../tokens/border.css";
-import "../tokens/spacing.css";
-import { CenteredFlexbox } from "../utility/CenteredFlexbox";
+import { CenteredFlexbox } from "../../utility/CenteredFlexbox";
 
 export interface NavLinkProps {
   icon?: PhosphorIcon;
   label?: string;
   selected?: boolean;
+  linkComponent?: React.ReactNode;
 }
 
 const NavLinkContainer = styled('div')<NavLinkProps>((props) =>
@@ -28,8 +27,8 @@ const NavLinkContainer = styled('div')<NavLinkProps>((props) =>
   `
 )
 
-export function NavLink({ icon: Icon, label, selected }: NavLinkProps) {
-  return (
+export function NavLink({ icon: Icon, label, selected, linkComponent }: NavLinkProps) {
+  const navLink = (
     <NavLinkContainer selected={selected}>
       {
         Icon &&
@@ -40,4 +39,12 @@ export function NavLink({ icon: Icon, label, selected }: NavLinkProps) {
       <span style={{ fontWeight: selected ? 600 : 500 }}>{label}</span>
     </NavLinkContainer>
   )
+
+  if (linkComponent) {
+    return React.isValidElement(linkComponent)
+      ? React.cloneElement(linkComponent as React.ReactElement, { ...linkComponent.props }, navLink)
+      : null;
+  }
+
+  return navLink;
 }
