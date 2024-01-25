@@ -12,10 +12,10 @@ interface TopBarProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const TopBarContainer = styled('div')(
   `
-    height: var(--r-height-160); 
     display: flex;
     alignItems: center; 
-    flexShrink: 0;
+    flex-shrink: 0;
+    height: var(--r-height-160);
   `
 );
 

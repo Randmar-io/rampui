@@ -2,7 +2,6 @@ import { Stack } from '@mui/system';
 import { House, Notebook, Users } from "@phosphor-icons/react";
 import type { Meta, StoryObj } from '@storybook/react';
 import React from "react";
-import { Button } from '../Button';
 import { NavLink } from '../NavLink';
 import { TopBarWithItems } from '../TopBar/TopBar.stories';
 import { AppShell } from './AppShell';
@@ -45,7 +44,97 @@ export const AppShellWithItems = () => {
         </Stack>
       }
     >
-      <Button>Button</Button>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+      <div>H</div>
+
     </AppShell>
   )
 }
