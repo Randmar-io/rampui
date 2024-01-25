@@ -53,7 +53,7 @@ export const ButtonBase = styled(MuiBaseButton)<ButtonProps>((props) => {
 
       &:active {
         background: linear-gradient(${color[700]}, ${color[700]});
-        box-shadow: inset 0 1px 1px ${grey[900]};
+        box-shadow: inset 0 1px 1px ${grey[900]}, inset 1px 0 1px 0 ${grey[800]}, inset -1px 0 1px 0 ${grey[800]};
         border-color: transparent;
       }
 
@@ -75,8 +75,8 @@ export const ButtonBase = styled(MuiBaseButton)<ButtonProps>((props) => {
       
       &:active {
         background: ${grey[50]};
-        border-color: ${color[300]};
-        box-shadow: inset 0 0.5px 2px 0 ${grey[300]};
+        border-color: transparent;
+        box-shadow: inset 0 1px 1px 0 ${grey[400]}, inset 1px 0 1px 0 ${grey[300]}, inset -1px 0 1px 0 ${grey[300]};
       }
 
       &:disabled {
@@ -97,7 +97,7 @@ export const ButtonBase = styled(MuiBaseButton)<ButtonProps>((props) => {
 
       &:active {
         background: ${grey[100]};
-        box-shadow: inset 0 0.5px 2px 0 ${grey[400]};
+        box-shadow: inset 0 1px 1px 0 ${grey[400]}, inset 1px 0 1px 0 ${grey[300]}, inset -1px 0 1px 0 ${grey[300]};
       }
 
       &:disabled {
