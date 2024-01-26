@@ -22,7 +22,7 @@ const AppShellContent = styled('div')(
     border-radius: var(--r-border-radius-md);
     padding: var(--r-spacing-80);
     height: 100%;
-    box-shadow: var(--r-shadow-centered-md);
+    box-shadow: var(--r-shadow-sm);
     overflow-y: auto;
   `
 )
@@ -32,10 +32,10 @@ export function AppShell({ children, topBar, navMenu, ...rest }: AppShellProps) 
     <AppShellContainer {...rest}>
       {topBar}
       <div style={{ display: 'flex', flexGrow: 1, overflow: 'hidden' }}>
-        <div style={{ flexShrink: 0, width: 240 }}>
+        <div style={{ flexShrink: 0, width: 240, borderRight: '1px solid #e0e0e0' }}>
           {navMenu}
         </div>
-        <div style={{ flexGrow: 1, padding: 12, paddingTop: 0, overflow: 'hidden' }}>
+        <div style={{ flexGrow: 1, padding: 'var(--r-spacing-25)', overflow: 'hidden' }}>
           <AppShellContent>
             {children}
           </AppShellContent>

@@ -16,14 +16,15 @@ const TopBarContainer = styled('div')(
     display: flex;
     alignItems: center; 
     flex-shrink: 0;
-    height: var(--r-height-160);
+    height: var(--r-height-140);
+    border-bottom: 1px solid #e0e0e0;
   `
 );
 
 export function TopBar({ logo, searchBar, rightMenu, ...rest }: TopBarProps) {
   return (
     <TopBarContainer {...rest}>
-      <CenteredFlexbox style={{ width: 'var(--r-width-nav-menu)' }}>
+      <CenteredFlexbox style={{ width: 'var(--r-width-nav-menu)', borderRight: '1px solid #e0e0e0' }}>
         {logo}
       </CenteredFlexbox>
       <CenteredFlexbox style={{ flexGrow: 1 }}>

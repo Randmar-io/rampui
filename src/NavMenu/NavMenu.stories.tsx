@@ -1,4 +1,4 @@
-import { House, Notebook, Users } from "@phosphor-icons/react";
+import { Factory, Headset, House, Notebook, Plugs, ShoppingBagOpen, Storefront, Users, Warehouse } from "@phosphor-icons/react";
 import type { Meta, StoryObj } from '@storybook/react';
 import React from "react";
 
@@ -21,22 +21,42 @@ export const NavMenuWithItems = () => {
     <NavMenu
       menuItems={[
         {
-          icon: House,
           label: "Home",
-          selected: true,
-          linkComponent: <a style={{ color: 'inherit', textDecoration: 'none' }} href="https://www.google.com/" target="_blank" />
+          icon: House,
+          selected: true
         },
         {
-          icon: Users,
           label: "Users",
-          linkComponent: <a style={{ color: 'inherit', textDecoration: 'none' }} href="https://www.bing.com/" target="_blank" />
+          icon: Users,
         },
         {
-          icon: Notebook,
           label: "Logs",
-          linkComponent: <a style={{ color: 'inherit', textDecoration: 'none' }} href="https://www.yahoo.com/" target="_blank" />
+          icon: Notebook,
         },
-
+        {
+          label: "Reseller",
+          icon: Storefront,
+        },
+        {
+          label: "Manufacturer",
+          icon: Factory,
+        },
+        {
+          label: "Agency",
+          icon: Headset,
+        },
+        {
+          label: "Shopify",
+          icon: ShoppingBagOpen,
+        },
+        {
+          label: "Integration",
+          icon: Plugs,
+        },
+        {
+          label: "Warehouses",
+          icon: Warehouse,
+        },
       ]}
     />
   )
