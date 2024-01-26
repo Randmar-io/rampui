@@ -1,15 +1,21 @@
-import { Stack } from "@mui/system";
+import styled from "@emotion/styled";
 import React from "react";
 import { NavLink, NavLinkProps } from "./NavLink";
 
-export interface NavMenuProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface NavMenuProps {
   menuItems: NavLinkProps[];
 }
 
-export function NavMenu({ menuItems, ...rest }: NavMenuProps) {
+const NavMenuContainer = styled.ul`
+  display: flex;
+  flex-flow: column;
+  padding: var(--r-spacing-25);
+`
+
+export function NavMenu({ menuItems }: NavMenuProps) {
   return (
-    <Stack pl={1} py={1} {...rest}>
+    <NavMenuContainer>
       {menuItems.map((menuItem, idx) => <NavLink {...menuItem} key={idx} />)}
-    </Stack>
+    </NavMenuContainer>
   )
 }

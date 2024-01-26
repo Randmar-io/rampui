@@ -8,7 +8,7 @@ export function SearchBar() {
         borderRadius: 'var(--r-border-radius-md)',
         height: 'var(--r-height-90)',
         width: 'var(--r-width-search-bar)',
-        boxShadow: 'var(--r-shadow-centered-sm)',
+        boxShadow: 'var(--r-shadow-sm)',
       }}
     />
   )

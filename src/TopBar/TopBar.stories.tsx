@@ -17,7 +17,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const TopBarWithItems = () => {
-  const rightMenu = <div style={{ backgroundColor: "white", borderRadius: 12, height: '2.25rem', width: 100, boxShadow: 'var(--r-shadow-centered-sm)', }} />
+  const rightMenu = <div style={{ backgroundColor: "white", borderRadius: 12, height: '2.25rem', width: 100, boxShadow: 'var(--r-shadow-sm)', }} />
   const logo = (
     <svg width="116" height="26" viewBox="0 0 116 26" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M115.388 12.2535H114.414C112.638 12.2535 111.594 13.3582 111.594 15.3339V20.2664H109.113V10.1349H111.376L111.517 11.3111C112.119 10.0764 113.85 9.72547 115.369 10.0764V12.26H115.388V12.2535Z" fill="#383838" />
