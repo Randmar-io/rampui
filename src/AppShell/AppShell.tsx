@@ -1,45 +1,46 @@
 import styled from '@emotion/styled';
-import React from "react";
+import React, { useState } from "react";
+import { NavLinkProps, NavMenu } from '../NavMenu';
+import { TopBar } from './TopBar';
 
 export interface AppShellProps extends React.HTMLAttributes<HTMLDivElement> {
   children?: React.ReactNode;
-  topBar?: React.ReactElement;
-  navMenu?: React.ReactElement;
+  logo?: React.ReactNode;
+  searchBar?: React.ReactElement;
+  rightMenu?: React.ReactElement;
+  menuItems?: NavLinkProps[];
 }
 
-const AppShellContainer = styled('div')(
-  `
-    height: 100vh;
-    width: 100vw;
-    display: flex;
-    flex-flow: column;
-  `
-)
+const AppShellContainer = styled.div`
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-flow: column;
+  margin: auto;
+`
 
-const AppShellContent = styled('div')(
-  `
-    background-color: white;
-    border-radius: var(--r-border-radius-md);
-    padding: var(--r-spacing-80);
-    height: 100%;
-    box-shadow: var(--r-shadow-sm);
-    overflow-y: auto;
-  `
-)
+const AppShellContent = styled.div`
+  flex-grow: 1;
+  padding: var(--r-spacing-50);
+  overflow-y: auto;
+`
 
-export function AppShell({ children, topBar, navMenu, ...rest }: AppShellProps) {
+export function AppShell({ children, menuItems, logo, searchBar, rightMenu, ...rest }: AppShellProps) {
+  const [showMenu, setShowMenu] = useState(false);
+
   return (
     <AppShellContainer {...rest}>
-      {topBar}
+      <TopBar
+        logo={logo}
+        searchBar={searchBar}
+        rightMenu={rightMenu}
+        toggleShowMenu={() => setShowMenu(prev => !prev)}
+      />
       <div style={{ display: 'flex', flexGrow: 1, overflow: 'hidden' }}>
-        <div style={{ flexShrink: 0, width: 240, borderRight: '1px solid #e0e0e0' }}>
-          {navMenu}
-        </div>
-        <div style={{ flexGrow: 1, padding: 'var(--r-spacing-25)', overflow: 'hidden' }}>
-          <AppShellContent>
-            {children}
-          </AppShellContent>
-        </div>
+        <NavMenu menuItems={menuItems} show={showMenu} closeMenu={() => setShowMenu(false)} />
+        <AppShellContent>
+          {children}
+        </AppShellContent>
       </div>
     </AppShellContainer>
   )

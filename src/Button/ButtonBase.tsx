@@ -16,7 +16,7 @@ export const ButtonBase = styled(MuiBaseButton)<ButtonProps>((props) => {
     font-size: ${fontSize};
     line-height: 1.5;
     box-sizing: border-box;
-    border-radius: 100px;
+    border-radius: var(--r-border-radius-full);
     padding: ${padding};
     width: ${width};
     cursor: pointer;

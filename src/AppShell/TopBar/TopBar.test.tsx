@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react';
 import React from "react";
 import { describe, expect, it } from 'vitest';
-import { TopBar } from '../TopBar/TopBar';
+import { TopBar } from './TopBar';
 
 describe('<AppShell />', () => {
   const searchBar = <div data-testid="searchBar">Search Bar</div>;

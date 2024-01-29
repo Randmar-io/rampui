@@ -16,9 +16,15 @@ export default defineConfig({
 
           if (fs.existsSync(stylesPath)) {
             const styles = fs.readFileSync(stylesPath, 'utf-8');
+            code += `
+              document.querySelectorAll('style[data-lib-style]').forEach(style => {
+                style.parentNode.removeChild(style);
+              });
+            `;
 
             return code + `
               const styleTag = document.createElement('style');
+              styleTag.setAttribute('data-lib-style', '');
               styleTag.textContent = ${JSON.stringify(styles)};
               document.head.appendChild(styleTag);
             `;

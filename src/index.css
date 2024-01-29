@@ -12,9 +12,10 @@
 }
 
 body {
-  background-color: #F1F1F1;
+  background-color: #f8f8f8;
   font-family: 'Inter', sans-serif;
   color: #262626;
+  font-size: 14px;
 }
 
 button {
