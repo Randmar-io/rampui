@@ -12,7 +12,7 @@ export const ButtonBase = styled(MuiBaseButton)<ButtonProps>((props) => {
   const color = colors[props.color || "default"];
 
   const baseStyle = `
-    font-weight: 500;
+    font-weight: 600;
     font-size: ${fontSize};
     line-height: 1.5;
     box-sizing: border-box;
