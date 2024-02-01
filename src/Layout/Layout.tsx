@@ -4,6 +4,7 @@ import React from "react";
 const LayoutContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(6, 1fr);
+  gap: var(--r-spacing-50);
 `
 
 export interface LayoutProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -35,7 +36,7 @@ interface SectionProps {
 const Section = styled.div<SectionProps>`
   grid-column: span 6;
   
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: 1024px) {
     grid-column: span ${({ span }) => spans[span || "full"]};
   }
 `
