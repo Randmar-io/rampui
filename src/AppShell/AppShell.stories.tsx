@@ -2,6 +2,7 @@ import { Factory, Headset, House, Notebook, Plugs, ShoppingBagOpen, Storefront, 
 import type { Meta, StoryObj } from '@storybook/react';
 import React from "react";
 import { Button } from '../Button';
+import { EducationWithProps } from "../Education/Education.stories";
 import { Page } from '../Page';
 import { AppShell } from './AppShell';
 
@@ -83,6 +84,7 @@ export const AppShellWithItems = () => {
         secondaryActions={[<Button>Secondary action</Button>]}
         narrowWidth
       >
+        <EducationWithProps />
         <div style={{ height: '200px', backgroundColor: 'white', boxShadow: 'var(--r-shadow-sm)', borderRadius: 'var(--r-border-radius-md)' }}>
 
         </div>

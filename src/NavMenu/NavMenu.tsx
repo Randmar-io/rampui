@@ -13,7 +13,7 @@ const NavMenuContainer = styled.div<NavMenuProps>`
   width: 100vw;
   height: calc(100vh - var(--r-height-topbar));
   background-color: #f8f8f8;
-  z-index: 25;
+  z-index: 10;
   display: flex;
   flex-flow: column;
   padding: var(--r-spacing-25);

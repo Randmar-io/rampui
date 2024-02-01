@@ -21,7 +21,7 @@ const NavLinkContainer = styled('li')<NavLinkProps>(({ selected }) =>
     border-radius: var(--r-border-radius-sm);
     cursor: pointer;
     box-shadow: ${selected ? "var(--r-shadow-xs)" : "none"};
-    z-index: ${selected ? 50 : 0};
+    z-index: ${selected ? 5 : 0};
     user-select: none;
 
     &:hover {
