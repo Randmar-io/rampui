@@ -23,6 +23,10 @@ const NavMenuContainer = styled.div<NavMenuProps>`
   left: ${({ show }) => show ? 0 : '-100vw'};
   transition: left 300ms cubic-bezier(0.4, 0, 0.2, 1);
   transition-delay: ${({ show }) => show ? '0ms' : '300ms'};
+
+  a {
+    text-decoration: none;
+  }
   
   @media screen and (min-width: 768px) {
     height: auto;
