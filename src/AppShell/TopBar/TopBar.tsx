@@ -39,7 +39,7 @@ export function TopBar({ logo, searchBar, rightMenu, toggleShowMenu, ...rest }: 
   return (
     <TopBarContainer {...rest}>
       <LogoContainer>
-        <MenuButton variant="tertiary" startIcon={List} onClick={toggleShowMenu} />
+        <MenuButton variant="primary" startIcon={List} onClick={toggleShowMenu} />
         {logo}
       </LogoContainer>
       <CenteredFlexbox style={{ flexGrow: 1 }}>
