@@ -16,7 +16,7 @@ const TopBarContainer = styled.div`
   flex-shrink: 0;
   height: var(--r-height-topbar);
   background-color: #af3737;
-  z-index: 1000;
+  z-index: 40;
 `;
 
 const LogoContainer = styled.div`
