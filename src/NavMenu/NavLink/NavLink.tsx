@@ -16,20 +16,17 @@ const NavLinkContainer = styled('li')<NavLinkProps>(({ selected }) =>
     align-items: center;
     padding: var(--r-spacing-20) var(--r-spacing-40);
     gap: var(--r-spacing-25 );
-    background-color: ${selected ? "#fff" : "transparent"};
+    background-color: ${selected ? "#fafafa" : "transparent"};
     font-size: 0.8125rem;
     border-radius: var(--r-border-radius-sm);
     cursor: pointer;
     box-shadow: ${selected ? "var(--r-shadow-xs)" : "none"};
     z-index: ${selected ? 5 : 0};
     user-select: none;
+    margin-bottom: var(--r-spacing-10);
 
     &:hover {
-      background-color: ${selected ? "#fafafa" : "#efefef"};
-    }
-
-    &:hover {
-      background-color: ${selected ? "#fafafa" : "#efefef"};
+      background-color: ${selected ? "#fafafa" : "#fafafa"};    
     }
   `
 );
