@@ -11,7 +11,7 @@ interface ModalProps extends MuiModalProps {
 
 export default function Modal({ children, title, onClose, ...rest }: ModalProps) {
   return (
-    <ModalBase slots={{ backdrop: Backdrop }} onClose={onClose} {...rest}>
+    <ModalBase slots={{ backdrop: Backdrop }} onClose={onClose} disableAutoFocus {...rest}>
       <Body>
         <Header>
           <div style={{ fontSize: '16px', fontWeight: 600 }}>
@@ -90,4 +90,5 @@ const Backdrop = styled.div`
   background-color: rgb(0 0 0 / 0.1);
   backdrop-filter: blur(10px);
   -webkit-tap-highlight-color: transparent;
+  transition: all 150ms ease;
 `;
