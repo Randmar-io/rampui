@@ -9,6 +9,7 @@ export interface AppShellProps extends React.HTMLAttributes<HTMLDivElement> {
   searchBar?: React.ReactElement;
   rightMenu?: React.ReactElement;
   menuItems?: NavLinkProps[];
+  footer?: React.ReactNode;
 }
 
 const AppShellContainer = styled.div`
@@ -25,7 +26,7 @@ const AppShellContent = styled.div`
   overflow-y: auto;
 `
 
-export function AppShell({ children, menuItems, logo, searchBar, rightMenu, ...rest }: AppShellProps) {
+export function AppShell({ children, menuItems, logo, searchBar, rightMenu, footer, ...rest }: AppShellProps) {
   const [showMenu, setShowMenu] = useState(false);
 
   return (
@@ -37,7 +38,7 @@ export function AppShell({ children, menuItems, logo, searchBar, rightMenu, ...r
         toggleShowMenu={() => setShowMenu(prev => !prev)}
       />
       <div style={{ display: 'flex', flexGrow: 1, overflow: 'hidden' }}>
-        <NavMenu menuItems={menuItems} show={showMenu} closeMenu={() => setShowMenu(false)} />
+        <NavMenu menuItems={menuItems} show={showMenu} closeMenu={() => setShowMenu(false)} footer={footer}/>
         <AppShellContent>
           {children}
         </AppShellContent>
