@@ -6,6 +6,7 @@ export interface NavMenuProps {
   menuItems?: NavLinkProps[];
   show?: boolean;
   closeMenu?: () => void;
+  footer?: React.ReactNode;
 }
 
 const NavMenuContainer = styled.div<NavMenuProps>`
@@ -36,7 +37,11 @@ const NavMenuContainer = styled.div<NavMenuProps>`
   }
 `
 
-export function NavMenu({ menuItems, show, closeMenu }: NavMenuProps) {
+export function NavMenu({ menuItems, show, closeMenu, footer }: NavMenuProps) {
+  const footerStyle : React.CSSProperties = {
+    marginTop: 'auto',
+  };
+
   return (
     <NavMenuContainer show={show}>
       {menuItems && menuItems.map((menuItem, idx) => (
@@ -44,6 +49,9 @@ export function NavMenu({ menuItems, show, closeMenu }: NavMenuProps) {
           <NavLink {...menuItem} key={idx} />
         </div>
       ))}
+      <div style={footerStyle}>
+        {footer}
+      </div>
     </NavMenuContainer>
   )
 }
