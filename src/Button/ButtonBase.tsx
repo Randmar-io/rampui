@@ -11,7 +11,6 @@ export const ButtonBase = styled(MuiBaseButton)<ButtonProps>((props) => {
   const width = props.fullWidth ? "100%" : "max-content";
   const color = colors[props.color || "central"];
 
-
   const baseStyle = `
     font-weight: 600;
     font-size: ${fontSize};
@@ -20,13 +19,9 @@ export const ButtonBase = styled(MuiBaseButton)<ButtonProps>((props) => {
     border-radius: var(--r-border-radius-full);
     padding: ${padding};
     width: ${width};
-    cursor: pointer;
     user-select: none;
     border: 1px solid;
-
-    &:active {
-      transform: translateY(0.5px);
-    }
+    cursor: pointer;
 
     &:focus-visible {
       outline: 2px solid ${blue[500]};
@@ -43,41 +38,38 @@ export const ButtonBase = styled(MuiBaseButton)<ButtonProps>((props) => {
 
   const variant = {
     "primary": `
-      background: linear-gradient(${color[800]}, ${color[600]});
+      background-color: ${color[700]};
       color: white;
-      box-shadow: inset 0 1px ${color[600]};
-      border-color: ${color[700]};
+      box-shadow: inset 0 1px ${color[500]};
+      border-color: ${color[800]};
 
       &:hover {
-        background: linear-gradient(${color[700]}, ${color[700]});
+        background-color: ${color[600]};
       } 
 
       &:active {
-        background: linear-gradient(${color[700]}, ${color[700]});
-        box-shadow: inset 0 1px 1px ${grey[900]}, inset 1px 0 1px 0 ${grey[800]}, inset -1px 0 1px 0 ${grey[800]};
+        background-color: ${color[500]};
         border-color: transparent;
       }
 
       &:disabled {
         background: ${grey[300]};
-        box-shadow: none;
       }
     `,
 
     "secondary": `
-      background: white;
       border-color: ${grey[200]};
+      background: white;
       color: ${color[700]};
+      box-shadow: 0px 1px 2px -1px rgba(0, 0, 0, 0.1);
 
       &:hover {
         background: ${grey[50]};
-        border-color: ${color[300]};  
+        border-color: ${color[200]};  
       }
       
       &:active {
-        background: ${grey[50]};
-        border-color: transparent;
-        box-shadow: inset 0 1px 1px 0 ${grey[400]}, inset 1px 0 1px 0 ${grey[300]}, inset -1px 0 1px 0 ${grey[300]};
+        background: ${color[50]};
       }
 
       &:disabled {
