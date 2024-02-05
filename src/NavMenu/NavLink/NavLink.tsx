@@ -40,10 +40,10 @@ export function NavLink({ icon: Icon, label, selected, linkComponent }: NavLinkP
       {
         Icon &&
         <CenteredFlexbox>
-          <Icon color={selected ? "#272727" : "#545454"} size={16} weight={selected ? "bold" : "regular"} />
+          <Icon color={selected ? "#af3737" : "#545454"} size={16} weight={selected ? "bold" : "regular"} />
         </CenteredFlexbox>
       }
-      <span style={{ fontWeight: selected ? 600 : 500, color: selected ? undefined : '#464646' }}>{label}</span>
+      <span style={{ fontWeight: selected ? 600 : 500, color: selected ? "#af3737" : '#464646' }}>{label}</span>
     </NavLinkContainer>
   )
 

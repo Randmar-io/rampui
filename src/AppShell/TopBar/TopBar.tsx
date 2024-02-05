@@ -15,7 +15,8 @@ const TopBarContainer = styled.div`
   display: flex;
   flex-shrink: 0;
   height: var(--r-height-topbar);
-  border-bottom: 1px solid #e0e0e0;
+  background-color: #af3737;
+  z-index: 1000;
 `;
 
 const LogoContainer = styled.div`
@@ -24,8 +25,7 @@ const LogoContainer = styled.div`
   width: var(--r-width-nav-menu);
   
   @media screen and (min-width: 768px) {
-    justify-content: center;
-    border-right: 1px solid #e0e0e0;
+    padding-left: var(--r-spacing-50);
   }
 `
 

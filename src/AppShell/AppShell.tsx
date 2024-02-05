@@ -21,7 +21,7 @@ const AppShellContainer = styled.div`
 
 const AppShellContent = styled.div`
   flex-grow: 1;
-  padding: var(--r-spacing-50);
+  padding: var(--r-spacing-60);
   overflow-y: auto;
 `
 

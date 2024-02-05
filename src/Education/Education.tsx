@@ -15,7 +15,7 @@ export function Education({ ...rest }: EducationProps) {
   return (
     <>
       <Activator onClick={() => setShow(prev => !prev)} icon={show ? X : GraduationCap} />
-      <Content show={show} {...rest} />
+      <Content show={show} setShow={setShow} {...rest} />
     </>
   )
 }

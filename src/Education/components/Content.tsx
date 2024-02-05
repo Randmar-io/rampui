@@ -2,30 +2,9 @@ import styled from "@emotion/styled";
 import { ArrowUpRight, Headset } from "@phosphor-icons/react";
 import React from "react";
 import { Button } from "../../Button";
+import Modal from "../../Modal/Modal";
 import grey from "../../colors/grey";
 import { EducationProps } from "../Education";
-
-const ContentContainer = styled.div`
-  height: 100vh;
-  width: 100vw;
-  z-index: 20;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background-color: #fff;
-  padding: var(--r-spacing-100) 0;
-  overflow-y: scroll;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-`
-
-const Title = styled.h1`
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-bottom: var(--r-spacing-50);
-`
 
 const Description = styled.p`
   color: ${grey[700]};
@@ -59,18 +38,14 @@ const Help = styled.div`
 `
 
 export interface ContentProps extends EducationProps {
-  show?: boolean;
+  show: boolean;
+  setShow: (show: boolean) => void;
 }
 
-export function Content({ show, title, description, blogPostLink, youtubeVideoLink }: ContentProps) {
-
-
-  if (!show) return null;
-
+export function Content({ show, setShow, title, description, blogPostLink, youtubeVideoLink }: ContentProps) {
   return (
-    <ContentContainer>
+    <Modal open={!!show} onClose={() => setShow(false)} title={title}>
       <div style={{ maxWidth: 520, margin: 'auto' }}>
-        <Title>{title}</Title>
         <Description>{description}</Description>
         <BlogLink href={blogPostLink} target="_blank">
           Read the blog post <ArrowUpRight size={16} />
@@ -94,6 +69,6 @@ export function Content({ show, title, description, blogPostLink, youtubeVideoLi
           </a>
         </Help>
       </div>
-    </ContentContainer>
+    </Modal>
   )
 }

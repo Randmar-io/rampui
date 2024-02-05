@@ -9,7 +9,8 @@ export const ButtonBase = styled(MuiBaseButton)<ButtonProps>((props) => {
   const padding = paddings[props.size || "medium"];
   const fontSize = fontSizes[props.size || "medium"]
   const width = props.fullWidth ? "100%" : "max-content";
-  const color = colors[props.color || "default"];
+  const color = colors[props.color || "central"];
+
 
   const baseStyle = `
     font-weight: 600;
