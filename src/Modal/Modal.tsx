@@ -6,10 +6,10 @@ import grey from '../colors/grey';
 
 interface ModalProps extends MuiModalProps {
   title?: string;
-
+  actions?: React.ReactNode[];
 }
 
-export default function Modal({ children, title, onClose, ...rest }: ModalProps) {
+export default function Modal({ children, title, actions, onClose, ...rest }: ModalProps) {
   return (
     <ModalBase slots={{ backdrop: Backdrop }} onClose={onClose} disableAutoFocus {...rest}>
       <Body>
@@ -26,6 +26,9 @@ export default function Modal({ children, title, onClose, ...rest }: ModalProps)
         <Content>
           {children}
         </Content>
+        <Actions>
+          {actions}
+        </Actions>
       </Body>
     </ModalBase>
   );
@@ -36,6 +39,14 @@ const Header = styled.div`
   align-items: center;
   justify-content: space-between;
   padding-bottom: var(--r-spacing-40);
+`
+
+const Actions = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: var(--r-spacing-15);
+  padding-top: var(--r-spacing-40);
 `
 
 const CloseIcon = styled.div`
