@@ -1,12 +1,14 @@
-name: Publish Package to npmjs
+name: Publish Package to npm
 on:
   pull_request:
     types:
       - closed
+      - labeled
     branches:
       - main
 jobs:
   build:
+    if: ${{ github.event.label.name == 'release' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
