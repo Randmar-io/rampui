@@ -1,5 +1,4 @@
 import { Accordion, AccordionDetails, AccordionSummary, Box, Grid, styled } from "@mui/material";
-import red from "@mui/material/colors/red";
 import { Theme, ThemeProvider } from "@mui/material/styles";
 import React from "react";
 import { ExpandPanelIcon } from "../ExpandPanelIcon";
@@ -29,7 +28,7 @@ const RegionCount = styled(Box)(({ theme }) => ({
 }));
 
 const LocationContainer = styled(Grid)(({ theme }) => ({
-    backgroundColor: red[50],
+    backgroundColor: theme.palette.secondary.light, 
     borderRadius: theme.spacing(),
     display: "flex",
     flexDirection: "column",
@@ -84,7 +83,7 @@ interface WarehouseViewInfo {
 
 interface ViewrProps {
     warehouses: WarehouseViewInfo[];
-    colorTheme: Theme; // todo: themeing should be done within RampUI. CentralProvider/ResellerThemeProvider etc.
+    colorTheme: Theme; // todo: themeing should be done within RampUI. Update Provider.
 }
 
 export const ProductInventoryGrid = (props: ViewrProps) => {
@@ -170,7 +169,7 @@ export const ProductInventoryGrid = (props: ViewrProps) => {
             <Grid container justifyContent="space-around" sx={{ mb: 1 }}>
                 {totalCanada > 0 && (
                     <Grid item sm={10} >
-                        <Accordion sx={{ backgroundColor: red[50], pl: 1 }} defaultExpanded>
+                        <Accordion sx={{ backgroundColor: colorTheme.palette.secondary.light, pl: 1 }} defaultExpanded>
                             <AccordionSummary
                                 expandIcon={<ExpandPanelIcon color={colorTheme.palette.secondary.main} />}
                                 sx={{ fontSize: "1.3rem" }}>
@@ -189,7 +188,7 @@ export const ProductInventoryGrid = (props: ViewrProps) => {
                                 </Box>
                             </AccordionSummary>
 
-                            <AccordionDetails sx={{ backgroundColor: red[50], py: 2 }}  >
+                            <AccordionDetails sx={{ backgroundColor: colorTheme.palette.secondary.light, py: 2 }}  >
                                 <Grid container justifyContent="space-around" sx={{ mb: 1 }} rowSpacing={8}>
                                     <Grid item sm={5}>
                                         <Grid container justifyContent="center" rowSpacing={1}>
@@ -229,7 +228,7 @@ export const ProductInventoryGrid = (props: ViewrProps) => {
 
                 {totalUSA > 0 && (
                     <Grid item sm={4}>
-                        <Accordion sx={{ backgroundColor: red[50], pl: 1 }} defaultExpanded>
+                        <Accordion sx={{ backgroundColor: colorTheme.palette.secondary.light, pl: 1 }} defaultExpanded>
                             <AccordionSummary
                                 expandIcon={<ExpandPanelIcon color={colorTheme.palette.secondary.main} />}
                                 sx={{ fontSize: "1.3rem" }}>

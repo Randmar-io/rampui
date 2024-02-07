@@ -7,4 +7,5 @@ export * from "./Page";
 export * from "./Provider";
 export * from "./ProductInventoryGrid";
 export * from "./ExpandPanelIcon";
+export * from "./NavMenu";
 
