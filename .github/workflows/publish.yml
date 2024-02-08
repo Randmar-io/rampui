@@ -7,20 +7,20 @@ on:
       - main
 jobs:
   update_version:
+    name: Update version
     if: contains(github.event.pull_request.labels.*.name, 'release-major') || contains(github.event.pull_request.labels.*.name, 'release-minor') || contains(github.event.pull_request.labels.*.name, 'release-patch')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: |
-          for label in "${{ github.event.pull_request.labels.*.name }}"; do
-            if [[ $label == *"release-major"* ]]; then
-              npm version major
-            elif [[ $label == *"release-minor"* ]]; then
-              npm version minor
-            elif [[ $label == *"release-patch"* ]]; then
-              npm version patch
-            fi
-          done
+      - name: Check if patch release
+        if: contains(github.event.pull_request.labels.*.name, 'release-patch')
+        run: npm version patch
+      - name: Check if minor release
+        if: contains(github.event.pull_request.labels.*.name, 'release-minor')
+        run: npm version minor
+      - name: Check if major release
+        if: contains(github.event.pull_request.labels.*.name, 'release-major')
+        run: npm version major
 
   build_and_release:
     name: Build and Release
