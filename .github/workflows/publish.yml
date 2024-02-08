@@ -19,20 +19,13 @@ jobs:
       - name: Determine npm version command
         id: version_command
         run: |
-          for label in "${{ github.event.pull_request.labels.*.name }}"; do
-            if [[ $label == *"release-major"* ]]; then
-              echo "version_type=major" >> $GITHUB_OUTPUT
-              exit 0
-            elif [[ $label == *"release-minor"* ]]; then
-              echo "version_type=minor" >> $GITHUB_OUTPUT
-              exit 0
-            elif [[ $label == *"release-patch"* ]]; then
-              echo "version_type=patch" >> $GITHUB_OUTPUT
-              exit 0
-            fi
-          done
-          echo "No release label found"
-          exit 1
+          if [[ $(echo ${{ github.event.pull_request.labels.*.name }}) == *"release-major"* ]]; then
+            echo "version_type=major" >> $GITHUB_OUTPUT
+          elif [[ $(echo ${{ github.event.pull_request.labels.*.name }}) == *"release-minor"* ]]; then
+            echo "version_type=minor" >> $GITHUB_OUTPUT
+          elif [[ $(echo ${{ github.event.pull_request.labels.*.name }}) == *"release-patch"* ]]; then
+            echo "version_type=patch" >> $GITHUB_OUTPUT
+          fi
       - name: Run npm version command
         run: npm version ${{ steps.vars.outputs.version_type }}
       - run: npm run build
