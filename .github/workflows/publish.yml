@@ -12,6 +12,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Configure git credentials
+        run: |
+          git config --global user.email "echo@randmar.io"
+          git config --global user.name "Echo"
       - name: Check if patch release
         if: contains(github.event.pull_request.labels.*.name, 'release-patch')
         run: npm version patch
