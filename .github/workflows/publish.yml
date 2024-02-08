@@ -18,13 +18,19 @@ jobs:
           git config --global user.name "Echo"
       - name: Check if patch release
         if: contains(github.event.pull_request.labels.*.name, 'release-patch')
-        run: npm version patch
+        run: |
+          npm version patch
+          git push
       - name: Check if minor release
         if: contains(github.event.pull_request.labels.*.name, 'release-minor')
-        run: npm version minor
+        run: |
+          npm version minor
+          git push
       - name: Check if major release
         if: contains(github.event.pull_request.labels.*.name, 'release-major')
-        run: npm version major
+        run: |
+          npm version major
+          git push
 
   build_and_release:
     name: Build and Release
