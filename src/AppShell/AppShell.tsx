@@ -38,7 +38,7 @@ export function AppShell({ children, menuItems, logo, searchBar, rightMenu, foot
         toggleShowMenu={() => setShowMenu(prev => !prev)}
       />
       <div style={{ display: 'flex', flexGrow: 1, overflow: 'hidden' }}>
-        <NavMenu menuItems={menuItems} show={showMenu} closeMenu={() => setShowMenu(false)} footer={footer}/>
+        <NavMenu menuItems={menuItems} show={showMenu} closeMenu={() => setShowMenu(false)} footer={footer} />
         <AppShellContent>
           {children}
         </AppShellContent>
