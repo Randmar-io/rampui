@@ -7,7 +7,7 @@ on:
       - main
 jobs:
   build:
-    if: github.event_name == 'pull_request' && github.event.action == 'closed' && contains(github.event.pull_request.labels.*.name, 'release')
+    if: github.event_name == 'pull_request' && github.event.action == 'closed' && contains(github.event.pull_request.labels.*.name, 'release-major') || contains(github.event.pull_request.labels.*.name, 'release-minor') || contains(github.event.pull_request.labels.*.name, 'release-patch')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -16,6 +16,19 @@ jobs:
           node-version: '18.x'
           registry-url: 'https://registry.npmjs.org'
       - run: npm ci
-      - run: npm run release
+      - name: Determine npm version command
+        id: version_command
+        run: |
+          if [[ $(echo ${{ github.event.pull_request.labels.*.name }}) == *"release-major"* ]]; then
+            echo "::set-output name=command::npm version major"
+          elif [[ $(echo ${{ github.event.pull_request.labels.*.name }}) == *"release-minor"* ]]; then
+            echo "::set-output name=command::npm version minor"
+          elif [[ $(echo ${{ github.event.pull_request.labels.*.name }}) == *"release-patch"* ]]; then
+            echo "::set-output name=command::npm version patch"
+          fi
+      - name: Run npm version command
+        run: ${{ steps.version_command.outputs.command }}
+      - run: npm run build
+      - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
