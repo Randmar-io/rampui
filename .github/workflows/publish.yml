@@ -16,18 +16,15 @@ jobs:
           node-version: '18.x'
           registry-url: 'https://registry.npmjs.org'
       - run: npm ci
-      - name: Determine npm version command
-        id: version_command
+      - name: Update npm version
         run: |
           if [[ $(echo ${{ github.event.pull_request.labels.*.name }}) == *"release-major"* ]]; then
-            echo "::set-output name=command::npm version major"
+            npm version major
           elif [[ $(echo ${{ github.event.pull_request.labels.*.name }}) == *"release-minor"* ]]; then
-            echo "::set-output name=command::npm version minor"
+            npm version minor
           elif [[ $(echo ${{ github.event.pull_request.labels.*.name }}) == *"release-patch"* ]]; then
-            echo "::set-output name=command::npm version patch"
+            npm version patch
           fi
-      - name: Run npm version command
-        run: ${{ steps.version_command.outputs.command }}
       - run: npm run build
       - run: npm publish
         env:
