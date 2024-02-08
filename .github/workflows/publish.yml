@@ -16,7 +16,6 @@ jobs:
           node-version: '18.x'
           registry-url: 'https://registry.npmjs.org'
       - run: npm ci
-      - run: npm run build # note that the npm run release below runs "build" again, but the first build is invalid because dist/style.css does not exist yet. See defineConfig in vite.config.js.
       - run: npm run release
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
