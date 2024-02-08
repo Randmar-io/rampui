@@ -6,8 +6,25 @@ on:
     branches:
       - main
 jobs:
-  build:
-    if: github.event_name == 'pull_request' && github.event.action == 'closed' && contains(github.event.pull_request.labels.*.name, 'release-major') || contains(github.event.pull_request.labels.*.name, 'release-minor') || contains(github.event.pull_request.labels.*.name, 'release-patch')
+  update_version:
+    if: contains(github.event.pull_request.labels.*.name, 'release-major') || contains(github.event.pull_request.labels.*.name, 'release-minor') || contains(github.event.pull_request.labels.*.name, 'release-patch')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          for label in "${{ github.event.pull_request.labels.*.name }}"; do
+            if [[ $label == *"release-major"* ]]; then
+              npm version major
+            elif [[ $label == *"release-minor"* ]]; then
+              npm version minor
+            elif [[ $label == *"release-patch"* ]]; then
+              npm version patch
+            fi
+          done
+
+  build_and_release:
+    name: Build and Release
+    needs: update_version
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -16,18 +33,6 @@ jobs:
           node-version: '18.x'
           registry-url: 'https://registry.npmjs.org'
       - run: npm ci
-      - name: Determine npm version command
-        id: version_command
-        run: |
-          if [[ $(echo ${{ github.event.pull_request.labels.*.name }}) == *"release-major"* ]]; then
-            echo "version_type=major" >> $GITHUB_OUTPUT
-          elif [[ $(echo ${{ github.event.pull_request.labels.*.name }}) == *"release-minor"* ]]; then
-            echo "version_type=minor" >> $GITHUB_OUTPUT
-          elif [[ $(echo ${{ github.event.pull_request.labels.*.name }}) == *"release-patch"* ]]; then
-            echo "version_type=patch" >> $GITHUB_OUTPUT
-          fi
-      - name: Run npm version command
-        run: npm version ${{ steps.vars.outputs.version_type }}
       - run: npm run build
       - run: npm publish
         env:
