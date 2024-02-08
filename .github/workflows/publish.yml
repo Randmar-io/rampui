@@ -18,7 +18,7 @@ jobs:
       - run: npm ci
       - name: Update npm version
         run: |
-          if [[ $(echo ${{ github.event.pull_request.labels.*.name }}) == *"release-major"* ]]; then
+          if [[ $(echo ${{ github.event.pull_request.labels.*.name }}) == *"release-major"* ]];
             npm version major
           elif [[ $(echo ${{ github.event.pull_request.labels.*.name }}) == *"release-minor"* ]]; then
             npm version minor
