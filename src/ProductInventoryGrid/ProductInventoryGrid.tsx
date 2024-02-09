@@ -82,11 +82,10 @@ interface WarehouseViewInfo {
 
 interface ViewrProps {
     warehouses: WarehouseViewInfo[];
+    showBinLocation?: boolean;
 }
 
-export const ProductInventoryGrid = (props: ViewrProps) => {
-    const { warehouses } = props;
-
+export const ProductInventoryGrid = ({ warehouses, showBinLocation = true }: ViewrProps) => {
     const legacyEast = ["MTL", "TOR"]
     const legacyWest = ["VAN", "EDM"]
 
@@ -113,12 +112,15 @@ export const ProductInventoryGrid = (props: ViewrProps) => {
                 <LocationDetail item xs={6}>
                     {`${wi.PurchaseOrderQuantity || "-"}`}
                 </LocationDetail>
-                <LocationDetail item xs={6}>
-                    Bin
-                </LocationDetail>
-                <LocationDetail item xs={6}>
-                    {(wi.BinLocation || "-")}
-                </LocationDetail>
+                {showBinLocation && (<>
+                    <LocationDetail item xs={6}>
+                        Bin
+                    </LocationDetail>
+                    <LocationDetail item xs={6}>
+                        {(wi.BinLocation || "-")}
+                    </LocationDetail>
+                </>)}
+
             </LocationDetailsWhite>
         </LocationContainer>
     }
