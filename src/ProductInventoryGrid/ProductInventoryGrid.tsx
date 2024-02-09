@@ -92,11 +92,12 @@ export const ProductInventoryGrid = (props: ViewrProps) => {
     const legacyEast = ["MTL", "TOR"]
     const legacyWest = ["VAN", "EDM"]
 
+    warehouses.sort((a, b) => a.Name.localeCompare(b.Name));
     const usaWarehouses = warehouses.filter((x) => x.Country === "US");
     const canadaWarehouses = warehouses.filter((x) => x.Country === "CA");
     const westWarehouses = warehouses.filter((x) => legacyWest.includes(x.WarehouseId || ""));
     const eastWarehouses = warehouses.filter((x) => legacyEast.includes(x.WarehouseId || ""));
-    const otherWarehouses = canadaWarehouses
+    const otherCanWarehouses = canadaWarehouses
         .filter((x) => !legacyEast.includes(x.WarehouseId || "") && !legacyWest.includes(x.WarehouseId || ""));
 
     const renderLoc = (wi: WarehouseViewInfo, index: number, xs: number, sm: number) => {
@@ -109,26 +110,25 @@ export const ProductInventoryGrid = (props: ViewrProps) => {
             </LocationTitle>
             <LocationDetailsWhite container>
                 <LocationDetail item xs={6}>
-                    Bin
-                </LocationDetail>
-                <LocationDetail item xs={6}>
-                    {(wi.BinLocation || "-")}
-                </LocationDetail>
-                <LocationDetail item xs={6}>
                     Expecting
                 </LocationDetail>
                 <LocationDetail item xs={6}>
                     {`${wi.PurchaseOrderQuantity || "-"}`}
                 </LocationDetail>
+                <LocationDetail item xs={6}>
+                    Bin
+                </LocationDetail>
+                <LocationDetail item xs={6}>
+                    {(wi.BinLocation || "-")}
+                </LocationDetail>
             </LocationDetailsWhite>
         </LocationContainer>
     }
 
-    const totalQuantity = (warehouses: WarehouseViewInfo[]) => {
-        return warehouses.reduce((acc, wi) => acc + (wi.AvailableQuantity || 0), 0);
+    const totalQuantity = (w: WarehouseViewInfo[]) => {
+        return w.reduce((acc, wi) => acc + (wi.AvailableQuantity || 0), 0);
     }
 
-    const totalAll = totalQuantity(warehouses);
     const totalCanada = totalQuantity(canadaWarehouses);
     const totalUSA = totalQuantity(usaWarehouses);
 
@@ -137,7 +137,7 @@ export const ProductInventoryGrid = (props: ViewrProps) => {
 
     return (
         <ThemeProvider theme={colorTheme}>
-            {totalCanada > 0 && totalUSA > 0 && (
+            {canadaWarehouses.length > 0 && usaWarehouses.length > 0 && (
                 <Box
                     sx={{
                         display: "flex",
@@ -162,12 +162,12 @@ export const ProductInventoryGrid = (props: ViewrProps) => {
                             fontWeight: 600,
                         }}
                     >
-                        {totalAll}
+                        {totalCanada + totalUSA}
                     </Box>
                 </Box>
             )}
-            <Grid container justifyContent="space-around" sx={{ mb: 1 }}>
-                {totalCanada > 0 && (
+            <Grid container justifyContent="space-around" rowSpacing={2} sx={{ mb: 1 }}>
+                {canadaWarehouses.length > 0 && (
                     <Grid item sm={10} >
                         <Accordion sx={{ backgroundColor: colorTheme.palette.secondary.light, pl: 1 }} defaultExpanded>
                             <AccordionSummary
@@ -209,14 +209,14 @@ export const ProductInventoryGrid = (props: ViewrProps) => {
                                         </Grid>
                                     </Grid>
 
-                                    {otherWarehouses.length > 0 && (
+                                    {otherCanWarehouses.length > 0 && (
                                         <>
                                             <Grid item xs={12}>
                                                 <br />
                                             </Grid>
 
                                             <Grid container spacing={1}>
-                                                {otherWarehouses.sort((a, b) => (b.AvailableQuantity || 0) - (a.AvailableQuantity || 0)).map(renderLocNormal)}
+                                                {otherCanWarehouses.map(renderLocNormal)}
                                             </Grid>
                                         </>
                                     )}
@@ -226,8 +226,8 @@ export const ProductInventoryGrid = (props: ViewrProps) => {
                     </Grid>
                 )}
 
-                {totalUSA > 0 && (
-                    <Grid item sm={4}>
+                {usaWarehouses.length > 0 && (
+                    <Grid item sm={10}>
                         <Accordion sx={{ backgroundColor: colorTheme.palette.secondary.light, pl: 1 }} defaultExpanded>
                             <AccordionSummary
                                 expandIcon={<ExpandPanelIcon color={colorTheme.palette.secondary.main} />}
@@ -248,9 +248,7 @@ export const ProductInventoryGrid = (props: ViewrProps) => {
                             </AccordionSummary>
                             <AccordionDetails sx={{ py: 2 }}>
                                 <Grid container spacing={2}>
-                                    {usaWarehouses
-                                        .sort((a, b) => (b.AvailableQuantity || 0) - (a.AvailableQuantity || 0))
-                                        .map(renderLocNormal)}
+                                    {usaWarehouses.map(renderLocNormal)}
                                 </Grid>
                             </AccordionDetails>
                         </Accordion>
