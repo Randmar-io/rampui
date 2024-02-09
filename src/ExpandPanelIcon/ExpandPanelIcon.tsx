@@ -4,12 +4,11 @@ import React from "react";
 
 interface ExpandPanelIconProps {
     small?: boolean
-    color: string
 }
 
-export const ExpandPanelIcon = ({ small, color }: ExpandPanelIconProps) => {
+export const ExpandPanelIcon = ({ small }: ExpandPanelIconProps) => {
     return (
-        <IconButton sx={{ p: 0, m: 0, color: color }} size={small ? "small" : undefined}>
+        <IconButton sx={{ p: 0, m: 0, color: 'secondary.main' }} size={small ? "small" : undefined}>
             <ExpandMoreIcon sx={small ? undefined : { width: 40, height: 40 }} />
         </IconButton>
     );
