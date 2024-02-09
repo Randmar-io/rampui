@@ -1,14 +1,19 @@
 import { Global, css } from "@emotion/react";
+import { Theme, ThemeProvider } from "@mui/material/styles";
+import { createTheme } from "@mui/system";
 import React from "react";
 import { borderTokens, heightTokens, shadowTokens, spacingTokens, widthTokens } from "../tokens";
 
 interface ProviderProps {
   children: React.ReactNode;
+  theme?: Theme;
 }
 
-export function Provider({ children }: ProviderProps) {
+export function Provider({ children, theme }: ProviderProps) {
+  const defaultTheme = createTheme();
+
   return (
-    <>
+    <ThemeProvider theme={theme || defaultTheme}>
       <Global styles={css`
         ${borderTokens}
         ${heightTokens}
@@ -35,6 +40,6 @@ export function Provider({ children }: ProviderProps) {
         }
       `} />
       {children}
-    </>
+    </ThemeProvider>
   );
 }
