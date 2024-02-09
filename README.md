@@ -16,4 +16,4 @@ How to release a new version of rampui to npm:
   - `release-patch`: backward compatible bug fixes
   - `release-minor`: backward compatible new features
   - `release-major`: changes that break backward compatibility
-- Merge pull request 
+- Merge the pull request 
