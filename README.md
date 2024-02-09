@@ -6,10 +6,10 @@ An easy to maintain React components library that is built on top of Mui Base (f
 ## Why
 1. Randmar.io uses consistent styling across all portals.
 2. DRY code across the Randmar.io.
-4. Modernize the style of Randmar.io.
+3. Modernize the style of Randmar.io.
 
-## Npm release
-How to release a new version of rampui:
+## npm release
+How to release a new version of rampui to npm:
 
 - Create a pull request into the main branch
 - Add the appropriate label to the pull request:
