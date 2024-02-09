@@ -9,8 +9,11 @@ An easy to maintain React components library that is built on top of Mui Base (f
 4. Modernize the style of Randmar.io.
 
 ## Npm release
-How to release from the main branch:
+How to release a new version of rampui:
 
-- npm version patch|minor|major
-- npm run release
-- git push
+- Create a pull request into the main branch
+- Add the appropriate label to the pull request:
+  - `release-patch`: backward compatible bug fixes
+  - `release-minor`: backward compatible new features
+  - `release-major`: changes that break backward compatibility
+- Merge pull request 
