@@ -21,17 +21,17 @@ jobs:
         if: contains(github.event.pull_request.labels.*.name, 'release-patch')
         run: |
           npm version patch
-          git push -f
+          git push
       - name: Check if minor release
         if: contains(github.event.pull_request.labels.*.name, 'release-minor')
         run: |
           npm version minor
-          git push -f
+          git push
       - name: Check if major release
         if: contains(github.event.pull_request.labels.*.name, 'release-major')
         run: |
           npm version major
-          git push -f
+          git push
 
   build_and_release:
     name: Build and Release
