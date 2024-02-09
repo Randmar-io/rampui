@@ -28,7 +28,7 @@ const RegionCount = styled(Box)(({ theme }) => ({
 }));
 
 const LocationContainer = styled(Grid)(({ theme }) => ({
-    backgroundColor: theme.palette.secondary.light, 
+    backgroundColor: theme.palette.secondary.light,
     borderRadius: theme.spacing(),
     display: "flex",
     flexDirection: "column",
