@@ -7,9 +7,10 @@ import { borderTokens, heightTokens, shadowTokens, spacingTokens, widthTokens } 
 interface ProviderProps {
   children: React.ReactNode;
   theme?: Theme;
+  color?: "randmar" | "reseller" | "manufacturer";
 }
 
-export function Provider({ children, theme }: ProviderProps) {
+export function Provider({ children, theme, color }: ProviderProps) {
   const defaultTheme = createTheme();
 
   return (
