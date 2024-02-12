@@ -16,9 +16,9 @@ interface Theme {
   color: "central" | "partner" | "reseller" | "manufacturer";
 }
 
-export function getTheme({ color }: Theme) {
+// export function getTheme({ color }: Theme) {
 
-}
+// }
 
 const theme = createTheme({
   typography: {
