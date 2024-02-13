@@ -1,20 +1,38 @@
 import { Global, css } from "@emotion/react";
-import { Theme, ThemeProvider } from "@mui/material/styles";
+import { ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
 import { createTheme } from "@mui/system";
 import React from "react";
+import grey from "../colors/grey";
 import { borderTokens, heightTokens, shadowTokens, spacingTokens, widthTokens } from "../tokens";
+import { Color, components, shape, themeColors, typography } from "./theme";
 
 interface ProviderProps {
   children: React.ReactNode;
-  theme?: Theme;
-  color?: "randmar" | "reseller" | "manufacturer";
+  color?: Color
 }
 
-export function Provider({ children, theme, color }: ProviderProps) {
-  const defaultTheme = createTheme();
+export function Provider({ children, color }: ProviderProps) {
+  const themeColor = themeColors[color || "randmar"];
+
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: themeColor[700],
+        contrastText: "#fff",
+      },
+      secondary: {
+        main: grey[700],
+        contrastText: "#fff",
+      }
+    },
+    typography,
+    shape,
+  });
+
+  theme.components = components(theme);
 
   return (
-    <ThemeProvider theme={theme || defaultTheme}>
+    <MuiThemeProvider theme={theme}>
       <Global styles={css`
         ${borderTokens}
         ${heightTokens}
@@ -41,6 +59,6 @@ export function Provider({ children, theme, color }: ProviderProps) {
         }
       `} />
       {children}
-    </ThemeProvider>
+    </MuiThemeProvider>
   );
 }

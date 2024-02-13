@@ -2,7 +2,6 @@ import blue from "../../colors/blue"
 import green from "../../colors/green"
 import grey from "../../colors/grey"
 import purple from "../../colors/purple"
-import randmar from "../../colors/randmar"
 import red from "../../colors/red"
 
 export const fontSizes = {
@@ -19,7 +18,7 @@ export const paddings = {
 
 export const colors = {
   "default": grey,
-  "central": randmar,
+  "central": red,
   "reseller": blue,
   "manufacturer": purple,
   "success": green,
