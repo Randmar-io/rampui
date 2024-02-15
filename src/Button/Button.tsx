@@ -9,13 +9,13 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   variant?: "primary" | "secondary" | "tertiary";
   size?: "small" | "medium" | "large";
   color?: "default" | "reseller" | "manufacturer" | "success" | "error";
-  startIcon?: PhosphorIcon;
-  endIcon?: PhosphorIcon;
+  starticon?: PhosphorIcon;
+  endicon?: PhosphorIcon;
   fullWidth?: boolean;
   loading?: boolean;
 }
 
-const renderContent = ({ startIcon: StartIcon, endIcon: EndIcon, children, loading, variant, size }: ButtonProps) => {
+const renderContent = ({ starticon: StartIcon, endicon: EndIcon, children, loading, variant, size }: ButtonProps) => {
   const iconSize = {
     small: 13,
     medium: 15,

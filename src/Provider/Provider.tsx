@@ -1,46 +1,68 @@
 import { Global, css } from "@emotion/react";
-import { Theme, ThemeProvider } from "@mui/material/styles";
-import { createTheme } from "@mui/system";
+import { ThemeProvider as MuiThemeProvider, createTheme } from "@mui/material/styles";
 import React from "react";
+import grey from "../colors/grey";
 import { borderTokens, heightTokens, shadowTokens, spacingTokens, widthTokens } from "../tokens";
+import { Color, baseThemeColor, components, shape, typography } from "./theme";
+
+import { createContext } from 'react';
+
+export const ThemeContext = createContext<Color>('randmar');
 
 interface ProviderProps {
   children: React.ReactNode;
-  theme?: Theme;
-  color?: "randmar" | "reseller" | "manufacturer";
+  color?: Color
 }
 
-export function Provider({ children, theme, color }: ProviderProps) {
-  const defaultTheme = createTheme();
+export function Provider({ children, color }: ProviderProps) {
+  const primaryColor = baseThemeColor[color || "randmar"];
+
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: primaryColor[700],
+        contrastText: "#fff",
+        light: primaryColor[100]
+      },
+      secondary: {
+        main: grey[700],
+        contrastText: "#fff",
+      },
+    },
+    typography,
+    shape,
+  });
+
+  theme.components = components(theme);
 
   return (
-    <ThemeProvider theme={theme || defaultTheme}>
+    <MuiThemeProvider theme={theme}>
       <Global styles={css`
-        ${borderTokens}
-        ${heightTokens}
-        ${shadowTokens}
-        ${spacingTokens}
-        ${widthTokens}
+          ${borderTokens}
+          ${heightTokens}
+          ${shadowTokens}
+          ${spacingTokens}
+          ${widthTokens}
 
-        * {
-          margin: 0;
-          padding: 0;
-          box-sizing: border-box;
-          min-width: 0;
-        }
+          * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            min-width: 0;
+          }
 
-        body {
-          background-color: #f8f8f8;
-          font-family: 'Inter', sans-serif;
-          color: #262626;
-          font-size: 13px;
-        }
+          body {
+            background-color: #f8f8f8;
+            font-family: 'Inter', sans-serif;
+            color: #262626;
+            font-size: 13px;
+          }
 
-        button {
-          font-family: inherit;
-        }
-      `} />
+          button {
+            font-family: inherit;
+          }
+        `} />
       {children}
-    </ThemeProvider>
+    </MuiThemeProvider>
   );
 }
