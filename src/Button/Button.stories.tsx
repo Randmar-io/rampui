@@ -25,7 +25,7 @@ export const Primary: Story = {
 export const WithStartIcon: Story = {
   args: {
     children: 'Icon',
-    startIcon: Airplane,
+    starticon: Airplane,
     size: 'medium',
     variant: 'primary'
   },

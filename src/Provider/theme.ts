@@ -5,10 +5,10 @@ import red from "../colors/red";
 
 export type Color = "randmar" | "reseller" | "manufacturer";
 
-export const themeColors = {
-  randmar: red,
-  reseller: blue,
-  manufacturer: purple,
+export const baseThemeColor = {
+  "randmar": red,
+  "reseller": blue,
+  "manufacturer": purple,
 }
 
 export const typography = {
@@ -56,14 +56,23 @@ export const shape = {
   borderRadius: 12
 }
 
-export const components = (theme: Theme) => ({
-  MuiAccordion: {
-    styleOverrides: {
-      root: {
-        borderRadius: 8,
-        marginBottom: theme.spacing(),
+export const components = (theme: Theme) => (
+  {
+    MuiAccordion: {
+      styleOverrides: {
+        root: {
+          borderRadius: 12,
+          marginBottom: theme.spacing(),
+        },
       },
     },
-  },
-  // add more components here as needed
-});
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          boxShadow: 'rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px',
+        },
+      },
+    },
+    // add more components here as needed
+  }
+);

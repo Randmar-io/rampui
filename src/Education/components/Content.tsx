@@ -65,7 +65,7 @@ export function Content({ show, setShow, title, description, blogPostLink, youtu
             href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ2qldwIeWkcUVUN6CJ_WafW2gwTWhPbk3Od40voZYxGcoPajxRPVFfLDqCwG04DzWVknmHPYcXt"
             target="_blank"
           >
-            <Button startIcon={Headset}>Book a call</Button>
+            <Button starticon={Headset}>Book a call</Button>
           </a>
         </Help>
       </div>
