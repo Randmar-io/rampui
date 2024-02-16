@@ -49,9 +49,9 @@ const renderContent = ({ starticon: StartIcon, endicon: EndIcon, children, loadi
         justifyContent="center"
         spacing={spacing[size || "medium"]}
       >
-        {LeftIcon && <LeftIcon size={iconSize[size || "medium"]} weight="bold" />}
+        {StartIcon && <StartIcon size={iconSize[size || "medium"]} weight="bold" />}
         {children && <div>{children}</div>}
-        {RightIcon && <RightIcon size={iconSize[size || "medium"]} weight="bold" />}
+        {EndIcon && <EndIcon size={iconSize[size || "medium"]} weight="bold" />}
       </Stack>
     </div >
   )
