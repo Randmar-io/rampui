@@ -56,6 +56,7 @@ export const NavMenuWithItems = () => {
         {
           label: "Warehouses",
           icon: Warehouse,
+          hidden: true,
         },
       ]}
     />

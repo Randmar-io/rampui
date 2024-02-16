@@ -31,9 +31,9 @@ const NavLinkContainer = styled('li')<NavLinkProps>(({ selected }) =>
   `
 );
 
-export function NavLink({ icon: Icon, label, selected, linkComponent }: NavLinkProps) {
+export function NavLink({ icon: Icon, label, selected, linkComponent, hidden, ...rest }: NavLinkProps) {
   const navLink = (
-    <NavLinkContainer selected={selected}>
+    <NavLinkContainer selected={selected} {...rest}>
       {
         Icon &&
         <CenteredFlexbox>
@@ -43,6 +43,8 @@ export function NavLink({ icon: Icon, label, selected, linkComponent }: NavLinkP
       <span style={{ fontWeight: selected ? 600 : 500, color: selected ? "#af3737" : '#464646' }}>{label}</span>
     </NavLinkContainer>
   )
+
+  if (hidden) return null;
 
   if (linkComponent) {
     return React.isValidElement(linkComponent)
