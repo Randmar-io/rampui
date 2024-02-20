@@ -46,19 +46,25 @@ export function Content({ show, setShow, title, description, blogPostLink, youtu
   return (
     <Modal open={!!show} onClose={() => setShow(false)} title={title}>
       <div style={{ maxWidth: 520, margin: 'auto' }}>
-        <Description>{description}</Description>
-        <BlogLink href={blogPostLink} target="_blank">
-          Read the blog post <ArrowUpRight size={16} />
-        </BlogLink>
-        <iframe
-          width="100%"
-          height="292"
-          style={{ border: 0, borderRadius: 'var(--r-border-radius-md)' }}
-          src={youtubeVideoLink}
-          title="YouTube video player"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowFullScreen
-        />
+        {description && <Description>{description}</Description>}
+        {
+          blogPostLink &&
+          <BlogLink href={blogPostLink} target="_blank">
+            Read the blog post <ArrowUpRight size={16} />
+          </BlogLink>
+        }
+        {
+          youtubeVideoLink &&
+          <iframe
+            width="100%"
+            height="292"
+            style={{ border: 0, borderRadius: 'var(--r-border-radius-md)' }}
+            src={youtubeVideoLink}
+            title="YouTube video player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+          />
+        }
         <Help>
           <div style={{ fontSize: 13 }}>Need help or have questions?</div>
           <a
