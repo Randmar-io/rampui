@@ -1,7 +1,7 @@
 # RampUI - Randmar.io React Component Library
 
 ## What
-An easy to maintain React components library that is built on top of Mui Base (for customized components) and Mui Material. It is published to npm on every push to the master branch.
+An easy to maintain React components library that is built on top of MUI Base (for customized components) and MUI Material. It is published to npm on every push to the master branch.
 
 ## Why
 1. Randmar.io uses consistent styling across all portals.
