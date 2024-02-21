@@ -15,7 +15,7 @@ const TopBarContainer = styled.div`
   display: flex;
   flex-shrink: 0;
   height: var(--r-height-topbar);
-  background-color: #af3737;
+  background-color: #b93030;
   z-index: 40;
 `;
 

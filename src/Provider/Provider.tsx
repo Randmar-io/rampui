@@ -20,12 +20,12 @@ export function Provider({ children, color }: ProviderProps) {
   const theme = createTheme({
     palette: {
       primary: {
-        main: primaryColor[700],
+        main: primaryColor[500],
         contrastText: "#fff",
         light: primaryColor[100]
       },
       secondary: {
-        main: grey[700],
+        main: grey[500],
         contrastText: "#fff",
       },
     },

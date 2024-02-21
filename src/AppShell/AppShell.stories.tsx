@@ -58,6 +58,7 @@ export const AppShellWithItems = () => {
         {
           label: "Manufacturer",
           icon: Factory,
+          hidden: true
         },
         {
           label: "Agency",
@@ -74,6 +75,7 @@ export const AppShellWithItems = () => {
         {
           label: "Warehouses",
           icon: Warehouse,
+          hidden: true
         },
       ]}
     >
