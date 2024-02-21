@@ -38,17 +38,17 @@ export const ButtonBase = styled(MuiBaseButton)<ButtonProps>((props) => {
 
   const variant = {
     "primary": `
-      background-color: ${color[700]};
+      background-color: ${color[500]};
       color: white;
-      box-shadow: inset 0 1px ${color[500]};
-      border-color: ${color[800]};
+      box-shadow: inset 0 1px ${color[400]};
+      border-color: ${color[500]};
 
       &:hover {
         background-color: ${color[600]};
       } 
 
       &:active {
-        background-color: ${color[500]};
+        background-color: ${color[700]};
         border-color: transparent;
       }
 
