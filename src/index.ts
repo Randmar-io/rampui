@@ -5,6 +5,7 @@ export * from "./ExpandPanelIcon";
 export * from "./Layout";
 export * from "./NavMenu";
 export * from "./Page";
+export * from "./Preloader";
 export * from "./ProductInventoryGrid";
 export * from "./Provider";
 

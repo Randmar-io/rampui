@@ -11,8 +11,11 @@
     "sourceMap": true,
     "outDir": "dist",
     "moduleResolution": "node",
+    "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
     "emitDeclarationOnly": true,
-    "types": ["@testing-library/jest-dom"]
+    "types": [
+      "@testing-library/jest-dom"
+    ]
   }
- }
+}
