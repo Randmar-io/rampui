@@ -55,6 +55,12 @@ describe('<ComponentName />', () => {
 ### Packaging
 To verify that exported components work as expected, you can package and import them locally before publishing to npm. In the rampui directory, hit the `npm link` command and in the directory of the project where you're using rampui, hit the `npm link rampui`. This will update the project's `package.json` to use rampui from your local build. Each time you run the build command, `npm run build` on rampui, the library will automatically be updated in the project you're using for testing.
 
+### Migrating MUI components
+When migrating components that are using the @mui/material library, ensure that:
+1. The MUI theme file in rampui is updated with any modifications made to the MUI theme in the React project the component is migrated from
+2. The MUI components use the correct colors
+   - RampUI uses the main theme color as the primary color, and a black color as the secondary; this is not the case for all Randmar.io Portals
+
 ## Publishing to npm
 How to release a new version of rampui to npm:
 
