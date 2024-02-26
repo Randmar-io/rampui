@@ -14,8 +14,8 @@ const Description = styled.p`
 
 const BlogLink = styled.a`
   text-decoration: none;
-  color: #CE2C31;
-  border-bottom: 1px solid #CE2C31;
+  color: ${({ theme }) => theme.color[700]};
+  border-bottom: 1px solid ${({ theme }) => theme.color[600]};
   display: flex;
   align-items: center;
   gap: var(--r-spacing-5);

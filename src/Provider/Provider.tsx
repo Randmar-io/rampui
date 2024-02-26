@@ -1,4 +1,4 @@
-import { Global, css } from "@emotion/react";
+import { Global, ThemeProvider, css } from "@emotion/react";
 import { ThemeProvider as MuiThemeProvider, createTheme } from "@mui/material/styles";
 import React from "react";
 import grey from "../colors/grey";
@@ -17,7 +17,7 @@ interface ProviderProps {
 export function Provider({ children, color }: ProviderProps) {
   const primaryColor = baseThemeColor[color || "randmar"];
 
-  const theme = createTheme({
+  const muiTheme = createTheme({
     palette: {
       primary: {
         main: primaryColor[500],
@@ -33,36 +33,43 @@ export function Provider({ children, color }: ProviderProps) {
     shape,
   });
 
-  theme.components = components(theme);
+  muiTheme.components = components(muiTheme);
+
+  const theme = {
+    color: primaryColor
+  }
 
   return (
-    <MuiThemeProvider theme={theme}>
-      <Global styles={css`
-          ${borderTokens}
-          ${heightTokens}
-          ${shadowTokens}
-          ${spacingTokens}
-          ${widthTokens}
+    <MuiThemeProvider theme={muiTheme}>
+      {/* @ts-expect-error */}
+      <ThemeProvider theme={theme}>
+        <Global styles={css`
+            ${borderTokens}
+            ${heightTokens}
+            ${shadowTokens}
+            ${spacingTokens}
+            ${widthTokens}
 
-          * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            min-width: 0;
-          }
+            * {
+              margin: 0;
+              padding: 0;
+              box-sizing: border-box;
+              min-width: 0;
+            }
 
-          body {
-            background-color: #f8f8f8;
-            font-family: 'Inter', sans-serif;
-            color: #262626;
-            font-size: 13px;
-          }
+            body {
+              background-color: #f8f8f8;
+              font-family: 'Inter', sans-serif;
+              color: #262626;
+              font-size: 13px;
+            }
 
-          button {
-            font-family: inherit;
-          }
-        `} />
-      {children}
+            button {
+              font-family: inherit;
+            }
+          `} />
+        {children}
+      </ThemeProvider>
     </MuiThemeProvider>
   );
 }

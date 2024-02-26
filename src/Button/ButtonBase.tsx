@@ -1,3 +1,4 @@
+import { useTheme } from '@emotion/react';
 import styled from '@emotion/styled';
 import { Button as MuiBaseButton } from '@mui/base/Button';
 import blue from '../colors/blue';
@@ -6,10 +7,12 @@ import { ButtonProps } from "./Button";
 import { colors, fontSizes, paddings } from './styles/buttonStyles';
 
 export const ButtonBase = styled(MuiBaseButton)<ButtonProps>((props) => {
+  const theme = useTheme();
+
   const padding = paddings[props.size || "medium"];
   const fontSize = fontSizes[props.size || "medium"]
   const width = props.fullWidth ? "100%" : "max-content";
-  const color = colors[props.color || "central"];
+  const color = props.color ? colors[props.color] : theme.color;
 
   const baseStyle = `
     font-weight: 600;

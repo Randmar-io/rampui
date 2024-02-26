@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import React from "react";
-import red from "../colors/red";
 import PreloaderIcon from "./assets/PreloaderIcon";
 
 const Container = styled.div`
@@ -12,7 +11,7 @@ const Container = styled.div`
   flex-direction: column;
   gap: var(--r-spacing-60);
   z-index: 100;
-  background-color: ${red[500]};
+  background-color: ${({ theme }) => theme.color[500]};
 `
 
 const Text = styled.div`
