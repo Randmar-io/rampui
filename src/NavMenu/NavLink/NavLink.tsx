@@ -1,3 +1,4 @@
+import { useTheme } from '@emotion/react';
 import styled from '@emotion/styled';
 import { Icon as PhosphorIcon } from "@phosphor-icons/react";
 import React from "react";
@@ -32,15 +33,17 @@ const NavLinkContainer = styled('li')<NavLinkProps>(({ selected }) =>
 );
 
 export function NavLink({ icon: Icon, label, selected, linkComponent, hidden, ...rest }: NavLinkProps) {
+  const theme = useTheme();
+
   const navLink = (
     <NavLinkContainer selected={selected} {...rest}>
       {
         Icon &&
         <CenteredFlexbox>
-          <Icon color={selected ? "#af3737" : "#545454"} size={16} weight={selected ? "bold" : "regular"} />
+          <Icon color={selected ? theme.color[500] : "#545454"} size={16} weight={selected ? "bold" : "regular"} />
         </CenteredFlexbox>
       }
-      <span style={{ fontWeight: selected ? 600 : 500, color: selected ? "#af3737" : '#464646' }}>{label}</span>
+      <span style={{ fontWeight: selected ? 600 : 500, color: selected ? theme.color[600] : '#464646' }}>{label}</span>
     </NavLinkContainer>
   )
 

@@ -11,6 +11,12 @@ export const baseThemeColor = {
   "manufacturer": purple,
 }
 
+declare module '@emotion/react' {
+  export interface Theme {
+    color: Color;
+  }
+}
+
 export const typography = {
   fontFamily: "DM Sans, Arial, sans-serif",
   h1: {
