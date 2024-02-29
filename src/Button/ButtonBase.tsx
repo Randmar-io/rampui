@@ -22,6 +22,7 @@ export const ButtonBase = styled(MuiBaseButton)<ButtonProps>((props) => {
     user-select: none;
     border: 1px solid;
     cursor: pointer;
+    height: max-content;
 
     &:focus-visible {
       outline: 2px solid ${blue[500]};

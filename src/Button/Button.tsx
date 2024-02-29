@@ -8,7 +8,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   children?: React.ReactNode;
   variant?: "primary" | "secondary" | "tertiary";
   size?: "small" | "medium" | "large";
-  color?: "default" | "reseller" | "manufacturer" | "success" | "error";
+  color?: "default" | "reseller" | "manufacturer" | "shopify" | "success" | "error";
   starticon?: PhosphorIcon;
   endicon?: PhosphorIcon;
   fullWidth?: boolean;
@@ -19,7 +19,7 @@ const renderContent = ({ starticon: StartIcon, endicon: EndIcon, children, loadi
   const iconSize = {
     small: 13,
     medium: 15,
-    large: 18
+    large: 17
   }
 
   const spacing = {

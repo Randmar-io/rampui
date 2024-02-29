@@ -1,6 +1,7 @@
 import blue from "../../colors/blue"
 import green from "../../colors/green"
 import grey from "../../colors/grey"
+import lightGreen from "../../colors/lightGreen"
 import purple from "../../colors/purple"
 import red from "../../colors/red"
 
@@ -21,6 +22,7 @@ export const colors = {
   "central": red,
   "reseller": blue,
   "manufacturer": purple,
+  "shopify": lightGreen,
   "success": green,
   "error": red,
 }
