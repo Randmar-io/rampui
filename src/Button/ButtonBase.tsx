@@ -64,7 +64,7 @@ export const ButtonBase = styled(MuiBaseButton)<ButtonProps>((props) => {
     "secondary": `
       border-color: ${grey[200]};
       background: white;
-      color: ${color[700]};
+      color: ${color[500]};
       box-shadow: 0px 1px 2px -1px rgba(0, 0, 0, 0.1);
 
       &:hover {
@@ -86,7 +86,7 @@ export const ButtonBase = styled(MuiBaseButton)<ButtonProps>((props) => {
     "tertiary": `
       border-color: transparent;
       background: transparent;
-      color: ${color[700]};
+      color: ${color[500]};
 
       &:hover {
         background: ${grey[100]};
