@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { NavLinkProps, NavMenu } from '../NavMenu';
 import { TopBar } from './TopBar';
 
@@ -28,6 +28,13 @@ const AppShellContent = styled.div`
 
 export function AppShell({ children, menuItems, logo, searchBar, rightMenu, footer, ...rest }: AppShellProps) {
   const [showMenu, setShowMenu] = useState(false);
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (contentRef.current) {
+      contentRef.current.scrollTop = 0;
+    }
+  }, [children])
 
   return (
     <AppShellContainer {...rest}>
@@ -39,7 +46,7 @@ export function AppShell({ children, menuItems, logo, searchBar, rightMenu, foot
       />
       <div style={{ display: 'flex', flexGrow: 1, overflow: 'hidden' }}>
         <NavMenu menuItems={menuItems} show={showMenu} closeMenu={() => setShowMenu(false)} footer={footer} />
-        <AppShellContent>
+        <AppShellContent ref={contentRef}>
           {children}
         </AppShellContent>
       </div>
