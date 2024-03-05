@@ -4,7 +4,7 @@ import { Provider } from "../src/Provider/Provider";
 const preview = {
   decorators: [
     (Story) => (
-      <Provider color="manufacturer">
+      <Provider>
         {/* 👇 Decorators in Storybook also accept a function. Replace <Story/> with Story() to enable it  */}
         <Story />
       </Provider>

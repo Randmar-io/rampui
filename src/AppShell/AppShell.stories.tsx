@@ -4,6 +4,8 @@ import React from "react";
 import { Button } from '../Button';
 import { EducationWithProps } from "../Education/Education.stories";
 import { Page } from '../Page';
+import { ResellerCard } from "../ResellerCard";
+import reseller from "../ResellerCard/sampleResellerData.json";
 import { AppShell } from './AppShell';
 
 const meta: Meta<typeof AppShell> = {
@@ -87,9 +89,7 @@ export const AppShellWithItems = () => {
         narrowWidth
       >
         <EducationWithProps />
-        <div style={{ height: '200px', backgroundColor: 'white', boxShadow: 'var(--r-shadow-sm)', borderRadius: 'var(--r-border-radius-md)' }}>
-
-        </div>
+        <ResellerCard reseller={reseller} />
       </Page>
     </AppShell>
   )
