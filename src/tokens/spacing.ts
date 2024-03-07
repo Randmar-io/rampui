@@ -27,4 +27,4 @@ export const spacingTokens = css`
     --r-spacing-280: 112px;
     --r-spacing-320: 128px;
   }
-`
+`;

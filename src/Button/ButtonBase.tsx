@@ -94,7 +94,6 @@ export const ButtonBase = styled(MuiBaseButton)<ButtonProps>((props) => {
 
       &:active {
         background: ${grey[100]};
-        box-shadow: inset 0 1px 1px 0 ${grey[400]}, inset 1px 0 1px 0 ${grey[300]}, inset -1px 0 1px 0 ${grey[300]};
       }
 
       &:disabled {

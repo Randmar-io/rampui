@@ -8,4 +8,4 @@ export const shadowTokens = css`
     --r-shadow-sm: 0px 0px 0px 1px #4848480f, 0px 1px 2px 0px #4848480f;
     --r-shadow-xl: #4848480f 0 25px 50px -12px;
   }
-`
+`;

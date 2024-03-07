@@ -9,4 +9,4 @@ export const borderTokens = css`
     --r-border-radius-2xl: 32px;
     --r-border-radius-full: 10000px;
   }
-`
+`;

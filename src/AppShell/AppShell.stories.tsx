@@ -1,9 +1,12 @@
+import { Grid } from "@mui/material";
 import { Factory, Headset, House, Notebook, Plugs, ShoppingBagOpen, Storefront, Users, Warehouse } from "@phosphor-icons/react";
 import type { Meta, StoryObj } from '@storybook/react';
 import React from "react";
 import { Button } from '../Button';
 import { EducationWithProps } from "../Education/Education.stories";
 import { Page } from '../Page';
+import { ResellerCard } from "../ResellerCard";
+import reseller from "../ResellerCard/sampleResellerData.json";
 import { AppShell } from './AppShell';
 
 const meta: Meta<typeof AppShell> = {
@@ -87,9 +90,14 @@ export const AppShellWithItems = () => {
         narrowWidth
       >
         <EducationWithProps />
-        <div style={{ height: '200px', backgroundColor: 'white', boxShadow: 'var(--r-shadow-sm)', borderRadius: 'var(--r-border-radius-md)' }}>
-
-        </div>
+        <Grid container spacing={2}>
+          <Grid item xs={12} md={6}>
+            <ResellerCard reseller={reseller[0]} actions={<Button color="reseller">View</Button>} expandable />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <ResellerCard reseller={reseller[1]} actions={<Button color="reseller">View</Button>} expandable />
+          </Grid>
+        </Grid>
       </Page>
     </AppShell>
   )

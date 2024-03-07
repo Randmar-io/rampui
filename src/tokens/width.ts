@@ -36,4 +36,4 @@ export const widthTokens = css`
     --r-width-nav-menu: var(--r-width-600);
     --r-width-search-bar: 440px;
   }
-`
+`;
