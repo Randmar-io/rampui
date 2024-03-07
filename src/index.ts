@@ -8,4 +8,5 @@ export * from "./Page";
 export * from "./Preloader";
 export * from "./ProductInventoryGrid";
 export * from "./Provider";
+export * from "./ResellerCard";
 

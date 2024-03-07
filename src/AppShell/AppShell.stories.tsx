@@ -1,3 +1,4 @@
+import { Grid } from "@mui/material";
 import { Factory, Headset, House, Notebook, Plugs, ShoppingBagOpen, Storefront, Users, Warehouse } from "@phosphor-icons/react";
 import type { Meta, StoryObj } from '@storybook/react';
 import React from "react";
@@ -89,7 +90,14 @@ export const AppShellWithItems = () => {
         narrowWidth
       >
         <EducationWithProps />
-        <ResellerCard reseller={reseller} />
+        <Grid container spacing={2}>
+          <Grid item xs={12} md={6}>
+            <ResellerCard reseller={reseller[0]} actions={<Button color="reseller">View</Button>} expandable />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <ResellerCard reseller={reseller[1]} actions={<Button color="reseller">View</Button>} expandable />
+          </Grid>
+        </Grid>
       </Page>
     </AppShell>
   )
