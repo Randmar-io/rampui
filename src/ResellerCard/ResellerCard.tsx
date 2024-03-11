@@ -18,10 +18,10 @@ interface SalesData {
 }
 
 interface Statement {
-  over45: number;
-  over30: number;
-  over0: number;
-  total: number;
+  over45?: number;
+  over30?: number;
+  over0?: number;
+  total?: number;
 }
 
 interface ResellerInfo {
