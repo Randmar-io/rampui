@@ -197,6 +197,8 @@ export function ResellerCard({ reseller, actions, expandable }: ResellerCardProp
     </div>
   );
 
+  console.log(reseller.statement);
+
   const accountBalance = (
     <div style={{ marginTop: 18 }}>
       <p style={{ fontSize: 13, fontWeight: 500, marginBottom: 8 }}>Account Balance</p>
@@ -228,7 +230,7 @@ export function ResellerCard({ reseller, actions, expandable }: ResellerCardProp
     <div>
       <p style={{ fontSize: 13, fontWeight: 500, marginBottom: 12 }}>Public Information</p>
       <Grid container columnSpacing={1} rowSpacing={2}>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={reseller.about ? 6 : 12}>
           <Grid container columnSpacing={1} rowSpacing={2}>
             <Grid item xs={12} sm={6} md={reseller.about ? 6 : 3}>
               <Stack direction="column" spacing={0.5}>
