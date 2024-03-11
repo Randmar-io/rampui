@@ -87,7 +87,7 @@ export const AppShellWithItems = () => {
         subtitle="Jan 24, 2023 · Delivered"
         primaryAction={<Button variant='primary'>Primary action</Button>}
         secondaryActions={[<Button>Secondary action</Button>]}
-        narrowWidth
+        midWidth
       >
         <EducationWithProps />
         <Grid container spacing={2}>
@@ -96,6 +96,9 @@ export const AppShellWithItems = () => {
           </Grid>
           <Grid item xs={12} md={6}>
             <ResellerCard reseller={reseller[1]} actions={<Button color="reseller">View</Button>} expandable />
+          </Grid>
+          <Grid item xs={12}>
+            <ResellerCard reseller={reseller[0]} actions={<Button color="reseller">View</Button>} />
           </Grid>
         </Grid>
       </Page>
