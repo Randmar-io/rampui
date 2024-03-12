@@ -98,9 +98,9 @@
       "salesLast3Months": 175851.92
     },
     "orderDetails": {
-      "processing": 122.500,
-      "shipped": 40308.210,
-      "delayed": 9174.370
+      "processing": "122.500",
+      "shipped": "40308.210",
+      "delayed": "9174.370"
     }
   }
 ]
