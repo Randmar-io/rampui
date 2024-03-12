@@ -16,7 +16,7 @@ const PageHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: start;
-  margin-bottom: var(--r-spacing-70);
+  margin-bottom: var(--r-spacing-50);
 `;
 
 
