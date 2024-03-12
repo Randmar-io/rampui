@@ -92,13 +92,13 @@ export const AppShellWithItems = () => {
         <EducationWithProps />
         <Grid container spacing={2}>
           <Grid item xs={12} md={6}>
-            <ResellerCard reseller={reseller[0]} actions={<Button color="reseller">View</Button>} expandable />
+            <ResellerCard reseller={reseller[0]} actions={<Button color="reseller">View</Button>} />
           </Grid>
           <Grid item xs={12} md={6}>
             <ResellerCard reseller={reseller[1]} actions={<Button color="reseller">View</Button>} expandable />
           </Grid>
           <Grid item xs={12}>
-            <ResellerCard reseller={reseller[0]} actions={<Button color="reseller">View</Button>} />
+            {/* <ResellerCard reseller={reseller[0]} actions={<Button color="reseller">View</Button>} /> */}
           </Grid>
         </Grid>
       </Page>

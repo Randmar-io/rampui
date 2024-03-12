@@ -63,11 +63,12 @@ interface ResellerCardProps {
   reseller: ResellerInfo;
   actions?: React.ReactNode;
   expandable?: boolean;
+  detailView?: boolean;
 }
 
 
-export function ResellerCard({ reseller, actions, expandable }: ResellerCardProps) {
-  const [expanded, setExpanded] = useState(expandable ? false : true);
+export function ResellerCard({ reseller, actions, expandable, detailView }: ResellerCardProps) {
+  const [expanded, setExpanded] = useState(false);
   const [hasImage, setHasImage] = useState(true);
 
   const currency = new Intl.NumberFormat('en-US', {
@@ -122,7 +123,7 @@ export function ResellerCard({ reseller, actions, expandable }: ResellerCardProp
         <motion.div layout="position">
           <Stack direction="row" alignItems="center" spacing={0.5} mb={0.75}>
             {
-              expandable &&
+              !detailView &&
               <Stack direction="row" spacing={0.5} alignItems="center" style={{ backgroundColor: blue[100], padding: "4px 8px", borderRadius: 12, width: "max-content", height: "max-content" }}>
                 <Storefront weight="fill" size={11} color={blue[500]} />
                 <p style={{ fontSize: 11, fontWeight: 500, color: blue[500] }}>Reseller | {reseller.resellerId}</p>
@@ -232,13 +233,13 @@ export function ResellerCard({ reseller, actions, expandable }: ResellerCardProp
       <Grid container columnSpacing={1} rowSpacing={2}>
         <Grid item xs={12} md={reseller.about ? 6 : 12}>
           <Grid container columnSpacing={1} rowSpacing={2}>
-            <Grid item xs={12} sm={6} md={reseller.about ? 6 : 3}>
+            <Grid item xs={12} sm={4} md={reseller.about ? 6 : 3}>
               <Stack direction="column" spacing={0.5}>
                 <p style={{ fontSize: 12, color: "#616161" }}>Contact Name</p>
                 <p style={{ fontSize: 13 }}>{reseller.contactName}</p>
               </Stack>
             </Grid>
-            <Grid item xs={12} sm={6} md={reseller.about ? 6 : 3}>
+            <Grid item xs={12} sm={8} md={reseller.about ? 6 : 3}>
               <Stack direction="column" spacing={0.5}>
                 <p style={{ fontSize: 12, color: "#616161" }}>Email</p>
                 <p style={{ fontSize: 13 }}>{reseller.arEmail}</p>
@@ -312,14 +313,17 @@ export function ResellerCard({ reseller, actions, expandable }: ResellerCardProp
 
   const expandableCardContent = (
     <Paper style={{ position: 'relative' }}>
-      <ExpandIconContainer onClick={() => setExpanded(!expanded)}>
-        {
-          expanded ?
-            <ArrowsInSimple size={18} color="#5f5f5f" />
-            :
-            <ArrowsOutSimple size={18} color="#5f5f5f" />
-        }
-      </ExpandIconContainer>
+      {
+        expandable &&
+        <ExpandIconContainer onClick={() => setExpanded(!expanded)}>
+          {
+            expanded ?
+              <ArrowsInSimple size={18} color="#5f5f5f" />
+              :
+              <ArrowsOutSimple size={18} color="#5f5f5f" />
+          }
+        </ExpandIconContainer>
+      }
       <Grid container spacing={0}>
         <Grid item xs={12} md={expanded ? 5 : 12}>
           {titleContent}
@@ -356,7 +360,7 @@ export function ResellerCard({ reseller, actions, expandable }: ResellerCardProp
     </Paper>
   )
 
-  if (!expandable) return (
+  if (detailView) return (
     <Grid container spacing={2}>
       <Grid item xs={12} md={5}>
         <Paper style={{ height: '100%' }}>
@@ -385,7 +389,7 @@ export function ResellerCard({ reseller, actions, expandable }: ResellerCardProp
         {expandableCardContent}
       </motion.div>
       <ExpandedView open={expanded} onClose={() => setExpanded(false)} disableAutoFocus slots={{ backdrop: Backdrop }}>
-        <motion.div layoutId={`reseller-card-${reseller.resellerId}`} style={{ width: 1024, height: '100%', overflowY: 'scroll', margin: 8 }}>
+        <motion.div layoutId={`reseller-card-${reseller.resellerId}`} style={{ width: 1024, maxHeight: '100%', margin: 8 }}>
           {expandableCardContent}
         </motion.div>
       </ExpandedView>
