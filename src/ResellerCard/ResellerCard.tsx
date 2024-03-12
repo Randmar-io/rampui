@@ -1,11 +1,12 @@
 import styled from "@emotion/styled";
 import { Modal } from "@mui/base/Modal";
 import { Box, Grid, Stack } from "@mui/material";
-import { ArrowsInSimple, ArrowsOutSimple, Circle, EnvelopeSimple, GlobeSimple, Phone, Storefront, User } from "@phosphor-icons/react";
+import { ArrowsInSimple, ArrowsOutSimple, Circle, EnvelopeSimple, GlobeSimple, Phone, SealCheck, Storefront, User } from "@phosphor-icons/react";
 import { motion } from "framer-motion";
 import React, { useState } from "react";
 import { Paper } from "../Paper";
 import blue from "../colors/blue";
+import purple from "../colors/purple";
 import red from "../colors/red";
 
 interface SalesData {
@@ -22,6 +23,12 @@ interface Statement {
   over30?: number;
   over0?: number;
   total?: number;
+}
+
+interface OrderDetails {
+  processing?: string;
+  shipped?: string;
+  delayed?: string;
 }
 
 interface ResellerInfo {
@@ -57,6 +64,8 @@ interface ResellerInfo {
   publicEmail?: string;
   salesData?: SalesData;
   statement?: Statement;
+  orderDetails?: OrderDetails;
+  isQualified?: boolean;
 }
 
 interface ResellerCardProps {
@@ -125,15 +134,22 @@ export function ResellerCard({ reseller, actions, expandable, detailView }: Rese
             {
               !detailView &&
               <Stack direction="row" spacing={0.5} alignItems="center" style={{ backgroundColor: blue[100], padding: "4px 8px", borderRadius: 12, width: "max-content", height: "max-content" }}>
-                <Storefront weight="fill" size={11} color={blue[500]} />
-                <p style={{ fontSize: 11, fontWeight: 500, color: blue[500] }}>Reseller | {reseller.resellerId}</p>
+                <Storefront weight="fill" size={11} color={blue[600]} />
+                <p style={{ fontSize: 11, fontWeight: 500, color: blue[600] }}>Reseller | {reseller.resellerId}</p>
               </Stack>
             }
             {
               reseller.onHold !== 0 &&
               <Stack direction="row" spacing={0.5} alignItems="center" style={{ backgroundColor: red[100], padding: "4px 8px", borderRadius: 12, width: "max-content", height: "max-content" }}>
-                <Circle weight="fill" size={11} color={red[500]} />
-                <p style={{ fontSize: 11, fontWeight: 500, color: red[500] }}>On Hold</p>
+                <Circle weight="fill" size={11} color={red[600]} />
+                <p style={{ fontSize: 11, fontWeight: 500, color: red[600] }}>On Hold</p>
+              </Stack>
+            }
+            {
+              reseller.isQualified &&
+              <Stack direction="row" spacing={0.5} alignItems="center" style={{ backgroundColor: purple[100], padding: "4px 8px", borderRadius: 12, width: "max-content", height: "max-content" }}>
+                <SealCheck weight="fill" size={11} color={purple[600]} />
+                <p style={{ fontSize: 11, fontWeight: 500, color: purple[600] }}>Qualified</p>
               </Stack>
             }
           </Stack>
@@ -173,6 +189,7 @@ export function ResellerCard({ reseller, actions, expandable, detailView }: Rese
   );
 
   const salesData = (
+    reseller.salesData &&
     <div>
       <p style={{ fontSize: 13, fontWeight: 500, marginBottom: 8 }}>Sales</p>
       <Grid container columnSpacing={1} rowSpacing={2}>
@@ -198,10 +215,9 @@ export function ResellerCard({ reseller, actions, expandable, detailView }: Rese
     </div>
   );
 
-  console.log(reseller.statement);
-
   const accountBalance = (
-    <div style={{ marginTop: 18 }}>
+    reseller.statement &&
+    <div>
       <p style={{ fontSize: 13, fontWeight: 500, marginBottom: 8 }}>Account Balance</p>
       <Grid container columnSpacing={1} rowSpacing={2}>
         <Grid item xs={4}>
@@ -220,6 +236,33 @@ export function ResellerCard({ reseller, actions, expandable, detailView }: Rese
           <Stack direction="column" spacing={0.5}>
             <p style={{ fontSize: 12, color: "#616161" }}>45+ days</p>
             <p style={{ fontSize: 13 }}>{currency.format(reseller.statement?.over45 || 0)}</p>
+          </Stack>
+        </Grid>
+      </Grid>
+    </div>
+  );
+
+  const orderDetails = (
+    reseller.orderDetails &&
+    <div>
+      <p style={{ fontSize: 13, fontWeight: 500, marginBottom: 12 }}>Order Details</p>
+      <Grid container columnSpacing={1} rowSpacing={2}>
+        <Grid item xs={6} md={4}>
+          <Stack direction="column" spacing={0.5}>
+            <p style={{ fontSize: 12, color: "#616161" }}>Processing</p>
+            <p style={{ fontSize: 13 }}>{reseller.orderDetails?.processing}</p>
+          </Stack>
+        </Grid>
+        <Grid item xs={6} md={4}>
+          <Stack direction="column" spacing={0.5}>
+            <p style={{ fontSize: 12, color: "#616161" }}>Shipped</p>
+            <p style={{ fontSize: 13 }}>{reseller.orderDetails?.shipped}</p>
+          </Stack>
+        </Grid>
+        <Grid item xs={6} md={4}>
+          <Stack direction="column" spacing={0.5}>
+            <p style={{ fontSize: 12, color: "#616161" }}>Delayed</p>
+            <p style={{ fontSize: 13 }}>{reseller.orderDetails?.delayed}</p>
           </Stack>
         </Grid>
       </Grid>
@@ -332,8 +375,11 @@ export function ResellerCard({ reseller, actions, expandable, detailView }: Rese
           expanded &&
           <Grid item xs={12} md={7} style={{ borderLeft: "1px solid #e1e1e1", margin: "-18px", padding: 18, paddingLeft: 24 }}>
             <Box sx={{ display: { xs: 'block', md: 'none' }, margin: "18px -18px", borderTop: "1px solid #e1e1e1" }} />
-            {salesData}
-            {accountBalance}
+            <Stack spacing={2}>
+              {salesData}
+              {accountBalance}
+              {orderDetails}
+            </Stack>
           </Grid>
         }
       </Grid>

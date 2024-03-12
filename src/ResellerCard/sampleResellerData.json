@@ -88,6 +88,7 @@
     "allowPartialShipments": true,
     "fiscalYearMonthStart": 1,
     "about": "",
+    "isQualified": true,
     "salesData": {
       "resellerId": "200325",
       "manufacturerId": null,
@@ -96,11 +97,10 @@
       "salesYearToDay": 51119.31,
       "salesLast3Months": 175851.92
     },
-    "statement": {
-      "over45": 122.500,
-      "over30": 40308.210,
-      "over0": 9174.370,
-      "total": 49605.080
+    "orderDetails": {
+      "processing": 122.500,
+      "shipped": 40308.210,
+      "delayed": 9174.370
     }
   }
 ]
