@@ -1,9 +1,11 @@
 import styled from "@emotion/styled";
 import { Modal } from "@mui/base/Modal";
-import { Box, Grid, Stack } from "@mui/material";
-import { ArrowsInSimple, ArrowsOutSimple, Circle, EnvelopeSimple, GlobeSimple, Phone, SealCheck, Storefront, User } from "@phosphor-icons/react";
+import { Grid } from "@mui/material";
+import { Box, Stack } from "@mui/system";
+import { ArrowsInSimple, ArrowsOutSimple, Circle, EnvelopeSimple, GlobeSimple, Phone, SealCheck, Storefront } from "@phosphor-icons/react";
 import { motion } from "framer-motion";
 import React, { useState } from "react";
+import { Image } from "../Image";
 import { Paper } from "../Paper";
 import blue from "../colors/blue";
 import purple from "../colors/purple";
@@ -94,43 +96,16 @@ export function ResellerCard({ reseller, actions, expandable, detailView }: Rese
   }
 
   const titleContent = (
-    <Grid container spacing={2}>
-      <Grid item xs={3}>
-        {
-          hasImage ?
-            <motion.img
-              layout="position"
-              src={`https://api.randmar.io/V4/Application/${reseller.resellerId}/Account/Logo`}
-              onError={() => setHasImage(false)}
-              alt={`${reseller.publicName} logo`}
-              style={{
-                width: '100%',
-                aspectRatio: '1/1',
-                objectFit: "contain",
-                borderRadius: 8,
-                border: "1px solid #e3e3e3",
-              }}
-            />
-            :
-            <div
-              style={{
-                width: '100%',
-                aspectRatio: '1/1',
-                borderRadius: 8,
-                border: "1px solid #e3e3e3",
-                backgroundColor: "#fafafa",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <User size={24} color="#949494" />
-            </div>
-        }
-      </Grid>
+    <Box sx={{ display: 'flex', gap: 2 }}>
+      <Box sx={{ flexShrink: 0 }}>
+        <Image
+          src={`https://api.randmar.io/V4/Application/${reseller.resellerId}/Account/Logo`}
+          alt={`${reseller.publicName} logo`}
+        />
+      </Box>
       <Grid item xs={12} md={9}>
         <motion.div layout="position">
-          <Stack direction="row" alignItems="center" spacing={0.5} mb={0.75}>
+          <Stack direction="row" alignItems="center" flexWrap="wrap" spacing={0.5} mb={0.75}>
             {
               !detailView &&
               <Stack direction="row" spacing={0.5} alignItems="center" style={{ backgroundColor: blue[100], padding: "4px 8px", borderRadius: 12, width: "max-content", height: "max-content" }}>
@@ -185,7 +160,7 @@ export function ResellerCard({ reseller, actions, expandable, detailView }: Rese
           </div>
         </motion.div>
       </Grid>
-    </Grid>
+    </Box>
   );
 
   const salesData = (
@@ -367,13 +342,13 @@ export function ResellerCard({ reseller, actions, expandable, detailView }: Rese
           }
         </ExpandIconContainer>
       }
-      <Grid container spacing={0}>
+      <Grid container spacing={2}>
         <Grid item xs={12} md={expanded ? 5 : 12}>
           {titleContent}
         </Grid>
         {
           expanded &&
-          <Grid item xs={12} md={7} style={{ borderLeft: "1px solid #e1e1e1", margin: "-18px", padding: 18, paddingLeft: 24 }}>
+          <Grid item xs={12} md={7} style={{ borderLeft: "1px solid #e1e1e1", marginBottom: "-18px" }}>
             <Box sx={{ display: { xs: 'block', md: 'none' }, margin: "18px -18px", borderTop: "1px solid #e1e1e1" }} />
             <Stack spacing={2}>
               {salesData}
