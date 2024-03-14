@@ -80,7 +80,6 @@ interface ResellerCardProps {
 
 export function ResellerCard({ reseller, actions, expandable, detailView }: ResellerCardProps) {
   const [expanded, setExpanded] = useState(false);
-  const [hasImage, setHasImage] = useState(true);
 
   const currency = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -101,6 +100,7 @@ export function ResellerCard({ reseller, actions, expandable, detailView }: Rese
         <Image
           src={`https://api.randmar.io/V4/Application/${reseller.resellerId}/Account/Logo`}
           alt={`${reseller.publicName} logo`}
+          altIcon={Storefront}
         />
       </Box>
       <Grid item xs={12} md={9}>
