@@ -12,27 +12,28 @@ const sizeMap = {
   xl: "192px",
 }
 
-interface ImageProps {
-  src: string;
-  alt: string;
+interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   altIcon?: PhosphorIcon;
   size?: "xs" | "sm" | "md" | "lg" | "xl";
   aspectRatio?: string;
   width?: string | number;
   zoomable?: boolean;
+  backgroundColor?: string;
 }
 
-export function Image({ src, alt, altIcon: AltIcon, size, width, aspectRatio, zoomable }: ImageProps) {
+export function Image({ src, alt, style, altIcon: AltIcon, size, aspectRatio, zoomable, backgroundColor }: ImageProps) {
   const [error, setError] = useState(false);
   const [hovered, setHovered] = useState(false);
   const [open, setOpen] = useState(false);
 
   const baseStyle = {
-    width: width || sizeMap[size || "md"],
+    width: sizeMap[size || "md"],
+    maxWidth: 'max-content',
     aspectRatio: aspectRatio || '1/1',
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: backgroundColor || "white",
   };
 
   const Overlay = styled.div`
@@ -68,22 +69,17 @@ export function Image({ src, alt, altIcon: AltIcon, size, width, aspectRatio, zo
     return imageSize / 5 + 8;
   }
 
-  if (error)
-    return (
-      <div style={{ ...baseStyle, backgroundColor: "#fafafa", border: "1px solid #e3e3e3", borderRadius: 8 }}>
-        {
-          AltIcon ?
-            <AltIcon size={iconSize()} color="#949494" />
-            :
-            <ImageIcon size={iconSize()} color="#949494" />
-        }
-      </div>
-    );
-
-  return (
+  const mainMarkup = (
     <>
       <div
-        style={{ ...baseStyle, position: 'relative', border: "1px solid #e3e3e3", borderRadius: 8, cursor: zoomable ? "pointer" : "default" }}
+        style={{
+          ...baseStyle,
+          position: 'relative',
+          border: "1px solid #e3e3e3",
+          borderRadius: 8,
+          cursor: zoomable ? "pointer" : undefined,
+          ...style
+        }}
         onMouseEnter={() => zoomable && setHovered(true)}
         onMouseLeave={() => zoomable && setHovered(false)}
         onClick={handleClick}
@@ -112,4 +108,18 @@ export function Image({ src, alt, altIcon: AltIcon, size, width, aspectRatio, zo
       </Modal>
     </>
   );
+
+  if (error)
+    return (
+      <div style={{ ...baseStyle, backgroundColor: "#fafafa", border: "1px solid #e3e3e3", borderRadius: 8 }}>
+        {
+          AltIcon ?
+            <AltIcon size={iconSize()} color="#949494" />
+            :
+            <ImageIcon size={iconSize()} color="#949494" />
+        }
+      </div>
+    );
+
+  return mainMarkup;
 };
