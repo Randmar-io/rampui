@@ -102,6 +102,7 @@ export function Image({ src, alt, style, altIcon: AltIcon, size, aspectRatio, zo
         <motion.img
           layout="position"
           src={src}
+          style={{ maxWidth: "80vw", maxHeight: "80vh", objectFit: "contain" }}
           onError={() => setError(true)}
           alt={alt}
         />
@@ -111,7 +112,16 @@ export function Image({ src, alt, style, altIcon: AltIcon, size, aspectRatio, zo
 
   if (error)
     return (
-      <div style={{ ...baseStyle, backgroundColor: "#fafafa", border: "1px solid #e3e3e3", borderRadius: 8 }}>
+      <div style={{
+        width: sizeMap[size || "md"],
+        aspectRatio: "1 / 1",
+        backgroundColor: "#fafafa",
+        border: "1px solid #e3e3e3",
+        borderRadius: 8,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}>
         {
           AltIcon ?
             <AltIcon size={iconSize()} color="#949494" />
