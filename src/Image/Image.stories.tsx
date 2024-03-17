@@ -21,7 +21,7 @@ export const WithLink: Story = {
   render: () => (
     <a href="https://www.pexels.com/photo/19845824" style={{ display: "inline-block" }}>
       <Image
-        src="https://images.pexels.dcom/photos/19845824/pexels-photo-19845824/free-photo-of-a-grassy-hill-with-a-beach-and-ocean-in-the-background.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+        src="https://images.pexels.com/photos/19845824/pexels-photo-19845824/free-photo-of-a-grassy-hill-with-a-beach-and-ocean-in-the-background.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
         alt="A beautiful beach"
         size="xl"
       />
@@ -35,7 +35,7 @@ export const WithLink: Story = {
 export const Zoomable: Story = {
   render: () => (
     <Image
-      src="https://images.pexels.com/photos/19845824/pexels-photo-19845824/free-photo-of-a-grassy-hill-with-a-beach-and-ocean-in-the-background.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+      src="https://api.randmar.io/Product/6090153/Image"
       alt="A beautiful beach"
       size="xl"
       zoomable

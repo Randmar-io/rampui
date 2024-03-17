@@ -102,6 +102,7 @@ export function Image({ src, alt, style, altIcon: AltIcon, size, aspectRatio, zo
         <motion.img
           layout="position"
           src={src}
+          style={{ maxWidth: "80vw", maxHeight: "80vh", objectFit: "contain" }}
           onError={() => setError(true)}
           alt={alt}
         />
