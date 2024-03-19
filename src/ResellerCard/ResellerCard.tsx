@@ -94,12 +94,19 @@ export function ResellerCard({ reseller, actions, expandable, detailView }: Rese
     return new Date(`${year}-${month}-${day}`).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
   }
 
+  let resellerName;
+  if (reseller.publicName !== null && reseller.publicName !== '') {
+    resellerName = reseller.publicName;
+  } else {
+    resellerName = reseller.name;
+  }
+
   const titleContent = (
     <Box sx={{ display: 'flex', gap: 2 }}>
       <Box sx={{ flexShrink: 0 }}>
         <Image
           src={`https://api.randmar.io/V4/Application/${reseller.resellerId}/Account/Logo`}
-          alt={`${reseller.publicName} logo`}
+          alt={`${resellerName} logo`}
           altIcon={Storefront}
         />
       </Box>
@@ -130,7 +137,7 @@ export function ResellerCard({ reseller, actions, expandable, detailView }: Rese
           </Stack>
 
           <div>
-            <h3 style={{ fontSize: 16, fontWeight: 600 }}>{reseller.publicName}</h3>
+            <h3 style={{ fontSize: 16, fontWeight: 600 }}>{resellerName}</h3>
             <p style={{ paddingTop: 2, fontSize: 13, color: "#656565" }}>{reseller.city}, {reseller.province}, {reseller.country}</p>
           </div>
 
