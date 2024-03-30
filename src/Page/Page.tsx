@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Stack } from "@mui/system";
-import React from "react";
+import React, { useEffect } from "react";
 
 export interface PageProps {
   children?: React.ReactNode;
@@ -27,6 +27,10 @@ const PageContainer = styled.div<PageProps>`
 `;
 
 export function Page({ children, title, subtitle, primaryAction, secondaryActions, midWidth, narrowWidth }: PageProps) {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <PageContainer midWidth={midWidth} narrowWidth={narrowWidth}>
       {(title || subtitle || primaryAction || secondaryActions) && (
