@@ -51,7 +51,12 @@
     "typescript": "^5.3.3",
     "vite": "^5.0.11",
     "vite-plugin-svgr": "^4.2.0",
-    "vitest": "^1.2.1"
+    "vitest": "^1.2.1",
+    "@emotion/react": "^11.11.4",
+    "@lottiefiles/react-lottie-player": "^3.5.3",
+    "@mui/icons-material": "^5.15.8",
+    "@mui/material": "^5.14.17",
+    "framer-motion": "^11.0.8"
   },
   "peerDependencies": {
     "@phosphor-icons/react": "^2.0.15",
@@ -60,12 +65,5 @@
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
-  },
-  "dependencies": {
-    "@emotion/react": "^11.11.3",
-    "@lottiefiles/react-lottie-player": "^3.5.3",
-    "@mui/icons-material": "^5.15.8",
-    "@mui/material": "^5.14.17",
-    "framer-motion": "^11.0.8"
   }
 }
