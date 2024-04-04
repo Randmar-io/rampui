@@ -28,6 +28,7 @@
   "homepage": "https://github.com/Randmar/rampui#readme",
   "devDependencies": {
     "@babel/preset-react": "^7.24.1",
+    "@babel/preset-typescript": "^7.24.1",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
     "@lottiefiles/react-lottie-player": "^3.5.3",
