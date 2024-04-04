@@ -19,8 +19,10 @@ export function ModelViewer({ source }: ModelViwerProps) {
     let camera = new THREE.PerspectiveCamera(75, width / height, 0.01, 1000);
     let renderer = new THREE.WebGLRenderer();
     renderer.setSize(width, height);
-    let light = new THREE.AmbientLight(0xffffff, 2);
-    scene.add(light);
+    let ambientLight = new THREE.AmbientLight(0xffffff, 2);
+    scene.add(ambientLight);
+    let spotLight = new THREE.SpotLight(0xffffff, 2);
+    scene.add(spotLight);
 
     refContainer.current && refContainer.current.appendChild(renderer.domElement);
     scene.background = new THREE.Color(0xffffff);
