@@ -4,6 +4,7 @@ export * from "./Education";
 export * from "./ExpandPanelIcon";
 export * from "./Image";
 export * from "./Layout";
+export * from "./ModelViewer";
 export * from "./NavMenu";
 export * from "./Page";
 export * from "./Preloader";
