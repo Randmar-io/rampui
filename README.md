@@ -1,5 +1,7 @@
 # RampUI - Randmar.io React Component Library
 
+https://www.npmjs.com/package/rampui
+
 ## What
 An easy to maintain React components library that is built on top of MUI Base (for customized components) and MUI Material. It is published to npm on every push to the master branch.
 
