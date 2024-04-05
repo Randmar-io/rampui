@@ -9,7 +9,7 @@ interface ModalProps extends MuiModalProps {
   actions?: React.ReactNode[];
 }
 
-export default function Modal({ children, title, actions, onClose, ...rest }: ModalProps) {
+export function Modal({ children, title, actions, onClose, ...rest }: ModalProps) {
   return (
     <ModalBase slots={{ backdrop: Backdrop }} onClose={onClose} disableAutoFocus {...rest}>
       <Body>

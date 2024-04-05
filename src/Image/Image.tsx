@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { Image as ImageIcon, MagnifyingGlassPlus, Icon as PhosphorIcon } from "@phosphor-icons/react";
 import { motion } from "framer-motion";
 import React, { useState } from "react";
-import Modal from "../Modal/Modal";
+import { Modal } from "../Modal";
 
 const sizeMap = {
   xs: "48px",

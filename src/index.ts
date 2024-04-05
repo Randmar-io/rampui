@@ -8,6 +8,7 @@ export * from "./ModelViewer";
 export * from "./NavMenu";
 export * from "./Page";
 export * from "./Preloader";
+export * from "./ProductImage";
 export * from "./ProductInventoryGrid";
 export * from "./Provider";
 export * from "./ResellerCard";

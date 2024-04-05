@@ -40,9 +40,9 @@ export function ModelViewer({ source }: ModelViwerProps) {
         const fov = camera.fov * (Math.PI / 180);
         let cameraZ = Math.abs((maxDim / 2) * Math.tan(fov * 2));
         camera.position.copy(center);
-        camera.position.z = cameraZ * 3;
+        camera.position.z = cameraZ;
         camera.position.x = maxDim * 0.7;
-        camera.position.y = maxDim * 0.8; 
+        camera.position.y = maxDim * 0.8;
         camera.lookAt(center);
       }
     )

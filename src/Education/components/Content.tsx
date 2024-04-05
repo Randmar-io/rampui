@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { ArrowUpRight, Headset } from "@phosphor-icons/react";
 import React from "react";
 import { Button } from "../../Button";
-import Modal from "../../Modal/Modal";
+import { Modal } from "../../Modal";
 import grey from "../../colors/grey";
 import { EducationProps } from "../Education";
 
