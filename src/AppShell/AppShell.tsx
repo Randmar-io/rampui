@@ -30,12 +30,6 @@ export function AppShell({ children, menuItems, logo, searchBar, rightMenu, foot
   const [showMenu, setShowMenu] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (contentRef.current) {
-      contentRef.current.scrollTop = 0;
-    }
-  }, [children])
-
   return (
     <AppShellContainer {...rest}>
       <TopBar
