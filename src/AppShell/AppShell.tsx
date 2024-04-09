@@ -10,6 +10,7 @@ export interface AppShellProps extends React.HTMLAttributes<HTMLDivElement> {
   rightMenu?: React.ReactElement;
   menuItems?: NavLinkProps[];
   footer?: React.ReactNode;
+  pathname?: string;
 }
 
 const AppShellContainer = styled.div`
@@ -26,9 +27,15 @@ const AppShellContent = styled.div`
   overflow-y: auto;
 `
 
-export function AppShell({ children, menuItems, logo, searchBar, rightMenu, footer, ...rest }: AppShellProps) {
+export function AppShell({ children, menuItems, logo, searchBar, rightMenu, footer, pathname, ...rest }: AppShellProps) {
   const [showMenu, setShowMenu] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (contentRef.current) {
+      contentRef.current.scrollTop = 0;
+    }
+  }, [pathname])  
 
   return (
     <AppShellContainer {...rest}>
