@@ -95,11 +95,14 @@ export function ResellerCard({ reseller, actions, expandable, detailView }: Rese
   }
 
   let resellerName;
-  if (reseller.publicName !== null && reseller.publicName !== '') {
+  if (reseller && reseller.publicName) {
     resellerName = reseller.publicName;
   } else {
     resellerName = reseller.name;
   }
+
+  const cardTitle = reseller.publicName || reseller.name;
+  const cardSubtitle = !reseller.publicName ? "" : reseller.name;
 
   const titleContent = (
     <Box sx={{ display: 'flex', gap: 2 }}>
@@ -137,7 +140,11 @@ export function ResellerCard({ reseller, actions, expandable, detailView }: Rese
           </Stack>
 
           <div>
-            <h3 style={{ fontSize: 16, fontWeight: 600 }}>{resellerName}</h3>
+            <h3 style={{ fontSize: 16, fontWeight: 600 }}>{cardTitle}</h3>
+            {
+              cardSubtitle &&
+              <h3 style={{ paddingTop: 2, fontSize: 14, fontWeight: 500, color: "#656565" }}>{reseller.name}</h3>
+            }
             <p style={{ paddingTop: 2, fontSize: 13, color: "#656565" }}>{reseller.city}, {reseller.province}, {reseller.country}</p>
           </div>
 
