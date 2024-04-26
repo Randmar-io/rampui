@@ -27,7 +27,10 @@ export const WithStartIcon: Story = {
     children: 'Icon',
     starticon: Airplane,
     size: 'medium',
-    variant: 'primary'
+    variant: 'primary',
+    iconProps: {
+      weight: "fill"
+    }
   },
 };
 
