@@ -1,5 +1,5 @@
 import { Stack } from "@mui/system";
-import { Icon as PhosphorIcon } from "@phosphor-icons/react";
+import { Icon as PhosphorIcon, IconProps as PhosphorIconProps } from "@phosphor-icons/react";
 import React from "react";
 import { ButtonBase } from "./ButtonBase";
 import { ButtonLoader } from './ButtonLoader/ButtonLoader';
@@ -13,9 +13,10 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   endicon?: PhosphorIcon;
   fullWidth?: boolean;
   loading?: boolean;
+  iconProps?: PhosphorIconProps
 }
 
-const renderContent = ({ starticon: StartIcon, endicon: EndIcon, children, loading, variant, size }: ButtonProps) => {
+const renderContent = ({ starticon: StartIcon, endicon: EndIcon, children, loading, variant, size, iconProps }: ButtonProps) => {
   const iconSize = {
     small: 13,
     medium: 15,
@@ -49,9 +50,9 @@ const renderContent = ({ starticon: StartIcon, endicon: EndIcon, children, loadi
         justifyContent="center"
         spacing={spacing[size || "medium"]}
       >
-        {StartIcon && <StartIcon size={iconSize[size || "medium"]} weight="bold" />}
+        {StartIcon && <StartIcon size={iconSize[size || "medium"]} weight={"bold"} {...iconProps} />}
         {children && <div>{children}</div>}
-        {EndIcon && <EndIcon size={iconSize[size || "medium"]} weight="bold" />}
+        {EndIcon && <EndIcon size={iconSize[size || "medium"]} weight={"bold"} {...iconProps} />}
       </Stack>
     </div >
   )
