@@ -16,9 +16,9 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
-  render: () => <ProductImage randmarSKU="PNK0BFY6ZS85UVCBBDM3" />
+  render: () => <ProductImage size="md" randmarSKU="BQ8H33ZCV0QJW9D1ULCN" />
 };
 
 export const WithSecondaryContent: Story = {
-  render: () => <ProductImage size="lg" randmarSKU="PNK0BFY6ZS85UVCBBDM3" secondaryContent={<div>Secondary</div>} />
+  render: () => <ProductImage size="lg" randmarSKU="BQ8H33ZCV0QJW9D1ULCN" secondaryContent={<div>Secondary</div>} />
 };
