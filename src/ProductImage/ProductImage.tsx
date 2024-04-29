@@ -1,5 +1,5 @@
 import { Stack } from '@mui/system';
-import { Basket, CubeFocus } from '@phosphor-icons/react';
+import { Basket, CubeFocus, Download } from '@phosphor-icons/react';
 import React, { useEffect, useState } from 'react';
 import { Button } from '../Button';
 import { Image } from '../Image';
@@ -36,6 +36,16 @@ export function ProductImage({ randmarSKU, size, alt, secondaryContent }: Produc
     </Stack>
   )
 
+  const download3DModel = async () => {
+    const filename = `${randmarSKU}_3DModel.glb`; // adjust the filename as needed
+    const response = await fetch(`https://api.randmar.io/Product/${randmarSKU}/3DModel`);
+    const blob = await response.blob();
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = filename;
+    link.click();
+  };
+
   const buttonSize = (size === "xl" || size === undefined) ? "medium" : "small";
   const spacing = (size === "xl" || size === undefined) ? 2 : 1;
 
@@ -53,9 +63,18 @@ export function ProductImage({ randmarSKU, size, alt, secondaryContent }: Produc
       <Stack alignItems="center" spacing={spacing}>
         {
           has3DModel &&
-          <Button variant="secondary" size={buttonSize} starticon={CubeFocus} onClick={() => setOpen(true)}>
-            View 3D Model
-          </Button>
+          <Stack direction="row" spacing={0.5} alignItems="center">
+            <Button variant="secondary" size={buttonSize} starticon={CubeFocus} onClick={() => setOpen(true)}>
+              View 3D Model
+            </Button>
+            <Button
+              variant="secondary"
+              size={buttonSize}
+              starticon={Download}
+              style={{ height: buttonSize === "small" ? 26.1 : 31.6 }}
+              onClick={download3DModel}
+            />
+          </Stack>
         }
         <Image
           alt={alt}
