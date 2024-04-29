@@ -37,7 +37,7 @@ export function ProductImage({ randmarSKU, size, alt, secondaryContent }: Produc
   )
 
   const download3DModel = async () => {
-    const filename = `${randmarSKU}_3DModel.glb`; // adjust the filename as needed
+    const filename = `${randmarSKU}_3DModel.glb`;
     const response = await fetch(`https://api.randmar.io/Product/${randmarSKU}/3DModel`);
     const blob = await response.blob();
     const link = document.createElement('a');
