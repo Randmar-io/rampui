@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import Grid from "@mui/material/Grid";
 import React from "react";
 import { NavLink, NavLinkProps } from "./NavLink";
 
@@ -7,6 +8,7 @@ export interface NavMenuProps {
   show?: boolean;
   closeMenu?: () => void;
   footer?: React.ReactNode;
+  mobile?: boolean;
 }
 
 const NavMenuContainer = styled.div<NavMenuProps>`
@@ -39,20 +41,49 @@ const NavMenuContainer = styled.div<NavMenuProps>`
   &::-webkit-scrollbar {
     display: none;
   }
-`
+`;
 
-export function NavMenu({ menuItems, show, closeMenu, footer }: NavMenuProps) {
-  const footerStyle : React.CSSProperties = {
+const MobileViewContainer = styled.div`
+  @media screen and (min-width: 768px) {
+    display: none;
+  }
+`;
+
+const StandardViewContainer = styled.div`
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+`;
+
+export function NavMenu({ menuItems, show, closeMenu, footer, mobile }: NavMenuProps) {
+  const footerStyle: React.CSSProperties = {
     marginTop: 'auto',
   };
 
   return (
     <NavMenuContainer show={show}>
-      {menuItems && menuItems.map((menuItem, idx) => (
-        <div onClick={closeMenu}>
-          <NavLink {...menuItem} key={idx} />
-        </div>
-      ))}
+      <MobileViewContainer>
+        <Grid container spacing={3}>
+          {menuItems && menuItems.map((menuItem, idx) => {
+            if (menuItem.hidden) return;
+
+            return (
+              <Grid item xs={4} onClick={closeMenu}>
+                <NavLink {...menuItem} key={idx} mobile />
+              </Grid>
+            )
+          })}
+        </Grid>
+      </MobileViewContainer>
+      <StandardViewContainer>
+        {
+          menuItems && menuItems.map((menuItem, idx) => (
+            <div onClick={closeMenu}>
+              <NavLink {...menuItem} key={idx} />
+            </div>
+          ))
+        }
+      </StandardViewContainer>
       <div style={footerStyle}>
         {footer}
       </div>

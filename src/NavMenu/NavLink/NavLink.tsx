@@ -9,6 +9,7 @@ export interface NavLinkProps extends React.HTMLAttributes<HTMLLIElement> {
   label?: string;
   selected?: boolean;
   linkComponent?: React.ReactNode;
+  mobile?: boolean;
 }
 
 const NavLinkContainer = styled('li')<NavLinkProps>(({ selected }) =>
@@ -32,10 +33,10 @@ const NavLinkContainer = styled('li')<NavLinkProps>(({ selected }) =>
   `
 );
 
-export function NavLink({ icon: Icon, label, selected, linkComponent, hidden, ...rest }: NavLinkProps) {
+export function NavLink({ icon: Icon, label, selected, linkComponent, hidden, mobile, ...rest }: NavLinkProps) {
   const theme = useTheme();
 
-  const navLink = (
+  const navLinkStandard = (
     <NavLinkContainer selected={selected} {...rest}>
       {
         Icon &&
@@ -45,7 +46,21 @@ export function NavLink({ icon: Icon, label, selected, linkComponent, hidden, ..
       }
       <span style={{ fontWeight: selected ? 600 : 500, color: selected ? theme.color[600] : '#464646' }}>{label}</span>
     </NavLinkContainer>
-  )
+  );
+
+  const navLinkMobile = (
+    <NavLinkContainer selected={selected} {...rest} style={{ justifyContent: 'center', flexFlow: 'column', padding: 'var(--r-spacing-30)', }}>
+      {
+        Icon &&
+        <CenteredFlexbox>
+          <Icon color={selected ? theme.color[500] : "#545454"} size={16} weight={selected ? "bold" : "regular"} />
+        </CenteredFlexbox>
+      }
+      <div style={{ fontWeight: selected ? 600 : 500, color: selected ? theme.color[600] : '#464646' }}>{label}</div>
+    </NavLinkContainer>
+  );
+
+  const navLink = mobile ? navLinkMobile : navLinkStandard;
 
   if (hidden) return null;
 
