@@ -1,5 +1,6 @@
 export * from "./AppShell";
 export * from "./Button";
+export * from "./DocumentCard";
 export * from "./Education";
 export * from "./ExpandPanelIcon";
 export * from "./ExpandableCard";
@@ -14,3 +15,5 @@ export * from "./ProductImage";
 export * from "./ProductInventoryGrid";
 export * from "./Provider";
 export * from "./ResellerCard";
+export * from "./TextField";
+
