@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
 import { Modal } from "@mui/base";
-import { Paper } from "@mui/material";
 import { ArrowsInSimple, ArrowsOutSimple } from "@phosphor-icons/react";
 import { motion } from "framer-motion";
 import React from "react";
+import { Paper } from "../Paper";
 
 export interface ExpandableCardProps {
   id?: string;
