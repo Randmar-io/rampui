@@ -35,22 +35,22 @@ interface ManufacturerInfo {
   contactName?: string;
   phone?: string;
   website?: string;
-  creditLimit?: number;
+  creditLimit?: string;
   domain?: string;
   autoUpdate?: boolean;
   openToWork?: boolean;
   termsCode?: string;
   terms?: string;
-  defaultMinimumOrder?: number;
-  defaultLeadTime?: number;
+  defaultMinimumOrder?: string;
+  defaultLeadTime?: string;
   defaultWeeksOfStocking?: number;
-  defaultMaxInventoryValue?: number;
+  defaultMaxInventoryValu?: string;
   autoReorderDate?: number;
   publicName?: string;
   publicEmail?: string;
   creationDate?: number;
-  lastUpdatedDate?: number;
-  outstandingBalance?: number;
+  lastUpdatedDate?: string;
+  outstandingBalance?: string;
   tags?: string;
   fiscalYearMonthStart?: number;
   salesData?: SalesData;
@@ -189,7 +189,7 @@ export function ManufacturerCard({ manufacturer, actions, expandable, detailView
         <Grid item xs={3}>
           <Stack direction="column" spacing={0.5}>
             <p style={{ fontSize: 12, color: "#616161" }}>Minimum order</p>
-            <p style={{ fontSize: 13 }}>{currency.format(manufacturer.defaultMinimumOrder || 0)}</p>
+            <p style={{ fontSize: 13 }}>{currency.format(parseInt(manufacturer.defaultMinimumOrder || ""))}</p>
           </Stack>
         </Grid>
         <Grid item xs={3}>
@@ -272,7 +272,7 @@ export function ManufacturerCard({ manufacturer, actions, expandable, detailView
         </Grid>
       </Grid>
     </div>
-  )
+  );
 
 
   const expandableCardContent = (
