@@ -75,10 +75,13 @@ const Body = styled.div`
   padding: var(--r-spacing-50);
   border-radius: var(--r-border-radius-md);
   box-shadow: var(--r-shadow-xl);
-`
+  max-height: 90vh;
+`;
 
 const Content = styled.div`
   overflow-y: scroll;
+  max-height: 80vh;
+  overflow-y: auto;
 
   &::-webkit-scrollbar {
     display: none;
@@ -94,12 +97,13 @@ const ModalBase = styled(MuiBaseModal)`
   justify-content: center;
 `;
 
-const Backdrop = styled.div`
+const Backdrop = styled.div<ModalProps>`
   z-index: -1;
   position: fixed;
   inset: 0;
   background-color: rgb(0 0 0 / 0.1);
   backdrop-filter: blur(10px);
   -webkit-tap-highlight-color: transparent;
-  transition: all 150ms ease;
+  transition: opacity 0.3s ease-in-out;
+  opacity: ${props => (props.open ? '1' : '0')};
 `;

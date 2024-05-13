@@ -1,5 +1,6 @@
 export * from "./AppShell";
 export * from "./Button";
+export * from "./Card";
 export * from "./DocumentCard";
 export * from "./Education";
 export * from "./ExpandPanelIcon";
