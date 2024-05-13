@@ -21,7 +21,9 @@ export const ModalExample = () => {
   return (
     <>
       <Button onClick={() => setOpen(true)}>Open modal</Button>
-      <Modal open={open} onClose={() => setOpen(false)} title="Modal title"><div>Modal</div></Modal>
+      <Modal open={open} onClose={() => setOpen(false)} title="Modal title">
+        <div style={{ height: '120vh' }}>Modal</div>
+      </Modal>
     </>
   )
 }
