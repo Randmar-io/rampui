@@ -127,7 +127,6 @@ export function ManufacturerCard({ manufacturer, actions, expandable, detailView
             <p style={{ paddingTop: 2, fontSize: 13, color: "#656565" }}>{manufacturer.city}, {manufacturer.province}, {manufacturer.country}</p>
           </div>
 
-
           <div>
             {
               manufacturer.phone &&
@@ -230,8 +229,8 @@ export function ManufacturerCard({ manufacturer, actions, expandable, detailView
             </Grid>
             <Grid item xs={12} sm={8} md={manufacturer.about ? 6 : 3}>
               <Stack direction="column" spacing={0.5}>
-                <p style={{ fontSize: 12, color: "#616161" }}>Email</p>
-                <p style={{ fontSize: 13 }}>{manufacturer.publicEmail}</p>
+                <p style={{ fontSize: 12, color: "#616161" }}>Rep Email</p>
+                <p style={{ fontSize: 13 }}>{manufacturer.representativeEmail}</p>
               </Stack>
             </Grid>
             <Grid item xs={12} md={manufacturer.about ? 12 : 6}>

@@ -7,6 +7,7 @@ export * from "./ExpandPanelIcon";
 export * from "./ExpandableCard";
 export * from "./Image";
 export * from "./Layout";
+export * from "./ManufacturerCard";
 export * from "./ModelViewer";
 export * from "./NavMenu";
 export * from "./Page";
@@ -17,4 +18,3 @@ export * from "./ProductInventoryGrid";
 export * from "./Provider";
 export * from "./ResellerCard";
 export * from "./TextField";
-
