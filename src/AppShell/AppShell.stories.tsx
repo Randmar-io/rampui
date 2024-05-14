@@ -95,7 +95,14 @@ export const AppShellWithItems = () => {
             confirmationDialog={{
               title: "Are you sure?",
               content: "This action cannot be undone",
-              onConfirm: () => console.log("Confirmed")
+              onConfirm: async () => {
+                return new Promise(resolve => {
+                  setTimeout(() => {
+                    console.log("Confirmed");
+                    resolve();
+                  }, 3000);
+                });
+              }
             }}
           />
         </Stack>

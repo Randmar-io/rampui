@@ -93,7 +93,7 @@ export function Button({ loading, disabled, confirmationDialog, ...rest }: Butto
           onClose={() => setOpen(false)}
           actions={[
             <Button onClick={() => setOpen(false)}>Cancel</Button>,
-            <Button variant="primary" onClick={handleConfirm} loading={loading}>Confirm</Button>
+            <Button variant="primary" onClick={handleConfirm} loading={isLoading}>Confirm</Button>
           ]}
         >
           <div>
