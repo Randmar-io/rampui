@@ -1,8 +1,15 @@
 import { Stack } from "@mui/system";
 import { Icon as PhosphorIcon, IconProps as PhosphorIconProps } from "@phosphor-icons/react";
-import React from "react";
+import React, { useState } from "react";
+import { Modal } from "../Modal";
 import { ButtonBase } from "./ButtonBase";
 import { ButtonLoader } from './ButtonLoader/ButtonLoader';
+
+interface ConfirmationDialog {
+  title: string;
+  content?: string;
+  onConfirm: () => void;
+}
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children?: React.ReactNode;
@@ -13,14 +20,16 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   endicon?: PhosphorIcon;
   fullWidth?: boolean;
   loading?: boolean;
-  iconProps?: PhosphorIconProps
+  iconProps?: PhosphorIconProps;
+  iconOnly?: boolean;
+  confirmationDialog?: ConfirmationDialog;
 }
 
 const renderContent = ({ starticon: StartIcon, endicon: EndIcon, children, loading, variant, size, iconProps }: ButtonProps) => {
   const iconSize = {
-    small: 13,
-    medium: 15,
-    large: 17
+    small: 14,
+    medium: 16,
+    large: 18
   }
 
   const spacing = {
@@ -55,13 +64,47 @@ const renderContent = ({ starticon: StartIcon, endicon: EndIcon, children, loadi
         {EndIcon && <EndIcon size={iconSize[size || "medium"]} weight={"bold"} {...iconProps} />}
       </Stack>
     </div >
-  )
+  );
 };
 
-export function Button({ loading, disabled, ...rest }: ButtonProps) {
+export function Button({ loading, disabled, confirmationDialog, ...rest }: ButtonProps) {
+  if (confirmationDialog) {
+    const [open, setOpen] = useState(false);
+    const { title, content, onConfirm } = confirmationDialog;
+
+    return (
+      <>
+        <Modal
+          title={title}
+          open={open}
+          onClose={() => setOpen(false)}
+          actions={[
+            <Button onClick={() => setOpen(false)}>Cancel</Button>,
+            <Button variant="primary" onClick={() => {
+              onConfirm();
+              setOpen(false);
+            }}>
+              Confirm
+            </Button>
+          ]}
+        >
+          <div>
+            {content}
+          </div>
+        </Modal>
+        <ButtonBase
+          onClick={() => setOpen(true)}
+          {...rest}
+        >
+          {renderContent({ loading, ...rest })}
+        </ButtonBase>
+      </>
+    );
+  }
+
   return (
     <ButtonBase disabled={loading || disabled} {...rest}>
       {renderContent({ loading, ...rest })}
     </ButtonBase>
-  )
+  );
 }

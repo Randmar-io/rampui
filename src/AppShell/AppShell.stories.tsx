@@ -1,4 +1,5 @@
-import { Factory, Headset, House, Notebook, Plugs, ShoppingBagOpen, Storefront, Users, Warehouse } from "@phosphor-icons/react";
+import { Stack } from "@mui/system";
+import { Airplane, Factory, Headset, House, Notebook, Plugs, ShoppingBagOpen, Storefront, Users, Warehouse } from "@phosphor-icons/react";
 import type { Meta, StoryObj } from '@storybook/react';
 import React from "react";
 import { Button } from '../Button';
@@ -87,6 +88,17 @@ export const AppShellWithItems = () => {
         midWidth
       >
         <EducationWithProps />
+        <Stack direction="row" spacing={1}>
+          <Button
+            starticon={Airplane}
+            iconOnly={true}
+            confirmationDialog={{
+              title: "Are you sure?",
+              content: "This action cannot be undone",
+              onConfirm: () => console.log("Confirmed")
+            }}
+          />
+        </Stack>
       </Page>
     </AppShell>
   )
