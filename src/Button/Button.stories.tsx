@@ -17,8 +17,9 @@ type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   args: {
-    variant: "primary",
+    variant: "secondary",
     children: 'Button',
+    disabled: true,
   },
 };
 
@@ -28,9 +29,6 @@ export const WithStartIcon: Story = {
     starticon: Airplane,
     size: 'medium',
     variant: 'primary',
-    iconProps: {
-      weight: "fill"
-    }
   },
 };
 
@@ -45,5 +43,13 @@ export const Small: Story = {
   args: {
     size: 'small',
     children: 'Button',
+  },
+};
+
+export const Icon: Story = {
+  args: {
+    starticon: Airplane,
+    iconOnly: true,
+    size: 'large'
   },
 };

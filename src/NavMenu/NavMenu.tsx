@@ -68,8 +68,8 @@ export function NavMenu({ menuItems, show, closeMenu, footer, mobile }: NavMenuP
             if (menuItem.hidden) return;
 
             return (
-              <Grid item xs={4} onClick={closeMenu}>
-                <NavLink {...menuItem} key={idx} mobile />
+              <Grid item xs={4} onClick={closeMenu} key={idx}>
+                <NavLink {...menuItem} mobile />
               </Grid>
             )
           })}
@@ -78,8 +78,8 @@ export function NavMenu({ menuItems, show, closeMenu, footer, mobile }: NavMenuP
       <StandardViewContainer>
         {
           menuItems && menuItems.map((menuItem, idx) => (
-            <div onClick={closeMenu}>
-              <NavLink {...menuItem} key={idx} />
+            <div onClick={closeMenu} key={idx}>
+              <NavLink {...menuItem} />
             </div>
           ))
         }

@@ -4,12 +4,16 @@ import { Button as MuiBaseButton } from '@mui/base/Button';
 import blue from '../colors/blue';
 import grey from '../colors/grey';
 import { ButtonProps } from "./Button";
-import { colors, fontSizes, paddings } from './styles/buttonStyles';
+import { colors, fontSizes, paddings, paddingsIcon } from './styles/buttonStyles';
 
-export const ButtonBase = styled(MuiBaseButton)<ButtonProps>((props) => {
+export const ButtonBase = styled(MuiBaseButton, {
+  shouldForwardProp: (prop) => prop !== 'iconOnly'
+})<ButtonProps>((props) => {
   const theme = useTheme();
 
-  const padding = paddings[props.size || "medium"];
+  console.log(props.iconOnly)
+
+  const padding = props.iconOnly ? paddingsIcon[props.size || "medium"] : paddings[props.size || "medium"];
   const fontSize = fontSizes[props.size || "medium"]
   const width = props.fullWidth ? "100%" : "max-content";
   const color = props.color ? colors[props.color] : theme.color;
@@ -67,7 +71,7 @@ export const ButtonBase = styled(MuiBaseButton)<ButtonProps>((props) => {
       color: ${color[500]};
       box-shadow: 0px 1px 2px -1px rgba(0, 0, 0, 0.1);
 
-      &:hover {
+      &:hover:not(:disabled) {
         background: ${grey[50]};
         border-color: ${color[200]};  
       }

@@ -17,6 +17,12 @@ export const paddings = {
   "large": "8px 18px"
 }
 
+export const paddingsIcon = {
+  "small": "6px",
+  "medium": "8px",
+  "large": "10px"
+}
+
 export const colors = {
   "default": grey,
   "central": red,
