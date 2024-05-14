@@ -50,6 +50,6 @@ export const Icon: Story = {
   args: {
     starticon: Airplane,
     iconOnly: true,
-    size: 'large'
+    size: 'large',
   },
 };

@@ -11,8 +11,6 @@ export const ButtonBase = styled(MuiBaseButton, {
 })<ButtonProps>((props) => {
   const theme = useTheme();
 
-  console.log(props.iconOnly)
-
   const padding = props.iconOnly ? paddingsIcon[props.size || "medium"] : paddings[props.size || "medium"];
   const fontSize = fontSizes[props.size || "medium"]
   const width = props.fullWidth ? "100%" : "max-content";

@@ -8,7 +8,7 @@ import { ButtonLoader } from './ButtonLoader/ButtonLoader';
 interface ConfirmationDialog {
   title: string;
   content?: string;
-  onConfirm: () => void;
+  onConfirm: () => void | Promise<void>;
 }
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -70,7 +70,20 @@ const renderContent = ({ starticon: StartIcon, endicon: EndIcon, children, loadi
 export function Button({ loading, disabled, confirmationDialog, ...rest }: ButtonProps) {
   if (confirmationDialog) {
     const [open, setOpen] = useState(false);
+    const [isLoading, setLoading] = useState(false);
     const { title, content, onConfirm } = confirmationDialog;
+
+    async function handleConfirm() {
+      try {
+        setLoading(true);
+        await onConfirm();
+        setOpen(false);
+      } catch (e) {
+        console.error(e);
+      } finally {
+        setLoading(false);
+      }
+    }
 
     return (
       <>
@@ -80,12 +93,7 @@ export function Button({ loading, disabled, confirmationDialog, ...rest }: Butto
           onClose={() => setOpen(false)}
           actions={[
             <Button onClick={() => setOpen(false)}>Cancel</Button>,
-            <Button variant="primary" onClick={() => {
-              onConfirm();
-              setOpen(false);
-            }}>
-              Confirm
-            </Button>
+            <Button variant="primary" onClick={handleConfirm} loading={loading}>Confirm</Button>
           ]}
         >
           <div>
