@@ -3,7 +3,7 @@ import React from "react";
 import { Color } from "../colors";
 // import grey from "../colors/grey";
 
-interface ChipProps {
+export interface ChipProps {
   label?: string;
   color?: Color;
   icon?: Icon;
@@ -35,8 +35,8 @@ export function Chip({ label, color, icon: Icon }: ChipProps) {
       gap: 4,
     }}
     >
-      {Icon && <Icon size={16} style={{ color: (color || grey)[600] }} />}
-      <p style={{ fontSize: 12, fontWeight: 500, color: (color || grey)[600] }}>{label}</p>
+      {Icon && <Icon size={11} style={{ color: (color || grey)[600] }} weight="bold" />}
+      <p style={{ fontSize: 11, fontWeight: 500, color: (color || grey)[600] }}>{label}</p>
     </div>
   );
 }

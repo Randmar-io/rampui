@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from "react";
 
-import { ClipboardText } from '@phosphor-icons/react';
+import { ClipboardText, Prohibit } from '@phosphor-icons/react';
 import { Button } from '../Button';
+import red from '../colors/red';
 import { DocumentCard } from "./DocumentCard";
 
 const meta: Meta<typeof DocumentCard> = {
@@ -23,6 +24,9 @@ export const OrderDocumentCard: Story = {
       <DocumentCard
         title="Order OW9001234154"
         icon={ClipboardText}
+        tags={[
+          { label: "On Hold", color: red, icon: Prohibit },
+        ]}
         fields={[
           { label: "Order Date", value: "16 April, 2024" },
           { label: "PO Number", value: "SHOP-9974" },
