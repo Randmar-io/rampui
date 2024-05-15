@@ -2,11 +2,14 @@ import styled from "@emotion/styled";
 import { Modal } from "@mui/base/Modal";
 import { Grid } from "@mui/material";
 import { Box, Stack } from "@mui/system";
-import { ArrowsInSimple, ArrowsOutSimple, Circle, EnvelopeSimple, GlobeSimple, Phone, Storefront } from "@phosphor-icons/react";
+import { ArrowsInSimple, ArrowsOutSimple, Circle, EnvelopeSimple, Factory, GlobeSimple, Phone } from "@phosphor-icons/react";
 import { motion } from "framer-motion";
 import React, { useState } from "react";
+import { Chip } from "../Chip";
 import { Image } from "../Image";
+import { Link } from "../Link";
 import { Paper } from "../Paper";
+import { TextField } from "../TextField";
 import purple from "../colors/purple";
 import red from "../colors/red";
 
@@ -54,6 +57,9 @@ interface ManufacturerInfo {
   tags?: string;
   fiscalYearMonthStart?: number;
   salesData?: SalesData;
+  partnerPortal?: string;
+  partnerRegistrationLink?: string;
+  publicResourcesLink?: string;
 }
 
 interface ManufacturerCardProps {
@@ -96,7 +102,7 @@ export function ManufacturerCard({ manufacturer, actions, expandable, detailView
         <Image
           src={`https://api.randmar.io/V4/Application/${manufacturer.manufacturerId}/Account/Logo`}
           alt={`${manufacturerName} logo`}
-          altIcon={Storefront}
+          altIcon={Factory}
         />
       </Box>
       <Grid item xs={12} md={9}>
@@ -104,10 +110,7 @@ export function ManufacturerCard({ manufacturer, actions, expandable, detailView
           <Stack direction="row" alignItems="center" flexWrap="wrap" spacing={0.5} mb={0.75}>
             {
               !detailView &&
-              <Stack direction="row" spacing={0.5} alignItems="center" style={{ backgroundColor: purple[100], padding: "4px 8px", borderRadius: 12, width: "max-content", height: "max-content" }}>
-                <Storefront weight="fill" size={11} color={purple[600]} />
-                <p style={{ fontSize: 11, fontWeight: 500, color: purple[600] }}>Manufacturer | {manufacturer.manufacturerId}</p>
-              </Stack>
+              <Chip label={`Manufacturer | ${manufacturer.manufacturerId}`} color={purple} />
             }
             {
               manufacturer.onHold !== 0 &&
@@ -125,6 +128,14 @@ export function ManufacturerCard({ manufacturer, actions, expandable, detailView
               <h3 style={{ paddingTop: 2, fontSize: 14, fontWeight: 500, color: "#656565" }}>{manufacturer.name}</h3>
             }
             <p style={{ paddingTop: 2, fontSize: 13, color: "#656565" }}>{manufacturer.city}, {manufacturer.province}, {manufacturer.country}</p>
+          </div>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: 2, flexWrap: 'wrap', paddingTop: 6 }}>
+            {
+              manufacturer.tags?.split(',').map((tag, index) => (
+                <Chip key={index} label={tag} />
+              ))
+            }
           </div>
 
           <div>
@@ -274,6 +285,50 @@ export function ManufacturerCard({ manufacturer, actions, expandable, detailView
     </div>
   );
 
+  const partnerProgram = (
+    <div>
+      <p style={{ fontSize: 13, fontWeight: 500, marginBottom: 12 }}>Partner Program</p>
+      <Grid container columnSpacing={1} rowSpacing={3}>
+        <Grid item xs={6} md={4}>
+          <TextField
+            readOnly
+            label="Partner Portal"
+            value={
+              manufacturer.partnerPortal ?
+                <Link href={manufacturer.partnerPortal} color="manufacturer" external>Go to Partner Portal</Link>
+                :
+                "Not available"
+            }
+          />
+        </Grid>
+        <Grid item xs={6} md={4}>
+          <TextField
+            readOnly
+            label="Partner Registration"
+            value={
+              manufacturer.partnerRegistrationLink ?
+                <Link href={manufacturer.partnerRegistrationLink} color="manufacturer" external>Register as a Partner</Link>
+                :
+                "Not available"
+            }
+          />
+        </Grid>
+        <Grid item xs={6} md={4}>
+          <TextField
+            readOnly
+            label="Public Resources"
+            value={
+              manufacturer.publicResourcesLink ?
+                <Link href={manufacturer.publicResourcesLink} color="manufacturer" external>View Public Resources</Link>
+                :
+                "Not available"
+            }
+          />
+        </Grid>
+      </Grid>
+    </div>
+  );
+
 
   const expandableCardContent = (
     <Paper style={{ position: 'relative' }}>
@@ -311,6 +366,8 @@ export function ManufacturerCard({ manufacturer, actions, expandable, detailView
           {publicInformation}
           <div style={{ margin: "18px -18px", borderTop: "1px solid #e1e1e1" }} />
           {businessInformation}
+          <div style={{ margin: "18px -18px", borderTop: "1px solid #e1e1e1" }} />
+          {partnerProgram}
         </div>
       }
 
@@ -344,6 +401,8 @@ export function ManufacturerCard({ manufacturer, actions, expandable, detailView
           {publicInformation}
           <div style={{ margin: "24px -24px", borderTop: "1px solid #e1e1e1" }} />
           {businessInformation}
+          <div style={{ margin: "24px -24px", borderTop: "1px solid #e1e1e1" }} />
+          {partnerProgram}
         </Paper>
       </Grid>
     </Grid>

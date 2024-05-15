@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { Modal as MuiBaseModal, ModalProps as MuiModalProps } from '@mui/base/Modal';
 import { X } from '@phosphor-icons/react';
+import { AnimatePresence, motion } from 'framer-motion';
 import * as React from 'react';
 import grey from '../colors/grey';
 
@@ -9,28 +10,38 @@ interface ModalProps extends MuiModalProps {
   actions?: React.ReactNode[];
 }
 
-export function Modal({ children, title, actions, onClose, ...rest }: ModalProps) {
+export function Modal({ children, title, actions, onClose, open, ...rest }: ModalProps) {
   return (
-    <ModalBase slots={{ backdrop: Backdrop }} onClose={onClose} disableAutoFocus {...rest}>
-      <Body>
-        <Header>
-          <div style={{ fontSize: '16px', fontWeight: 600 }}>
-            {title}
-          </div>
-          <CloseIcon onClick={e => {
-            if (onClose) onClose(e, "backdropClick")
-          }}>
-            <X size={16} />
-          </CloseIcon>
-        </Header>
-        <Content>
-          {children}
-        </Content>
-        <Actions>
-          {actions}
-        </Actions>
-      </Body>
-    </ModalBase>
+    <AnimatePresence>
+      {
+        open &&
+        <ModalBase slots={{ backdrop: StyledBackdrop }} onClose={onClose} open={open} disableAutoFocus {...rest}>
+          <Body
+            initial={{ opacity: 0, y: '100%' }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: '100%' }}
+            transition={{ duration: 0.15, ease: 'easeInOut' }}
+          >
+            <Header>
+              <div style={{ fontSize: '16px', fontWeight: 600 }}>
+                {title}
+              </div>
+              <CloseIcon onClick={e => {
+                if (onClose) onClose(e, "backdropClick")
+              }}>
+                <X size={16} />
+              </CloseIcon>
+            </Header>
+            <Content>
+              {children}
+            </Content>
+            <Actions>
+              {actions}
+            </Actions>
+          </Body>
+        </ModalBase>
+      }
+    </AnimatePresence>
   );
 }
 
@@ -68,13 +79,13 @@ const CloseIcon = styled.div`
   }
 `
 
-const Body = styled.div`
+const Body = styled(motion.div)`
   background-color: #fff;
   height: max-content;
   min-width: 520px;
   padding: var(--r-spacing-50);
   border-radius: var(--r-border-radius-md);
-  box-shadow: var(--r-shadow-xl);
+  box-shadow: var(--r-shadow-sm);
   max-height: 90vh;
 `;
 
@@ -97,13 +108,34 @@ const ModalBase = styled(MuiBaseModal)`
   justify-content: center;
 `;
 
-const Backdrop = styled.div<ModalProps>`
+const Backdrop = React.forwardRef<HTMLDivElement, { open?: boolean }>(
+  (props, ref) => {
+    const { open, ...other } = props;
+
+    return (
+      <AnimatePresence>
+        {
+          open && (
+            <motion.div
+              ref={ref}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              {...other}
+            />
+          )
+        }
+      </AnimatePresence>
+    );
+  },
+);
+
+const StyledBackdrop = styled(Backdrop)`
   z-index: -1;
   position: fixed;
   inset: 0;
   background-color: rgb(0 0 0 / 0.1);
   backdrop-filter: blur(10px);
   -webkit-tap-highlight-color: transparent;
-  transition: opacity 0.3s ease-in-out;
-  opacity: ${props => (props.open ? '1' : '0')};
 `;

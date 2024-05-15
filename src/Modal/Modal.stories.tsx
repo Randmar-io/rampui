@@ -15,7 +15,20 @@ const meta: Meta<typeof Modal> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const ModalExample = () => {
+export const Default = () => {
+  const [open, setOpen] = React.useState(false);
+
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>Open modal</Button>
+      <Modal open={open} onClose={() => setOpen(false)} title="Modal title">
+        <div>Modal</div>
+      </Modal>
+    </>
+  )
+}
+
+export const WithLongText = () => {
   const [open, setOpen] = React.useState(false);
 
   return (
@@ -28,6 +41,7 @@ export const ModalExample = () => {
   )
 }
 
+
 export const Primary: Story = {
-  render: () => <ModalExample />
+  render: () => <WithLongText />
 };

@@ -1,7 +1,8 @@
 import styled from "@emotion/styled";
-import { ArrowUpRight, Headset } from "@phosphor-icons/react";
+import { Headset } from "@phosphor-icons/react";
 import React from "react";
 import { Button } from "../../Button";
+import { Link } from "../../Link";
 import { Modal } from "../../Modal";
 import grey from "../../colors/grey";
 import { EducationProps } from "../Education";
@@ -10,21 +11,6 @@ const Description = styled.p`
   color: ${grey[700]};
   line-height: 18px;
   margin-bottom: var(--r-spacing-30);
-`
-
-const BlogLink = styled.a`
-  text-decoration: none;
-  color: ${({ theme }) => theme.color[700]};
-  border-bottom: 1px solid ${({ theme }) => theme.color[600]};
-  display: flex;
-  align-items: center;
-  gap: var(--r-spacing-5);
-  width: max-content;
-  margin-bottom: var(--r-spacing-80);
-
-  &:hover {
-    border-color: transparent;
-  }
 `
 
 const Help = styled.div`
@@ -49,9 +35,9 @@ export function Content({ show, setShow, title, description, blogPostLink, youtu
         {description && <Description>{description}</Description>}
         {
           blogPostLink &&
-          <BlogLink href={blogPostLink} target="_blank">
-            Read the blog post <ArrowUpRight size={16} />
-          </BlogLink>
+          <Link href={blogPostLink} external>
+            Read the blog post
+          </Link>
         }
         {
           youtubeVideoLink &&
