@@ -1,5 +1,5 @@
 import { Stack } from "@mui/system";
-import { Airplane, Factory, Headset, House, Notebook, Plugs, ShoppingBagOpen, Storefront, Users, Warehouse } from "@phosphor-icons/react";
+import { Airplane, Factory, FilePlus, Headset, House, Notebook, Plugs, ShoppingBagOpen, Storefront, Users, Warehouse } from "@phosphor-icons/react";
 import type { Meta, StoryObj } from '@storybook/react';
 import React from "react";
 import { Button } from '../Button';
@@ -72,6 +72,10 @@ export const AppShellWithItems = () => {
         {
           label: "Integration",
           icon: Plugs,
+        },
+        {
+          label: "Purchase orders",
+          icon: FilePlus,
         },
         {
           label: "Warehouses",

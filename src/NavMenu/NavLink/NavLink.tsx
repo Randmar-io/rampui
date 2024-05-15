@@ -49,14 +49,14 @@ export function NavLink({ icon: Icon, label, selected, linkComponent, hidden, mo
   );
 
   const navLinkMobile = (
-    <NavLinkContainer selected={selected} {...rest} style={{ justifyContent: 'center', flexFlow: 'column', padding: 'var(--r-spacing-30)', }}>
+    <NavLinkContainer selected={selected} {...rest} style={{ justifyContent: 'center', alignItems: 'center', flexFlow: 'column', padding: 'var(--r-spacing-30)', }}>
       {
         Icon &&
         <CenteredFlexbox>
           <Icon color={selected ? theme.color[500] : "#545454"} size={16} weight={selected ? "bold" : "regular"} />
         </CenteredFlexbox>
       }
-      <div style={{ fontWeight: selected ? 600 : 500, color: selected ? theme.color[600] : '#464646' }}>{label}</div>
+      <div style={{ fontWeight: selected ? 600 : 500, color: selected ? theme.color[600] : '#464646', textAlign: 'center' }}>{label}</div>
     </NavLinkContainer>
   );
 
