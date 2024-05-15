@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import React from "react";
 
-interface PaperProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface PaperProps extends React.HTMLAttributes<HTMLDivElement> {
   padding?: string;
 }
 

@@ -3,20 +3,21 @@ import { Modal } from "@mui/base";
 import { ArrowsInSimple, ArrowsOutSimple } from "@phosphor-icons/react";
 import { motion } from "framer-motion";
 import React from "react";
-import { Paper } from "../Paper";
+import { Paper, PaperProps } from "../Paper";
 
 export interface ExpandableCardProps {
   id?: string;
   content?: React.ReactNode;
   expandedContent?: React.ReactNode;
   expandedWidth?: number;
+  paperProps?: PaperProps;
 }
 
-export function ExpandableCard({ id, content, expandedContent, expandedWidth }: ExpandableCardProps) {
+export function ExpandableCard({ id, content, expandedContent, expandedWidth, paperProps }: ExpandableCardProps) {
   const [expanded, setExpanded] = React.useState(false);
 
   const cardContent = (
-    <Paper style={{ position: 'relative' }}>
+    <Paper padding="0" {...paperProps} style={{ position: 'relative', ...paperProps?.style }}>
       <ExpandIconContainer onClick={() => setExpanded(!expanded)}>
         {
           expanded ?
