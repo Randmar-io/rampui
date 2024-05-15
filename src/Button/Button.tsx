@@ -1,6 +1,6 @@
 import { Stack } from "@mui/system";
 import { Icon as PhosphorIcon, IconProps as PhosphorIconProps } from "@phosphor-icons/react";
-import React, { useState } from "react";
+import React, { forwardRef, useState } from "react";
 import { Modal } from "../Modal";
 import { ButtonBase } from "./ButtonBase";
 import { ButtonLoader } from './ButtonLoader/ButtonLoader';
@@ -25,7 +25,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   confirmationDialog?: ConfirmationDialog;
 }
 
-const renderContent = ({ starticon: StartIcon, endicon: EndIcon, children, loading, variant, size, iconProps }: ButtonProps) => {
+const ButtonContent = ({ starticon: StartIcon, endicon: EndIcon, children, loading, variant, size, iconProps }: ButtonProps) => {
   const iconSize = {
     small: 14,
     medium: 16,
@@ -67,7 +67,7 @@ const renderContent = ({ starticon: StartIcon, endicon: EndIcon, children, loadi
   );
 };
 
-export function Button({ loading, disabled, confirmationDialog, ...rest }: ButtonProps) {
+export const Button = forwardRef(({ loading, disabled, confirmationDialog, ...rest }: ButtonProps, ref) => {
   if (confirmationDialog) {
     const [open, setOpen] = useState(false);
     const [isLoading, setLoading] = useState(false);
@@ -104,15 +104,15 @@ export function Button({ loading, disabled, confirmationDialog, ...rest }: Butto
           onClick={() => setOpen(true)}
           {...rest}
         >
-          {renderContent({ loading, ...rest })}
+          {ButtonContent({ loading, ...rest })}
         </ButtonBase>
       </>
     );
   }
 
   return (
-    <ButtonBase disabled={loading || disabled} {...rest}>
-      {renderContent({ loading, ...rest })}
+    <ButtonBase disabled={loading || disabled} {...rest} ref={ref}>
+      <ButtonContent loading={loading} {...rest} />
     </ButtonBase>
   );
-}
+});

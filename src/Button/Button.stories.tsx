@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
+import { Tooltip } from '@mui/material';
 import { Airplane } from '@phosphor-icons/react';
+import React from 'react';
 import { Button } from './Button';
 
 const meta: Meta<typeof Button> = {
@@ -53,3 +55,11 @@ export const Icon: Story = {
     size: 'large',
   },
 };
+
+export const WithTooltop: Story = {
+  render: () => (
+    <Tooltip title="Tooltip">
+      <Button iconOnly starticon={Airplane} />
+    </Tooltip>
+  )
+}
