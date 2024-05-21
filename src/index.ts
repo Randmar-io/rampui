@@ -20,4 +20,5 @@ export * from "./ProductInventoryGrid";
 export * from "./Provider";
 export * from "./ResellerCard";
 export * from "./TextField";
+export * from "./VoiceSelector";
 export * from "./colors";
