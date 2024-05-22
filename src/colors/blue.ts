@@ -1,6 +1,6 @@
 import { Color } from "./colorUtils";
 
-const blue: Color = {
+export const blue: Color = {
   50: '#eff6ff',
   100: '#dbeafe',
   200: '#bfdbfe',
