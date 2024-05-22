@@ -25,12 +25,12 @@ const displayName = {
 };
 
 export interface VoiceSelectorProps {
-  voice: Voice;
-  setVoice: (voice: Voice) => void;
+  selectedVoice: Voice;
+  setSelectedVoice: (voice: Voice) => void;
 
 }
 
-export function VoiceSelector({ voice, setVoice }: VoiceSelectorProps) {
+export function VoiceSelector({ selectedVoice, setSelectedVoice }: VoiceSelectorProps) {
   return (
     <div>
       <p style={{ fontSize: 12, color: "#616161", marginBottom: 4 }}>Voice</p>
@@ -38,7 +38,7 @@ export function VoiceSelector({ voice, setVoice }: VoiceSelectorProps) {
         {
           Object.values(Voice).map((v, i) => (
             <Grid item key={i} xs={6} md={4}>
-              <VoiceOption voice={v} selected={voice === v} setSelected={setVoice} />
+              <VoiceOption voice={v} selected={selectedVoice === v} setSelected={setSelectedVoice} />
             </Grid>
           ))
         }
