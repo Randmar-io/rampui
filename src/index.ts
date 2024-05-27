@@ -10,6 +10,7 @@ export * from "./Image";
 export * from "./Layout";
 export * from "./Link";
 export * from "./ManufacturerCard";
+export * from "./Modal";
 export * from "./ModelViewer";
 export * from "./NavMenu";
 export * from "./Page";
