@@ -114,3 +114,18 @@ export const AppShellWithItems = () => {
 export const Default: Story = {
   render: () => <AppShellWithItems />
 };
+
+export const WithoutMenu: Story = {
+  render: () => (
+    <AppShell>
+      <Page
+        title="Order OW0021453"
+        subtitle="Jan 24, 2023 · Delivered"
+        primaryAction={<Button variant='primary'>Primary action</Button>}
+        secondaryActions={[<Button>Secondary action</Button>]}
+        midWidth
+      >
+      </Page>
+    </AppShell>
+  )
+};
