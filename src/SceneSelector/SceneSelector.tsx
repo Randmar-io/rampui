@@ -4,7 +4,7 @@ import React from "react";
 import { grey, red } from "../colors";
 
 export enum Scene {
-  Fancy = "Fancy",
+  Cozy = "Cozy",
   Office = "Office",
   Park = "Park",
   Sea = "Sea",
