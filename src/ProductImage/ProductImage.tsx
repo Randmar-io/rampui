@@ -5,10 +5,11 @@ import { Button } from '../Button';
 import { Image } from '../Image';
 import { Modal } from '../Modal';
 import { ModelViewer } from '../ModelViewer';
+import { Size } from '../utility/Types';
 
 interface ProductImageProps {
   randmarSKU: string;
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  size?: Size;
   alt?: string;
   secondaryContent?: React.ReactNode;
 }

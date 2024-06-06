@@ -34,7 +34,7 @@ export const WithLongText = () => {
   return (
     <>
       <Button onClick={() => setOpen(true)}>Open modal</Button>
-      <Modal open={open} onClose={() => setOpen(false)} title="Modal title">
+      <Modal open={open} onClose={() => setOpen(false)} title="Modal title" maxWidth='lg'>
         <div style={{ height: '120vh' }}>Modal</div>
       </Modal>
     </>

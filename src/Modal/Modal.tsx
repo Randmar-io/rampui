@@ -4,13 +4,23 @@ import { X } from '@phosphor-icons/react';
 import { AnimatePresence, motion } from 'framer-motion';
 import * as React from 'react';
 import grey from '../colors/grey';
+import { Size } from '../utility/Types';
+
+const maxWidthMapping = {
+  xs: '320px',
+  sm: '480px',
+  md: '768px',
+  lg: '1024px',
+  xl: '1280px',
+}
 
 interface ModalProps extends MuiModalProps {
   title?: string;
   actions?: React.ReactNode[];
+  maxWidth?: Size;
 }
 
-export function Modal({ children, title, actions, onClose, open, ...rest }: ModalProps) {
+export function Modal({ children, title, actions, onClose, open, maxWidth, ...rest }: ModalProps) {
   return (
     <AnimatePresence>
       {
@@ -21,6 +31,7 @@ export function Modal({ children, title, actions, onClose, open, ...rest }: Moda
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: '100%' }}
             transition={{ duration: 0.15, ease: 'easeInOut' }}
+            style={{ width: `min(${maxWidthMapping[maxWidth || "sm"]}, 100%)` }}
           >
             <Header>
               <div style={{ fontSize: '16px', fontWeight: 600 }}>
@@ -82,7 +93,7 @@ const CloseIcon = styled.div`
 const Body = styled(motion.div)`
   background-color: #fff;
   height: max-content;
-  min-width: 520px;
+  margin: var(--r-spacing-20);
   padding: var(--r-spacing-50);
   border-radius: var(--r-border-radius-md);
   box-shadow: var(--r-shadow-sm);
