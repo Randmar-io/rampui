@@ -3,7 +3,7 @@ import { ThemeProvider as MuiThemeProvider, createTheme } from "@mui/material/st
 import React from "react";
 import grey from "../colors/grey";
 import { borderTokens, heightTokens, shadowTokens, spacingTokens, widthTokens } from "../tokens";
-import { Color, baseThemeColor, components, shape, typography } from "./theme";
+import { Color, baseThemeColor, components } from "./theme";
 
 import { createContext } from 'react';
 
@@ -29,8 +29,15 @@ export function Provider({ children, color }: ProviderProps) {
         contrastText: "#fff",
       },
     },
-    typography,
-    shape,
+    typography: {
+      fontFamily: "Inter, Arial, sans-serif",
+      allVariants: {
+        color: "#414141"
+      },
+    },
+    shape: {
+      borderRadius: 12,
+    },
   });
 
   muiTheme.components = components(muiTheme);
