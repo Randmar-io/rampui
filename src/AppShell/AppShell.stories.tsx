@@ -5,6 +5,7 @@ import React from "react";
 import { Button } from '../Button';
 import { EducationWithProps } from "../Education/Education.stories";
 import { Page } from '../Page';
+import { Select } from "../Select";
 import { AppShell } from './AppShell';
 
 const meta: Meta<typeof AppShell> = {
@@ -20,6 +21,8 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const AppShellWithItems = () => {
+  const [selected, setSelected] = React.useState<string>('0');
+
   const logo = (
     <svg width="107" height="24" viewBox="0 0 116 26" fill="red" xmlns="http://www.w3.org/2000/svg">
       <path d="M115.388 12.2535H114.414C112.638 12.2535 111.594 13.3582 111.594 15.3339V20.2664H109.113V10.1349H111.376L111.517 11.3111C112.119 10.0764 113.85 9.72547 115.369 10.0764V12.26H115.388V12.2535Z" fill="#fff" />
@@ -104,6 +107,18 @@ export const AppShellWithItems = () => {
                 });
               }
             }}
+          />
+
+          <Select
+            options={[
+              { value: '0', displayText: 'Zero' },
+              { value: '1', displayText: 'One' },
+              { value: '2', displayText: 'Two' },
+              { value: '3', displayText: 'Three' },
+              { value: '4', displayText: 'Four' },
+            ]}
+            selected={selected}
+            setSelected={setSelected}
           />
         </Stack>
       </Page>
