@@ -14,7 +14,7 @@ interface CustomSelectProps {
 
 type SelectProps = MuiSelectProps<string> & CustomSelectProps;
 
-export function Select({ options, selected, setSelected, sx, ...muiSelectProps }: SelectProps) {
+export function Select({ options, selected, setSelected, sx, label, ...muiSelectProps }: SelectProps) {
   const parsedOptions = options.map(option => {
     if (typeof option === 'string') {
       return { value: option, displayText: option };
@@ -25,7 +25,7 @@ export function Select({ options, selected, setSelected, sx, ...muiSelectProps }
 
   return (
     <div>
-      <p style={{ fontSize: 12, color: "#616161", marginBottom: 4 }}>Business type</p>
+      <p style={{ fontSize: 12, color: "#616161", marginBottom: 4 }}>{label}</p>
       <MuiSelect
         value={selected}
         onChange={e => setSelected(e.target.value as string)}
