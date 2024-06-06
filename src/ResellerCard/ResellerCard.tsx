@@ -2,9 +2,10 @@ import styled from "@emotion/styled";
 import { Modal } from "@mui/base/Modal";
 import { Grid } from "@mui/material";
 import { Box, Stack } from "@mui/system";
-import { ArrowsInSimple, ArrowsOutSimple, Circle, EnvelopeSimple, GlobeSimple, Phone, SealCheck, Storefront } from "@phosphor-icons/react";
+import { ArrowsInSimple, ArrowsOutSimple, EnvelopeSimple, GlobeSimple, Phone, Prohibit, SealCheck, SealWarning, Storefront } from "@phosphor-icons/react";
 import { motion } from "framer-motion";
 import React, { useState } from "react";
+import { Chip, ChipProps } from "../Chip";
 import { Image } from "../Image";
 import { Paper } from "../Paper";
 import blue from "../colors/blue";
@@ -35,39 +36,39 @@ interface OrderDetails {
 
 interface ResellerInfo {
   about?: string;
-  resellerId?: string;
-  publicName?: string;
-  name?: string;
-  onHold?: number;
-  defaultWarehouse?: string;
-  priority?: string;
-  province?: string;
-  shipVia?: string;
-  shipViaDescription?: string;
-  priceProfile?: number;
-  shippingProfile?: string;
-  arEmail?: string;
-  poEmail?: string;
-  contactName?: string;
-  phone?: string;
   address1?: string;
   address2?: string;
+  arEmail?: string;
   city?: string;
-  creditLimit?: number;
+  contactName?: string;
   country?: string;
-  lastInvoiceDate?: number;
-  postalCode?: string;
-  website?: string;
-  shopifyWebsite?: string;
-  domain?: string;
-  terms?: string;
   creationDate?: number;
+  creditLimit?: number;
+  defaultWarehouse?: string;
+  domain?: string;
   fiscalYearMonthStart?: number;
-  publicEmail?: string;
-  salesData?: SalesData;
-  statement?: Statement;
-  orderDetails?: OrderDetails;
   isQualified?: boolean;
+  lastInvoiceDate?: number;
+  name?: string;
+  onHold?: number;
+  orderDetails?: OrderDetails;
+  phone?: string;
+  poEmail?: string;
+  postalCode?: string;
+  priceProfile?: number;
+  priority?: string;
+  province?: string;
+  publicEmail?: string;
+  publicName?: string;
+  resellerId?: string;
+  salesData?: SalesData;
+  shippingProfile?: string;
+  shipVia?: string;
+  shipViaDescription?: string;
+  shopifyWebsite?: string;
+  statement?: Statement;
+  terms?: string;
+  website?: string;
 }
 
 interface ResellerCardProps {
@@ -75,10 +76,11 @@ interface ResellerCardProps {
   actions?: React.ReactNode;
   expandable?: boolean;
   detailView?: boolean;
+  qualificationStatus?: string;
 }
 
 
-export function ResellerCard({ reseller, actions, expandable, detailView }: ResellerCardProps) {
+export function ResellerCard({ reseller, actions, expandable, detailView, qualificationStatus }: ResellerCardProps) {
   const [expanded, setExpanded] = useState(false);
 
   const currency = new Intl.NumberFormat('en-US', {
@@ -92,6 +94,17 @@ export function ResellerCard({ reseller, actions, expandable, detailView }: Rese
     const month = date.substring(4, 6);
     const day = date.substring(6, 8);
     return new Date(`${year}-${month}-${day}`).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+  }
+
+  function getPropsFromQualification(qualificationStatus?: string): ChipProps | undefined {
+    switch (qualificationStatus) {
+      case "Qualified":
+        return { color: purple, label: "Qualified", icon: SealCheck };
+      case "Do Not Sell":
+        return { color: red, label: "Do Not Sell", icon: Prohibit };
+      case "Suspended":
+        return { color: red, label: "Suspended", icon: Prohibit };
+    }
   }
 
   let resellerName;
@@ -118,24 +131,15 @@ export function ResellerCard({ reseller, actions, expandable, detailView }: Rese
           <Stack direction="row" alignItems="center" flexWrap="wrap" spacing={0.5} mb={0.75}>
             {
               !detailView &&
-              <Stack direction="row" spacing={0.5} alignItems="center" style={{ backgroundColor: blue[100], padding: "4px 8px", borderRadius: 12, width: "max-content", height: "max-content" }}>
-                <Storefront weight="fill" size={11} color={blue[600]} />
-                <p style={{ fontSize: 11, fontWeight: 500, color: blue[600] }}>Reseller | {reseller.resellerId}</p>
-              </Stack>
+              <Chip color={blue} label={`Reseller | ${reseller.resellerId}`} icon={Storefront} />
             }
             {
               reseller.onHold !== 0 &&
-              <Stack direction="row" spacing={0.5} alignItems="center" style={{ backgroundColor: red[100], padding: "4px 8px", borderRadius: 12, width: "max-content", height: "max-content" }}>
-                <Circle weight="fill" size={11} color={red[600]} />
-                <p style={{ fontSize: 11, fontWeight: 500, color: red[600] }}>On Hold</p>
-              </Stack>
+              <Chip color={red} label="On Hold" icon={SealWarning} />
             }
             {
-              reseller.isQualified &&
-              <Stack direction="row" spacing={0.5} alignItems="center" style={{ backgroundColor: purple[100], padding: "4px 8px", borderRadius: 12, width: "max-content", height: "max-content" }}>
-                <SealCheck weight="fill" size={11} color={purple[600]} />
-                <p style={{ fontSize: 11, fontWeight: 500, color: purple[600] }}>Qualified</p>
-              </Stack>
+              qualificationStatus &&
+              <Chip {...getPropsFromQualification(qualificationStatus)} />
             }
           </Stack>
 

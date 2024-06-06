@@ -13,5 +13,5 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
-  render: () => <ResellerCard reseller={data[0]} expandable />
+  render: () => <ResellerCard reseller={data[0]} expandable qualificationStatus='Qualified' />
 };
