@@ -7,8 +7,8 @@ export enum Scene {
   Cozy = "Cozy",
   Office = "Office",
   Park = "Park",
-  Sea = "Sea",
-  Warehouse = "Warehouse",
+  Dock = "Dock",
+  Retail = "Retail",
   White = "White",
 }
 
