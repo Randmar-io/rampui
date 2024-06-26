@@ -6,7 +6,7 @@ import { grey, red } from "../colors";
 export enum Scene {
   Cozy = "Cozy",
   Office = "Office",
-  Park = "Park",
+  Art = "Art",
   Dock = "Dock",
   Retail = "Retail",
   White = "White",
