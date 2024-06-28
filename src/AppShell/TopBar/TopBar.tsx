@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
-import { List } from "@phosphor-icons/react";
-import React from "react";
+import { Box, Stack } from "@mui/system";
+import { CaretUp, List, MagnifyingGlass } from "@phosphor-icons/react";
+import React, { useState } from "react";
 import { Button } from "../../Button";
 import { CenteredFlexbox } from "../../utility/CenteredFlexbox";
 
@@ -12,9 +13,6 @@ interface TopBarProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const TopBarContainer = styled.div`
-  display: flex;
-  flex-shrink: 0;
-  height: var(--r-height-topbar);
   background-color: ${({ theme }) => theme.color[500]};
   z-index: 40;
 `;
@@ -36,18 +34,35 @@ const MenuButton = styled(Button)`
 `
 
 export function TopBar({ logo, searchBar, rightMenu, toggleShowMenu, ...rest }: TopBarProps) {
+  const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
+
   return (
     <TopBarContainer {...rest}>
-      <LogoContainer>
-        <MenuButton variant="primary" starticon={List} onClick={toggleShowMenu} />
-        {logo}
-      </LogoContainer>
-      <CenteredFlexbox style={{ flexGrow: 1 }}>
-        {searchBar}
-      </CenteredFlexbox>
-      <CenteredFlexbox style={{ flexShrink: 0, width: 'max-content', paddingRight: 'var(--r-spacing-30)' }}>
-        {rightMenu}
-      </CenteredFlexbox>
+      <Stack direction="row" sx={{ flexShrink: 0, height: 'var(--r-height-topbar)' }}>
+        <LogoContainer>
+          <MenuButton variant="primary" starticon={List} onClick={toggleShowMenu} />
+          {logo}
+        </LogoContainer>
+        <Box sx={{ display: { xs: 'none', md: 'flex', alignItems: 'center', justifyContent: 'center', flexGrow: 1 } }}>
+          {searchBar}
+        </Box>
+        <CenteredFlexbox style={{ flexShrink: 0, width: 'max-content', paddingRight: 'var(--r-spacing-30)' }}>
+          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+            <Button
+              iconOnly
+              starticon={mobileSearchOpen ? CaretUp : MagnifyingGlass}
+              onClick={() => setMobileSearchOpen(!mobileSearchOpen)}
+            />
+          </Box>
+          {rightMenu}
+        </CenteredFlexbox>
+      </Stack>
+      {
+        mobileSearchOpen &&
+        <Box sx={{ p: 1 }}>
+          {searchBar}
+        </Box>
+      }
     </TopBarContainer>
   )
 }
