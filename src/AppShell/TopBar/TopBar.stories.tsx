@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from "react";
 
-import { SearchBar } from "../../SearchBar";
+import { SearchBarStory } from '../../SearchBar/SearchBar.stories';
 import { TopBar } from "./TopBar";
 
 const meta: Meta<typeof TopBar> = {
@@ -34,7 +34,7 @@ export const TopBarWithItems = () => {
   )
 
   return (
-    <TopBar logo={logo} searchBar={<SearchBar />} rightMenu={rightMenu} />
+    <TopBar logo={logo} searchBar={<SearchBarStory />} rightMenu={rightMenu} />
   )
 }
 
