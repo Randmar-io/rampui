@@ -1,13 +1,40 @@
-import { Box, InputBase, InputBaseProps } from "@mui/material";
+import styled from "@emotion/styled";
+import { InputBase, InputBaseProps, Typography } from "@mui/material";
 import { MagnifyingGlass, X } from "@phosphor-icons/react";
 import React, { useEffect, useRef, useState } from "react";
-import { grey, red } from "../colors";
+import { grey } from "../colors";
 
 interface SearchBarProps extends Omit<InputBaseProps, 'onSubmit'> {
+  value: string
+  setValue: (value: string) => void;
   onSubmit?: React.FormEventHandler<HTMLFormElement>;
 }
 
-export const SearchBar = ({ onSubmit, ...props }: SearchBarProps) => {
+const SearchBarContainer = styled('form')`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: white;
+  width: '100%';
+  padding: 2px 12px;
+  border-radius: 100px;
+  border: 3px solid transparent;
+  box-shadow: none;
+
+  &:focus-within {
+    border: 3px solid ${({ theme }) => theme.color[200]};
+  }
+
+  &:hover {
+    border: 3px solid ${({ theme }) => theme.color[200]};
+  }
+
+  @media screen and (min-width: 900px){
+    width: 300px;
+  }
+`;
+
+export const SearchBar = ({ value, setValue, onSubmit, ...props }: SearchBarProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const [query, setQuery] = useState<string>("");
@@ -36,54 +63,43 @@ export const SearchBar = ({ onSubmit, ...props }: SearchBarProps) => {
   }, []);
 
   return (
-    <Box
-      component="form"
-      sx={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        backgroundColor: "white",
-        width: { md: 300 },
-        px: 1.5,
-        py: "1px",
-        borderRadius: 5,
-        border: '3px solid transparent',
-        boxShadow: 'none',
-        ":focus-within": {
-          border: `3px solid ${red[200]}`
-        },
-        ":hover": {
-          border: `3px solid ${red[200]}`
-        }
-      }}
-      onSubmit={onSubmit}
-    >
+    <SearchBarContainer onSubmit={onSubmit}>
       <div style={{ display: "flex", alignItems: "center", gap: 8, width: '100%' }}>
         <MagnifyingGlass color={grey[400]} size={15} weight="bold" />
         <InputBase
           sx={{ p: 0, m: 0, width: '100%', fontSize: 13, fontWeight: 500, color: grey[500] }}
           placeholder="Search anything"
           inputRef={inputRef}
+          value={value}
+          onChange={e => setValue(e.target.value)}
           {...props}
-          onSubmit={e => console.log("Submit")}
         />
       </div>
       {
-        query.length > 0 ?
+        value && value.length > 0 ?
           <X
             size={14}
             color={grey[500]}
             style={{ marginLeft: 8, cursor: 'pointer' }}
             onClick={() => {
-              inputRef.current?.focus();
-              setQuery("")
+              if (inputRef.current) {
+                inputRef.current.focus();
+              }
+              setValue("");
             }}
           />
           :
-          <p style={{ fontSize: 10, color: "#b0b0b0", fontWeight: 500, whiteSpace: 'nowrap', paddingRight: '4px' }}>
+          <Typography sx={{
+            fontSize: 11,
+            color: "#b0b0b0",
+            fontWeight: 500,
+            whiteSpace: 'nowrap',
+            paddingRight: '4px',
+            display: { xs: 'none', md: 'block' }
+          }}>
             Ctrl + K
-          </p>
+          </Typography>
       }
-    </Box>
+    </SearchBarContainer>
   );
 };

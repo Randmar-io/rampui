@@ -21,14 +21,16 @@ const LogoContainer = styled.div`
   display: flex;
   align-items: center;
   width: var(--r-width-nav-menu);
+  gap: 4px;
+  padding-left: var(--r-spacing-10);
   
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: 900px) {
     padding-left: var(--r-spacing-50);
   }
 `
 
 const MenuButton = styled(Button)`
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: 900px) {
     display: none;
   }
 `
@@ -38,9 +40,9 @@ export function TopBar({ logo, searchBar, rightMenu, toggleShowMenu, ...rest }: 
 
   return (
     <TopBarContainer {...rest}>
-      <Stack direction="row" sx={{ flexShrink: 0, height: 'var(--r-height-topbar)' }}>
+      <Stack direction="row" justifyContent="space-between" sx={{ flexShrink: 0, height: 'var(--r-height-topbar)', width: '100%' }}>
         <LogoContainer>
-          <MenuButton variant="primary" starticon={List} onClick={toggleShowMenu} />
+          <MenuButton variant="primary" iconOnly starticon={List} onClick={toggleShowMenu} />
           {logo}
         </LogoContainer>
         <Box sx={{ display: { xs: 'none', md: 'flex', alignItems: 'center', justifyContent: 'center', flexGrow: 1 } }}>
@@ -54,12 +56,17 @@ export function TopBar({ logo, searchBar, rightMenu, toggleShowMenu, ...rest }: 
               onClick={() => setMobileSearchOpen(!mobileSearchOpen)}
             />
           </Box>
-          {rightMenu}
+          {
+            rightMenu &&
+            <Box ml={1}>
+              {rightMenu}
+            </Box>
+          }
         </CenteredFlexbox>
       </Stack>
       {
         mobileSearchOpen &&
-        <Box sx={{ p: 1 }}>
+        <Box sx={{ p: 1, pt: 0 }}>
           {searchBar}
         </Box>
       }
