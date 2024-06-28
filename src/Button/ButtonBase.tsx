@@ -46,7 +46,6 @@ export const ButtonBase = styled(MuiBaseButton, {
     "primary": `
       background-color: ${color[500]};
       color: white;
-      box-shadow: inset 0 1px ${color[400]};
       border-color: ${color[500]};
 
       &:hover {
@@ -67,11 +66,9 @@ export const ButtonBase = styled(MuiBaseButton, {
       border-color: ${grey[200]};
       background: white;
       color: ${color[500]};
-      box-shadow: 0px 1px 2px -1px rgba(0, 0, 0, 0.1);
 
       &:hover:not(:disabled) {
         background: ${grey[50]};
-        border-color: ${color[200]};  
       }
       
       &:active {

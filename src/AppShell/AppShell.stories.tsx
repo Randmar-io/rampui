@@ -5,7 +5,7 @@ import React from "react";
 import { Button } from '../Button';
 import { EducationWithProps } from "../Education/Education.stories";
 import { Page } from '../Page';
-import { SearchBar } from "../SearchBar";
+import { SearchBarStory } from "../SearchBar/SearchBar.stories";
 import { Select } from "../Select";
 import { AppShell } from './AppShell';
 
@@ -42,7 +42,7 @@ export const AppShellWithItems = () => {
   return (
     <AppShell
       logo={logo}
-      searchBar={<SearchBar />}
+      searchBar={<SearchBarStory />}
       menuItems={[
         {
           label: "Home",
