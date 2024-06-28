@@ -22,10 +22,10 @@ const SearchBarContainer = styled('form')`
   box-shadow: none;
 
   &:focus-within {
-    border: 3px solid ${({ theme }) => theme.color[200]};
+    border: 3px solid ${({ theme }) => theme.color[300]};
   }
 
-  &:hover {
+  &:hover:not(:focus-within) {
     border: 3px solid ${({ theme }) => theme.color[200]};
   }
 
