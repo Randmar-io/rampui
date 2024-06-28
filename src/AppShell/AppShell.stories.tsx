@@ -75,7 +75,7 @@ export const AppShellWithItems = () => {
           icon: ShoppingBagOpen,
         },
         {
-          label: "Integration",
+          label: "Integration & Plugins",
           icon: Plugs,
         },
         {

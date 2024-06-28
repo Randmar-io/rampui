@@ -12,26 +12,34 @@ export interface NavLinkProps extends React.HTMLAttributes<HTMLLIElement> {
   mobile?: boolean;
 }
 
-const NavLinkContainer = styled('li')<NavLinkProps>(({ selected }) =>
-  `
-    display: flex;
-    align-items: center;
-    padding: var(--r-spacing-20) var(--r-spacing-40);
-    gap: var(--r-spacing-25 );
-    background-color: ${selected ? "#fafafa" : "transparent"};
-    font-size: 0.8125rem;
-    border-radius: var(--r-border-radius-sm);
-    cursor: pointer;
-    box-shadow: ${selected ? "var(--r-shadow-xs)" : "none"};
-    z-index: ${selected ? 5 : 0};
-    user-select: none;
-    margin-bottom: var(--r-spacing-10);
+const NavLinkContainer = styled('li')<NavLinkProps>(({ selected }) => `
+  display: flex;
+  align-items: center;
+  padding: var(--r-spacing-20) var(--r-spacing-40);
+  gap: var(--r-spacing-25 );
+  background-color: ${selected ? "#fafafa" : "transparent"};
+  font-size: 0.8125rem;
+  border-radius: var(--r-border-radius-sm);
+  cursor: pointer;
+  box-shadow: ${selected ? "var(--r-shadow-xs)" : "none"};
+  z-index: ${selected ? 5 : 0};
+  user-select: none;
+  margin-bottom: var(--r-spacing-10);
 
-    &:hover {
-      background-color: ${selected ? "#fafafa" : "#fafafa"};    
-    }
-  `
-);
+  &:hover {
+    background-color: ${selected ? "#fafafa" : "#fafafa"};    
+  }
+`);
+
+const Label = styled.div<NavLinkProps>(({ selected }) => `
+  font-weight: ${selected ? 600 : 500};
+  color: ${selected ? "#464646" : "#545454"};
+  text-align: center;
+
+  @media screen and (min-width: 900px) {
+    text-align: left;
+  }
+`);
 
 export function NavLink({ icon: Icon, label, selected, linkComponent, hidden, mobile, ...rest }: NavLinkProps) {
   const theme = useTheme();
@@ -56,7 +64,7 @@ export function NavLink({ icon: Icon, label, selected, linkComponent, hidden, mo
           <Icon color={selected ? theme.color[500] : "#545454"} size={16} weight={selected ? "bold" : "regular"} />
         </CenteredFlexbox>
       }
-      <div style={{ fontWeight: selected ? 600 : 500, color: selected ? theme.color[600] : '#464646' }}>{label}</div>
+      <Label>{label}</Label>
     </NavLinkContainer>
   );
 
