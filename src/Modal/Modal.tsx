@@ -32,10 +32,7 @@ export function Modal({ children, title, actions, onClose, open, maxWidth, flush
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: '100%' }}
             transition={{ duration: 0.15, ease: 'easeInOut' }}
-            style={{
-              width: `min(${maxWidthMapping[maxWidth || "sm"]}, 100%)`,
-              padding: flush ? '0' : 'var(--r-spacing-50)',
-            }}
+            style={{  width: `min(${maxWidthMapping[maxWidth || "sm"]}, 100%)` }}
           >
             <CloseIcon onClick={e => {
               if (onClose) onClose(e, "backdropClick")
@@ -44,16 +41,28 @@ export function Modal({ children, title, actions, onClose, open, maxWidth, flush
             </CloseIcon>
             {
               title &&
-              <div style={{ fontSize: '16px', fontWeight: 600, paddingBottom: 'var(--r-spacing-40)' }}>
+              <div style={{
+                fontSize: '16px',
+                fontWeight: 600,
+                padding: 'var(--r-spacing-40)'
+              }}>
                 {title}
               </div>
             }
-            <Content style={{ borderRadius: 'var(--r-border-radius-md)' }}>
+            <Content style={{
+              borderTopLeftRadius: title ? '0' : 'var(--r-border-radius-md)',
+              borderTopRightRadius: title ? '0' : 'var(--r-border-radius-md)',
+              borderBottomLeftRadius: actions ? '0' : 'var(--r-border-radius-md)',
+              borderBottomRightRadius: actions ? '0' : 'var(--r-border-radius-md)',
+              padding:  flush ? 0 : '0 var(--r-spacing-40)',
+            }}>
               {children}
             </Content>
             {
               actions &&
-              <Actions>
+              <Actions style={{
+                padding: 'var(--r-spacing-40)',
+              }}>
                 {actions}
               </Actions>
             }
@@ -69,7 +78,6 @@ const Actions = styled.div`
   align-items: center;
   justify-content: end;
   gap: var(--r-spacing-15);
-  padding-top: var(--r-spacing-40);
 `
 
 const CloseIcon = styled.div`
@@ -98,7 +106,6 @@ const Body = styled(motion.div)`
   background-color: #fff;
   height: max-content;
   margin: var(--r-spacing-20);
-  padding: var(--r-spacing-50);
   border-radius: var(--r-border-radius-md);
   box-shadow: var(--r-shadow-sm);
   max-height: 90vh;
