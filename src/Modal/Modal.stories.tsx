@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from "react";
 import { Button } from '../Button';
+import { red } from '../colors';
 import { Modal } from './Modal';
 
 const meta: Meta<typeof Modal> = {
@@ -36,6 +37,19 @@ export const WithLongText = () => {
       <Button onClick={() => setOpen(true)}>Open modal</Button>
       <Modal open={open} onClose={() => setOpen(false)} title="Modal title" maxWidth='lg'>
         <div style={{ height: '120vh' }}>Modal</div>
+      </Modal>
+    </>
+  )
+}
+
+export const ContentOnly = () => {
+  const [open, setOpen] = React.useState(false);
+
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>Open modal</Button>
+      <Modal open={open} onClose={() => setOpen(false)} flush maxWidth='lg'>
+        <div style={{ height: '200px', backgroundColor: red[100], padding: 12 }}>Modal</div>
       </Modal>
     </>
   )

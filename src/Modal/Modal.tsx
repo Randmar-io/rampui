@@ -18,9 +18,10 @@ interface ModalProps extends MuiModalProps {
   title?: string;
   actions?: React.ReactNode[];
   maxWidth?: Size;
+  flush?: boolean;
 }
 
-export function Modal({ children, title, actions, onClose, open, maxWidth, ...rest }: ModalProps) {
+export function Modal({ children, title, actions, onClose, open, maxWidth, flush, ...rest }: ModalProps) {
   return (
     <AnimatePresence>
       {
@@ -31,37 +32,37 @@ export function Modal({ children, title, actions, onClose, open, maxWidth, ...re
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: '100%' }}
             transition={{ duration: 0.15, ease: 'easeInOut' }}
-            style={{ width: `min(${maxWidthMapping[maxWidth || "sm"]}, 100%)` }}
+            style={{
+              width: `min(${maxWidthMapping[maxWidth || "sm"]}, 100%)`,
+              padding: flush ? '0' : 'var(--r-spacing-50)',
+            }}
           >
-            <Header>
-              <div style={{ fontSize: '16px', fontWeight: 600 }}>
+            <CloseIcon onClick={e => {
+              if (onClose) onClose(e, "backdropClick")
+            }}>
+              <X size={16} />
+            </CloseIcon>
+            {
+              title &&
+              <div style={{ fontSize: '16px', fontWeight: 600, paddingBottom: 'var(--r-spacing-40)' }}>
                 {title}
               </div>
-              <CloseIcon onClick={e => {
-                if (onClose) onClose(e, "backdropClick")
-              }}>
-                <X size={16} />
-              </CloseIcon>
-            </Header>
-            <Content>
+            }
+            <Content style={{ borderRadius: 'var(--r-border-radius-md)' }}>
               {children}
             </Content>
-            <Actions>
-              {actions}
-            </Actions>
+            {
+              actions &&
+              <Actions>
+                {actions}
+              </Actions>
+            }
           </Body>
         </ModalBase>
       }
     </AnimatePresence>
   );
 }
-
-const Header = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-bottom: var(--r-spacing-40);
-`
 
 const Actions = styled.div`
   display: flex;
@@ -80,6 +81,9 @@ const CloseIcon = styled.div`
   box-sizing: border-box;
   border-radius: var(--r-border-radius-sm);
   cursor: pointer;
+  position: absolute;
+  right: var(--r-spacing-40);
+  top: var(--r-spacing-40);
 
   :hover {
     background-color: ${grey[100]}
@@ -98,6 +102,7 @@ const Body = styled(motion.div)`
   border-radius: var(--r-border-radius-md);
   box-shadow: var(--r-shadow-sm);
   max-height: 90vh;
+  position: relative;
 `;
 
 const Content = styled.div`

@@ -18,6 +18,7 @@ export * from "./Paper";
 export * from "./Preloader";
 export * from "./ProductImage";
 export * from "./ProductInventoryGrid";
+export * from "./ProductInventoryGridV2";
 export * from "./Provider";
 export * from "./ResellerCard";
 export * from "./SceneSelector";
