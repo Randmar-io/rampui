@@ -82,8 +82,8 @@ const CloseIcon = styled.div`
   border-radius: var(--r-border-radius-sm);
   cursor: pointer;
   position: absolute;
-  right: var(--r-spacing-30);
-  top: var(--r-spacing-30);
+  right: var(--r-spacing-40);
+  top: var(--r-spacing-40);
 
   :hover {
     background-color: ${grey[100]}
