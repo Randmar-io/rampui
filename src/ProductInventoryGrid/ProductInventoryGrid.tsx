@@ -1,262 +1,166 @@
-import { Accordion, AccordionDetails, AccordionSummary, Box, Grid, styled } from "@mui/material";
+import { grey } from "@mui/material/colors";
+import { Stack } from "@mui/system";
+import Grid from "@mui/system/Unstable_Grid";
+import { Warehouse } from "@phosphor-icons/react";
 import React from "react";
-import { ExpandPanelIcon } from "../ExpandPanelIcon";
 
-const RegionContainer = styled(Grid)(({ theme }) => ({
-	display: "flex",
-	alignItems: "center",
-	gap: 2,
-	marginTop: theme.spacing(2),
-	marginBottom: theme.spacing(2),
-	justifyContent: "center",
-	fontSize: "1.3rem",
-	fontWeight: 500,
-}));
-
-const RegionCount = styled(Box)(({ theme }) => ({
-	paddingTop: theme.spacing(0.5),
-	paddingBottom: theme.spacing(0.5),
-	marginLeft: theme.spacing(),
-	display: "flex",
-	justifyContent: "center",
-	minWidth: 60,
-	borderRadius: theme.spacing(),
-	backgroundColor: theme.palette.primary.main,
-	color: "white",
-	fontWeight: 600,
-}));
-
-const LocationContainer = styled(Grid)(({ theme }) => ({
-	backgroundColor: theme.palette.primary.light,
-	borderRadius: theme.spacing(),
-	display: "flex",
-	flexDirection: "column",
-	justifyContent: "center",
-}));
-
-const LocationTitle = styled(Box)(({ theme }) => ({
-	backgroundColor: theme.palette.primary.main,
-	display: "flex",
-	alignItems: "center",
-	justifyContent: "space-around",
-	gap: 1,
-	border: "1px solid transparent",
-	borderRadius: "8px 8px 0 0",
-}));
-
-const LocationTitleText = styled(Box)({
-	color: "white",
-	fontWeight: 500,
-});
-
-const LocationCount = styled(Box)(({ theme }) => ({
-	backgroundColor: "white",
-	margin: 6,
-	paddingTop: theme.spacing(),
-	paddingBottom: theme.spacing(),
-	paddingLeft: theme.spacing(2),
-	paddingRight: theme.spacing(2),
-	borderRadius: theme.spacing(),
-}));
-
-const LocationDetailsWhite = styled(Grid)(({ theme }) => ({
-	padding: theme.spacing(2),
-	backgroundColor: "white",
-	border: "1px solid transparent",
-	borderRadius: "0 0 8px 8px",
-}));
-
-const LocationDetail = styled(Grid)({
-	textAlign: "center",
-});
-
-interface WarehouseViewInfo {
-	Name: string;
-	WarehouseId: string;
-	Province: string;
-	Country: string;
-	AvailableQuantity: number;
-	PurchaseOrderQuantity: number;
-	BinLocation: string;
+interface WarehouseInventory {
+  RandmarSKU?: string;
+  WarehouseId?: string;
+  WarehouseType?: string;
+  Name?: string;
+  City?: string;
+  Province?: string;
+  Country?: string;
+  AvailableQuantity?: number;
+  PurchaseOrderQuantity?: number;
+  BinLocation?: string;
 }
 
-interface ViewrProps {
-	warehouses: WarehouseViewInfo[];
-	showBinLocation?: boolean;
+interface ProductInventoryGridProps {
+  warehouses: WarehouseInventory[];
 }
 
-export const ProductInventoryGrid = ({ warehouses, showBinLocation = true }: ViewrProps) => {
-	const legacyEast = ["MTL", "TOR"]
-	const legacyWest = ["VAN", "EDM"]
+export function ProductInventoryGrid({ warehouses: warehouses }: ProductInventoryGridProps) {
+  const legacyEast = ["MTL", "TOR"];
+  const legacyWest = ["VAN", "EDM"];
 
-	warehouses.sort((a, b) => a.Name.localeCompare(b.Name));
-	const usaWarehouses = warehouses.filter((x) => x.Country === "US");
-	const canadaWarehouses = warehouses.filter((x) => x.Country === "CA");
-	const westWarehouses = warehouses.filter((x) => legacyWest.includes(x.WarehouseId || ""));
-	const eastWarehouses = warehouses.filter((x) => legacyEast.includes(x.WarehouseId || ""));
-	const otherCanWarehouses = canadaWarehouses
-		.filter((x) => !legacyEast.includes(x.WarehouseId || "") && !legacyWest.includes(x.WarehouseId || ""));
+  warehouses.sort((a, b) => (a.Name || "").localeCompare(b.Name || ""));
+  const usaWarehouses = warehouses.filter((x) => x.Country === "US");
+  const canadaWarehouses = warehouses.filter((x) => x.Country === "CA");
+  const westWarehouses = warehouses.filter((x) => legacyWest.includes(x.WarehouseId || ""));
+  const eastWarehouses = warehouses.filter((x) => legacyEast.includes(x.WarehouseId || ""));
+  const otherCanWarehouses = canadaWarehouses
+    .filter((x) => !legacyEast.includes(x.WarehouseId || "") && !legacyWest.includes(x.WarehouseId || ""));
 
-	const renderLoc = (wi: WarehouseViewInfo, index: number, xs: number, sm: number) => {
-		return (
-			<LocationContainer item xs={xs} sm={sm} key={index}>
-				<LocationTitle>
-					<LocationTitleText>{wi.Name} ({wi.Province})</LocationTitleText>
-					<LocationCount>
-						<b>{wi.AvailableQuantity || 0}</b>
-					</LocationCount>
-				</LocationTitle>
-				<LocationDetailsWhite container>
-					<LocationDetail item xs={6}>
-						Expecting
-					</LocationDetail>
-					<LocationDetail item xs={6}>
-						{`${wi.PurchaseOrderQuantity || "-"}`}
-					</LocationDetail>
-					{showBinLocation && (<>
-						<LocationDetail item xs={6}>
-							Bin
-						</LocationDetail>
-						<LocationDetail item xs={6}>
-							{(wi.BinLocation || "-")}
-						</LocationDetail>
-					</>)}
+  const totalQuantity = (w: WarehouseInventory[]) => {
+    return w.reduce((acc, wi) => acc + (wi.AvailableQuantity || 0), 0);
+  }
 
-				</LocationDetailsWhite>
-			</LocationContainer>
-		)
-	}
+  const totalCanada = totalQuantity(canadaWarehouses);
+  const totalEast = totalQuantity(eastWarehouses);
+  const totalWest = totalQuantity(westWarehouses);
+  const totalUSA = totalQuantity(usaWarehouses);
 
-	const totalQuantity = (w: WarehouseViewInfo[]) => {
-		return w.reduce((acc, wi) => acc + (wi.AvailableQuantity || 0), 0);
-	}
+  const renderWarehouseLocation = (warehouse: WarehouseInventory, index: number) => {
+    return (
+      <div key={index} style={{ borderTop: `1px solid ${grey[300]}`, padding: "12px 16px" }}>
+        <WarehouseField name={warehouse.Name} value={warehouse.AvailableQuantity} fontWeight={500} />
+        <WarehouseField name="Expecting" value={warehouse.PurchaseOrderQuantity || "-"} style={{ paddingTop: "4px" }} />
+        <WarehouseField name="Bin" value={warehouse.BinLocation || "-"} style={{ paddingTop: "4px" }} />
+      </div>
+    );
+  }
 
-	const totalCanada = totalQuantity(canadaWarehouses);
-	const totalUSA = totalQuantity(usaWarehouses);
+  return (
+    <div>
+      <Stack direction="row" alignItems="center" spacing={1} p={2}>
+        <Warehouse size={20} />
+        <p style={{ fontSize: 14, fontWeight: 600 }}>Inventory</p>
+      </Stack>
+      <div style={{ borderTop: `1px solid ${grey[300]}` }}>
+        <Grid container>
+          {
+            canadaWarehouses.length > 0 && usaWarehouses.length > 0 &&
+            <>
+              <Grid xs={6}>
+                <WarehouseField
+                  name="Total"
+                  value={totalCanada + totalUSA}
+                  style={{ padding: "16px 16px", borderBottom: `1px solid ${grey[300]}` }}
+                  fontWeight={600} fontSize={14}
+                />
+              </Grid>
+              <Grid xs={6} sx={{ borderBottom: `1px solid ${grey[300]}` }} />
+            </>
+          }
 
-	const renderLocAlwaysFull = (wi: WarehouseViewInfo, index: number,) => renderLoc(wi, index, 12, 12);
-	const renderLocNormal = (wi: WarehouseViewInfo, index: number,) => renderLoc(wi, index, 12, 6);
+          <Grid xs={6}>
+            <WarehouseField
+              name="Canada"
+              value={totalCanada}
+              style={{ padding: "16px 16px", borderBottom: `1px solid ${grey[300]}`, backgroundColor: grey[50] }}
+              fontWeight={600} fontSize={14}
+            />
+          </Grid>
+          <Grid xs={6} sx={{ borderBottom: `1px solid ${grey[300]}`, backgroundColor: grey[50] }} />
+          <Grid xs={6}>
+            <div style={{ borderRight: `1px solid ${grey[300]}` }}>
+              <WarehouseField
+                name="West"
+                value={totalWest}
+                style={{ padding: "12px 16px" }}
+                fontWeight={600}
+              />
+              {westWarehouses.map(renderWarehouseLocation)}
+            </div>
+          </Grid>
+          <Grid xs={6}>
+            <WarehouseField
+              name="East" value={totalEast}
+              style={{ padding: "12px 16px" }}
+              fontWeight={600}
+            />
+            {eastWarehouses.map(renderWarehouseLocation)}
+          </Grid>
 
-	return (
-		<>
-			{canadaWarehouses.length > 0 && usaWarehouses.length > 0 && (
-				<Box
-					sx={{
-						display: "flex",
-						justifyContent: "center",
-						alignItems: "center",
-						mb: 4,
-						gap: 2,
-						fontSize: "1.5rem",
-						fontWeight: 500,
-					}}
-				>
-					<Box>Total</Box>
-					<Box
-						sx={{
-							py: 1 / 2,
-							display: "flex",
-							justifyContent: "center",
-							minWidth: 60,
-							borderRadius: 1,
-							backgroundColor: "primary.main",
-							color: "white",
-							fontWeight: 600,
-						}}
-					>
-						{totalCanada + totalUSA}
-					</Box>
-				</Box>
-			)}
-			<Grid container justifyContent="space-around" rowSpacing={2} sx={{ mb: 1 }}>
-				{canadaWarehouses.length > 0 && (
-					<Grid item sm={10} >
-						<Accordion sx={{ bgcolor: 'primary.light', pl: 1 }} defaultExpanded>
-							<AccordionSummary
-								expandIcon={<ExpandPanelIcon />}
-								sx={{ fontSize: "1.3rem" }}>
-								<Box
-									sx={{
-										display: "flex",
-										gap: 1,
-										alignItems: "center",
-										color: "primary.main",
-									}}
-								>
-									<Box sx={{ fontWeight: 500 }}>Canada</Box>
-									<LocationCount sx={{ color: "primary.main" }}>
-										<b>{totalCanada}</b>
-									</LocationCount>
-								</Box>
-							</AccordionSummary>
+          {
+            otherCanWarehouses.length > 0 &&
+            <>
+              <Grid xs={12}>
+                <WarehouseField
+                  name="Other"
+                  style={{ padding: "12px 16px", borderTop: `1px solid ${grey[300]}` }}
+                  fontWeight={600}
+                />
 
-							<AccordionDetails sx={{ bgcolor: 'primary.light', py: 2 }}  >
-								<Grid container justifyContent="space-around" sx={{ mb: 1 }} rowSpacing={8}>
-									<Grid item sm={5}>
-										<Grid container justifyContent="center" rowSpacing={1}>
-											<RegionContainer item xs={12}>
-												<Box>West</Box>
-												<RegionCount>{totalQuantity(westWarehouses)}</RegionCount>
-											</RegionContainer>
-											{westWarehouses.map(renderLocAlwaysFull)}
-										</Grid>
-									</Grid>
-									<Grid item sm={5}>
-										<Grid container justifyContent="center" rowSpacing={1}>
-											<RegionContainer item xs={12}>
-												<Box>East</Box>
-												<RegionCount>{totalQuantity(eastWarehouses)}</RegionCount>
-											</RegionContainer>
-											{eastWarehouses.map(renderLocAlwaysFull)}
-										</Grid>
-									</Grid>
+              </Grid>
+              {otherCanWarehouses.map((warehouse, index) => (
+                <Grid key={index} xs={6} sx={{ borderRight: index % 2 ? undefined : `1px solid ${grey[300]}` }}>
+                  {renderWarehouseLocation(warehouse, index)}
+                </Grid>
+              ))}
+            </>
+          }
 
-									{otherCanWarehouses.length > 0 && (
-										<>
-											<Grid item xs={12}>
-												<br />
-											</Grid>
+          {
+            usaWarehouses.length > 0 &&
+            <>
+              <Grid xs={6}>
+                <WarehouseField
+                  name="United States"
+                  value={totalUSA}
+                  style={{ padding: "16px 16px", borderTop: `1px solid ${grey[300]}`, backgroundColor: grey[50] }}
+                  fontWeight={600} fontSize={14}
+                />
+              </Grid>
+              <Grid xs={6} sx={{ borderTop: `1px solid ${grey[300]}`, backgroundColor: grey[50] }} />
+              {usaWarehouses.map((warehouse, index) => (
+                <Grid key={index} xs={6} sx={{ borderRight: index % 2 ? undefined : `1px solid ${grey[300]}` }}>
+                  {renderWarehouseLocation(warehouse, index)}
+                </Grid>
+              ))}
+            </>
+          }
+        </Grid>
+      </div>
+    </div>
+  )
+}
 
-											<Grid container spacing={1}>
-												{otherCanWarehouses.map(renderLocNormal)}
-											</Grid>
-										</>
-									)}
-								</Grid>
-							</AccordionDetails>
-						</Accordion>
-					</Grid>
-				)}
+interface WarehouseFieldProps {
+  name?: string;
+  value?: string | number;
+  style?: React.CSSProperties;
+  fontSize?: number | string;
+  fontWeight?: number | string;
+}
 
-				{usaWarehouses.length > 0 && (
-					<Grid item sm={10}>
-						<Accordion sx={{ bgcolor: 'primary.light', pl: 1 }} defaultExpanded>
-							<AccordionSummary
-								expandIcon={<ExpandPanelIcon />}
-								sx={{ fontSize: "1.3rem" }}>
-								<Box
-									sx={{
-										display: "flex",
-										gap: 1,
-										alignItems: "center",
-										color: "primary.main",
-									}}
-								>
-									<Box sx={{ fontWeight: 500 }}>USA</Box>
-									<LocationCount sx={{ color: "primary.main" }}>
-										<b>{totalUSA}</b>
-									</LocationCount>
-								</Box>
-							</AccordionSummary>
-							<AccordionDetails sx={{ py: 2 }}>
-								<Grid container spacing={2}>
-									{usaWarehouses.map(renderLocNormal)}
-								</Grid>
-							</AccordionDetails>
-						</Accordion>
-					</Grid>
-				)}
-			</Grid>
-		</>
-	);
-};
+function WarehouseField({ name, value, style, fontSize, fontWeight }: WarehouseFieldProps) {
+  return (
+    <Stack direction="row" justifyContent="space-between" style={style}>
+      <p style={{ fontSize: fontSize || 13, fontWeight }}>{name}</p>
+      <p style={{ fontSize: fontSize || 13, fontWeight }}>{value}</p>
+    </Stack>
+  );
+}
