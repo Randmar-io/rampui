@@ -19,9 +19,10 @@ interface WarehouseInventory {
 
 interface ProductInventoryGridProps {
   warehouses: WarehouseInventory[];
+  showBinLocation?: boolean;
 }
 
-export function ProductInventoryGrid({ warehouses: warehouses }: ProductInventoryGridProps) {
+export function ProductInventoryGrid({ warehouses, showBinLocation }: ProductInventoryGridProps) {
   const legacyEast = ["MTL", "TOR"];
   const legacyWest = ["VAN", "EDM"];
 
@@ -47,7 +48,10 @@ export function ProductInventoryGrid({ warehouses: warehouses }: ProductInventor
       <div key={index} style={{ borderTop: `1px solid ${grey[300]}`, padding: "12px 16px" }}>
         <WarehouseField name={warehouse.Name} value={warehouse.AvailableQuantity} fontWeight={500} />
         <WarehouseField name="Expecting" value={warehouse.PurchaseOrderQuantity || "-"} style={{ paddingTop: "4px" }} />
-        <WarehouseField name="Bin" value={warehouse.BinLocation || "-"} style={{ paddingTop: "4px" }} />
+        {
+          showBinLocation &&
+          <WarehouseField name="Bin" value={warehouse.BinLocation || "-"} style={{ paddingTop: "4px" }} />
+        }
       </div>
     );
   }
