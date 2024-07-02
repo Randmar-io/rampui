@@ -1,3 +1,4 @@
+import { Skeleton } from "@mui/material";
 import { Stack } from "@mui/system";
 import { SignOut } from "@phosphor-icons/react";
 import React from "react";
@@ -11,9 +12,23 @@ interface NavFooterProps {
   profileEmail?: string;
   onSignOut?: () => void;
   secondaryActions?: React.ReactNode[];
+  loading?: boolean;
 }
 
-export function NavFooter({ profileImageUrl, profileName, profileEmail, onSignOut, secondaryActions }: NavFooterProps) {
+export function NavFooter({ profileImageUrl, profileName, profileEmail, onSignOut, secondaryActions, loading }: NavFooterProps) {
+  if (loading) return (
+    <Stack spacing={1.5} >
+      <Stack direction="row" spacing={1.5} sx={{ borderTop: `1px solid ${grey[200]}`, pt: 1.5 }}>
+        <Skeleton width={48} height={48} variant="rounded" />
+        <Stack>
+          <Skeleton width={60} height={16} />
+          <Skeleton width={120} height={16} />
+        </Stack>
+      </Stack>
+      <Skeleton width={'100%'} height={32} variant="rounded" />
+    </Stack>
+  )
+
   return (
     <>
       {
