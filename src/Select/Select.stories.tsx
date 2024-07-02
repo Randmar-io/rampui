@@ -3,7 +3,7 @@ import React from "react";
 import { Select } from "./Select";
 
 const meta: Meta<typeof Select> = {
-  title: 'Text Field',
+  title: 'Select',
   component: Select,
   parameters: {
     layout: "centered",
