@@ -4,9 +4,11 @@ import type { Meta, StoryObj } from '@storybook/react';
 import React from "react";
 import { Button } from '../Button';
 import { EducationWithProps } from "../Education/Education.stories";
+import { NavFooter } from "../NavFooter";
 import { Page } from '../Page';
 import { SearchBarStory } from "../SearchBar/SearchBar.stories";
 import { Select } from "../Select";
+import { TextField } from "../TextField";
 import { AppShell } from './AppShell';
 
 const meta: Meta<typeof AppShell> = {
@@ -37,11 +39,33 @@ export const AppShellWithItems = () => {
       <path d="M25.6416 10.4087V15.5975H15.3762V26H10.2588V10.4087H25.6416Z" fill="#fff" />
       <path d="M23.6422 0C24.7467 0 25.6422 0.895431 25.6422 2V5.20748H5.12966V26H2C0.89543 26 0 25.1046 0 24V2C0 0.89543 0.895431 0 2 0H23.6422Z" fill="#fff" />
     </svg>
-  )
+  );
+
+  const footer = (
+    <NavFooter
+      profileImageUrl="https://api.randmar.io/v4/Partner/2/Account/Logo?width=64&height=64"
+      profileName="Brother"
+      profileEmail="admin@brother.ca"
+      onSignOut={() => console.log("Sign out")}
+      secondaryActions={[
+        <Button fullWidth>Partner Dashboard</Button>,
+        <Select
+          fullWidth
+          options={[
+            { value: '0', displayText: 'Settings' },
+            { value: '1', displayText: 'Help' },
+            { value: '2', displayText: 'Feedback' },
+          ]}
+          setSelected={() => { }}
+        />
+      ]}
+    />
+  );
 
   return (
     <AppShell
       logo={logo}
+      footer={footer}
       searchBar={<SearchBarStory />}
       menuItems={[
         {
@@ -110,18 +134,20 @@ export const AppShellWithItems = () => {
               }
             }}
           />
-
-          <Select
-            options={[
-              { value: '0', displayText: 'Zero' },
-              { value: '1', displayText: 'One' },
-              { value: '2', displayText: 'Two' },
-              { value: '3', displayText: 'Three' },
-              { value: '4', displayText: 'Four' },
-            ]}
-            selected={selected}
-            setSelected={setSelected}
-          />
+          <Stack direction="row" spacing={1}>
+            <Select
+              options={[
+                { value: '0', displayText: 'Zero' },
+                { value: '1', displayText: 'One' },
+                { value: '2', displayText: 'Two' },
+                { value: '3', displayText: 'Three' },
+                { value: '4', displayText: 'Four' },
+              ]}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <TextField />
+          </Stack>
         </Stack>
       </Page>
     </AppShell>

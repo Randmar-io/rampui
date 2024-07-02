@@ -9,14 +9,14 @@ export function TextField({ readOnly, sx, label, value, fullWidth, inputProps, .
   const labelMarkup = label ? <p style={{ fontSize: 12, paddingBottom: 4, color: "#616161" }}>{label}</p> : null;
 
   if (readOnly) return (
-    <div>
+    <div style={{ height: 'max-content' }}>
       {labelMarkup}
       <p style={{ fontSize: 13, textWrap: "wrap" }}>{value}</p>
     </div>
   )
 
   return (
-    <div>
+    <div style={{ height: 'max-content' }}>
       {labelMarkup}
       <OutlinedInput
         sx={{ padding: '8px 12px', backgroundColor: 'white', ...sx }}
