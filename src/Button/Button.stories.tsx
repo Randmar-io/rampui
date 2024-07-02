@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Tooltip } from '@mui/material';
 import { Airplane } from '@phosphor-icons/react';
 import React from 'react';
+import { grey } from '../colors';
 import { Button } from './Button';
 
 const meta: Meta<typeof Button> = {
@@ -27,10 +28,12 @@ export const Primary: Story = {
 
 export const WithStartIcon: Story = {
   args: {
-    children: 'Icon',
     starticon: Airplane,
     size: 'medium',
     variant: 'primary',
+    iconOnly: true,
+    iconProps: { color: grey[400] },
+    loading: true,
   },
 };
 

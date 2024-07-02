@@ -38,6 +38,13 @@ const ButtonContent = ({ starticon: StartIcon, endicon: EndIcon, children, loadi
     large: 1
   }
 
+  const iconStyles: PhosphorIconProps = {
+    size: iconSize[size || "medium"],
+    weight: "bold",
+    ...iconProps,
+    color: loading ? 'transparent' : iconProps?.color ? iconProps.color : 'inherit'
+  }
+
   return (
     <div style={{ position: 'relative' }}>
       <span style={{
@@ -59,9 +66,9 @@ const ButtonContent = ({ starticon: StartIcon, endicon: EndIcon, children, loadi
         justifyContent="center"
         spacing={spacing[size || "medium"]}
       >
-        {StartIcon && <StartIcon size={iconSize[size || "medium"]} weight={"bold"} {...iconProps} />}
+        {StartIcon && <StartIcon {...iconStyles} />}
         {children && <div>{children}</div>}
-        {EndIcon && <EndIcon size={iconSize[size || "medium"]} weight={"bold"} {...iconProps} />}
+        {EndIcon && <EndIcon {...iconStyles} />}
       </Stack>
     </div >
   );
