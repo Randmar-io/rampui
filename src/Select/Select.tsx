@@ -24,8 +24,11 @@ export function Select({ options, selected, setSelected, sx, label, ...muiSelect
   });
 
   return (
-    <div>
-      <p style={{ fontSize: 12, color: "#616161", marginBottom: 4 }}>{label}</p>
+    <div style={{ height: 'max-content' }}>
+      {
+        label &&
+        <p style={{ fontSize: 12, color: "#616161", marginBottom: 4 }}>{label}</p>
+      }
       <MuiSelect
         value={selected}
         onChange={e => setSelected(e.target.value as string)}
@@ -34,7 +37,7 @@ export function Select({ options, selected, setSelected, sx, label, ...muiSelect
           backgroundColor: 'white',
           minWidth: 200,
           '& .MuiSelect-select': {
-            padding: '8px 12px',
+            padding: '6px 12px',
             fontSize: 13,
           },
           ...sx,

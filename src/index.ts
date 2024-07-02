@@ -12,6 +12,7 @@ export * from "./Link";
 export * from "./ManufacturerCard";
 export * from "./Modal";
 export * from "./ModelViewer";
+export * from "./NavFooter";
 export * from "./NavMenu";
 export * from "./Page";
 export * from "./Paper";
