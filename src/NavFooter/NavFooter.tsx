@@ -10,12 +10,13 @@ interface NavFooterProps {
   profileImageUrl?: string;
   profileName?: string;
   profileEmail?: string;
+  profileTier?: string;
   onSignOut?: () => void;
   secondaryActions?: React.ReactNode[];
   loading?: boolean;
 }
 
-export function NavFooter({ profileImageUrl, profileName, profileEmail, onSignOut, secondaryActions, loading }: NavFooterProps) {
+export function NavFooter({ profileImageUrl, profileName, profileEmail, profileTier, onSignOut, secondaryActions, loading }: NavFooterProps) {
   if (loading) return (
     <Stack spacing={1.5} >
       <Stack direction="row" spacing={1.5} sx={{ borderTop: `1px solid ${grey[200]}`, pt: 1.5 }}>
@@ -42,6 +43,7 @@ export function NavFooter({ profileImageUrl, profileName, profileEmail, onSignOu
           <Image style={{ flexShrink: 0 }} size="xs" src={profileImageUrl} />
           <Stack>
             <div style={{ fontSize: 13, fontWeight: 500 }}>{profileName}</div>
+            {profileTier && <div style={{ fontSize: 12 }}>{profileTier}</div>}
             <div style={{ fontSize: 12, color: '#646464' }}>{profileEmail}</div>
           </Stack>
         </Stack>
