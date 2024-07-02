@@ -43,6 +43,7 @@ export const AppShellWithItems = () => {
 
   const footer = (
     <NavFooter
+      loading={true}
       profileImageUrl="https://api.randmar.io/v4/Partner/2/Account/Logo?width=64&height=64"
       profileName="Brother"
       profileEmail="admin@brother.ca"
