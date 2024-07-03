@@ -4,6 +4,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import React from "react";
 import { Button } from '../Button';
 import { EducationWithProps } from "../Education/Education.stories";
+import { LinkCard } from "../LinkCard";
 import { NavFooter } from "../NavFooter";
 import { Page } from '../Page';
 import { SearchBarStory } from "../SearchBar/SearchBar.stories";
@@ -118,6 +119,7 @@ export const AppShellWithItems = () => {
         midWidth
       >
         <EducationWithProps />
+        <LinkCard title="Reseller Portal" description="This takes you to the reseller portal" />
         <Stack direction="row" spacing={1}>
           <Button
             starticon={Airplane}
@@ -135,20 +137,18 @@ export const AppShellWithItems = () => {
               }
             }}
           />
-          <Stack direction="row" spacing={1}>
-            <Select
-              options={[
-                { value: '0', displayText: 'Zero' },
-                { value: '1', displayText: 'One' },
-                { value: '2', displayText: 'Two' },
-                { value: '3', displayText: 'Three' },
-                { value: '4', displayText: 'Four' },
-              ]}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <TextField />
-          </Stack>
+          <Select
+            options={[
+              { value: '0', displayText: 'Zero' },
+              { value: '1', displayText: 'One' },
+              { value: '2', displayText: 'Two' },
+              { value: '3', displayText: 'Three' },
+              { value: '4', displayText: 'Four' },
+            ]}
+            selected={selected}
+            setSelected={setSelected}
+          />
+          <TextField />
         </Stack>
       </Page>
     </AppShell>
