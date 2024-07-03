@@ -1,7 +1,7 @@
 {
   "name": "rampui",
   "private": false,
-  "version": "0.33.2",
+  "version": "0.33.3",
   "description": "The UI library for effortlessly creating beatiful and responsive admin dashboards in React.",
   "main": "dist/index.umd.js",
   "module": "dist/index.mjs",
