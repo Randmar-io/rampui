@@ -9,6 +9,7 @@ export * from "./ExpandableCard";
 export * from "./Image";
 export * from "./Layout";
 export * from "./Link";
+export * from "./LinkCard";
 export * from "./ManufacturerCard";
 export * from "./Modal";
 export * from "./ModelViewer";
