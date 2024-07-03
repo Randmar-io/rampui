@@ -12,6 +12,7 @@ interface LinkCardProps {
   imgUrl?: string;
   to?: string;
   external?: boolean;
+  onClick?: () => void;
 }
 
 const CardBase = styled(Paper)`
@@ -24,9 +25,9 @@ const CardBase = styled(Paper)`
   }
 `;
 
-export function LinkCard({ title, description, imgUrl, to, external }: LinkCardProps) {
+export function LinkCard({ title, description, imgUrl, to, external, onClick }: LinkCardProps) {
   return (
-    <a href={to} target={external ? "_blank" : "_self"} style={{ textDecoration: 'none' }}>
+    <a href={to} onClick={onClick} target={external ? "_blank" : "_self"} style={{ textDecoration: 'none' }}>
       <CardBase>
         <Typography variant="headingSm" style={{ paddingBottom: 4 }}>{title}</Typography>
         <Typography variant="bodyMd" style={{ paddingBottom: 8 }}>{description}</Typography>
