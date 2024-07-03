@@ -42,7 +42,7 @@ const ButtonContent = ({ starticon: StartIcon, endicon: EndIcon, children, loadi
     size: iconSize[size || "medium"],
     weight: "bold",
     ...iconProps,
-    color: loading ? 'transparent' : iconProps?.color ? iconProps.color : 'inherit'
+    color: loading ? 'transparent' : iconProps?.color ? iconProps.color : undefined
   }
 
   return (
