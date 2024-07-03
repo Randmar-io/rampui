@@ -35,7 +35,7 @@ export function LinkCard({ title, description, imgUrl, to, external, onClick }: 
         <Typography variant="headingSm" style={{ paddingBottom: 4, color: 'inherit' }}>{title}</Typography>
         <Typography variant="bodyMd" style={{ paddingBottom: 16, lineHeight: 1.2 }}>{description}</Typography>
         <Stack direction="row" justifyContent="space-between" alignItems="baseline">
-          <img src={imgUrl} alt={title} style={{ maxHeight: 100 }} />
+          <img src={imgUrl} alt={title} style={{ maxHeight: 80 }} />
           <Button variant="secondary" size="large" iconOnly starticon={ArrowUpRight} />
         </Stack>
       </CardBase>
