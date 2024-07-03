@@ -15,7 +15,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export function LinkCardWithProps() {
-  return <div style={{ padding: 16 }}>
+  return <div style={{ maxWidth: 300, padding: 16 }}>
     <LinkCard
       title='Reseller Portal'
       description='Manage your reseller account, view your orders, and more.'
