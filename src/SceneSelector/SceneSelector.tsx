@@ -45,7 +45,7 @@ export function SceneSelector({ selectedScene, setSelectedScene }: SceneSelector
                 }}>
                   <SceneImage
                     onClick={() => setSelectedScene(s)}
-                    src={`https://api.randmar.io/ShortsGenerationContent/Scenes/${s}.jpg`}
+                    src={`https://api.randmar.io/ShortsGenerationContent/Scene/${s}/Thumbnail`}
                     style={{
                       width: ' 100%',
                       cursor: 'pointer',
