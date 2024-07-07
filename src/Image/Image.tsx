@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 import { Image as ImageIcon, MagnifyingGlassPlus, Icon as PhosphorIcon } from "@phosphor-icons/react";
-import { motion } from "framer-motion";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Modal } from "../Modal";
 
 const sizeMap = {
@@ -19,12 +18,34 @@ interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   width?: string | number;
   zoomable?: boolean;
   backgroundColor?: string;
+  hoverIcon?: PhosphorIcon;
+  onClick?: () => void;
 }
 
-export function Image({ src, alt, style, altIcon: AltIcon, size, aspectRatio, zoomable, backgroundColor }: ImageProps) {
+export function Image({ src, alt, style, altIcon: AltIcon, hoverIcon: HoverIcon, onClick, size, aspectRatio, zoomable, backgroundColor }: ImageProps) {
   const [error, setError] = useState(false);
   const [hovered, setHovered] = useState(false);
   const [open, setOpen] = useState(false);
+  const isInteractive = zoomable || onClick !== undefined;
+
+  useEffect(() => {
+    if (!src) {
+      setError(true);
+      return;
+    };
+
+    const imageDoesExist = async () => {
+      try {
+        const response = await fetch(src);
+        if (response.ok) return true;
+        else return false;
+      } catch (error) {
+        return false;
+      }
+    }
+
+    imageDoesExist().then(exists => setError(!exists));
+  }, [src]);
 
   const baseStyle = {
     width: sizeMap[size || "md"],
@@ -49,13 +70,16 @@ export function Image({ src, alt, style, altIcon: AltIcon, size, aspectRatio, zo
     border-radius: 8px;
   `;
 
-  const zoomIconStyle = {
-    color: "#fff", // Adjust icon color
-    fontSize: "32px", // Adjust icon size
+  const hoverIconStyle = {
+    color: "#fff",
+    size: 24,
   };
 
   function handleClick() {
-    if (zoomable) {
+    if (onClick) {
+      setHovered(false);
+      onClick()
+    } else if (zoomable) {
       setOpen(true);
       setHovered(false);
     }
@@ -77,32 +101,32 @@ export function Image({ src, alt, style, altIcon: AltIcon, size, aspectRatio, zo
           position: 'relative',
           border: "1px solid #e3e3e3",
           borderRadius: 8,
-          cursor: zoomable ? "pointer" : undefined,
+          cursor: isInteractive ? "pointer" : undefined,
           ...style
         }}
-        onMouseEnter={() => zoomable && setHovered(true)}
-        onMouseLeave={() => zoomable && setHovered(false)}
+        onMouseEnter={() => isInteractive && setHovered(true)}
+        onMouseLeave={() => isInteractive && setHovered(false)}
         onClick={handleClick}
       >
-        <motion.img
-          layout="position"
+        <img
           src={src}
+          onLoad={() => setError(false)}
           onError={() => setError(true)}
           alt={alt}
           style={{ ...baseStyle, position: 'relative', objectFit: "contain", borderRadius: 8 }}
         />
         {
-          zoomable &&
+          isInteractive &&
           <Overlay>
-            <MagnifyingGlassPlus style={zoomIconStyle} size={24} />
+            {HoverIcon ? <HoverIcon {...hoverIconStyle} /> : <MagnifyingGlassPlus {...hoverIconStyle} />}
           </Overlay>
         }
       </div>
       <Modal open={open} onClose={() => setOpen(false)}>
-        <motion.img
-          layout="position"
+        <img
           src={src}
-          style={{ maxWidth: "80vw", maxHeight: "80vh", objectFit: "contain" }}
+          style={{ maxWidth: "100%", maxHeight: "80vh", objectFit: "contain" }}
+          onLoad={() => setError(false)}
           onError={() => setError(true)}
           alt={alt}
         />
@@ -112,21 +136,34 @@ export function Image({ src, alt, style, altIcon: AltIcon, size, aspectRatio, zo
 
   if (error)
     return (
-      <div style={{
-        width: sizeMap[size || "md"],
-        aspectRatio: "1 / 1",
-        backgroundColor: "#fafafa",
-        border: "1px solid #e3e3e3",
-        borderRadius: 8,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}>
+      <div
+        style={{
+          position: 'relative',
+          width: sizeMap[size || "md"],
+          aspectRatio: "1 / 1",
+          backgroundColor: "#fafafa",
+          border: "1px solid #e3e3e3",
+          borderRadius: 8,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          cursor: onClick ? "pointer" : undefined,
+        }}
+        onMouseEnter={() => onClick && setHovered(true)}
+        onMouseLeave={() => onClick && setHovered(false)}
+        onClick={handleClick}
+      >
         {
           AltIcon ?
             <AltIcon size={iconSize()} color="#949494" />
             :
             <ImageIcon size={iconSize()} color="#949494" />
+        }
+        {
+          onClick &&
+          <Overlay>
+            {HoverIcon ? <HoverIcon {...hoverIconStyle} /> : <MagnifyingGlassPlus {...hoverIconStyle} />}
+          </Overlay>
         }
       </div>
     );
