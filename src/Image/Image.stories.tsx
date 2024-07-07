@@ -1,3 +1,4 @@
+import { PencilSimple } from '@phosphor-icons/react';
 import type { Meta, StoryObj } from '@storybook/react';
 import React from "react";
 import { Image } from './Image';
@@ -39,6 +40,21 @@ export const Zoomable: Story = {
       alt="A beautiful beach"
       size="xl"
       zoomable
+    />
+  ),
+  args: {
+    size: 'md',
+  },
+};
+
+export const Clickable: Story = {
+  render: () => (
+    <Image
+      src="https://api.randmar.io/Product/6090153/Image"
+      alt="A beautiful beach"
+      size="sm"
+      onClick={() => alert("You clicked the image!")}
+      hoverIcon={PencilSimple}
     />
   ),
   args: {

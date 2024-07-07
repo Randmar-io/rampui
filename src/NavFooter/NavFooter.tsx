@@ -1,6 +1,6 @@
 import { Skeleton } from "@mui/material";
 import { Stack } from "@mui/system";
-import { SignOut } from "@phosphor-icons/react";
+import { PencilSimple, SignOut } from "@phosphor-icons/react";
 import React from "react";
 import { Button } from "../Button";
 import { Image } from "../Image";
@@ -14,9 +14,10 @@ interface NavFooterProps {
   onSignOut?: () => void;
   secondaryActions?: React.ReactNode[];
   loading?: boolean;
+  onClickProfileImg?: () => void;
 }
 
-export function NavFooter({ profileImageUrl, profileName, profileEmail, profileTier, onSignOut, secondaryActions, loading }: NavFooterProps) {
+export function NavFooter({ profileImageUrl, profileName, profileEmail, profileTier, onSignOut, secondaryActions, loading, onClickProfileImg }: NavFooterProps) {
   if (loading) return (
     <Stack spacing={1.5} >
       <Stack direction="row" spacing={1.5} sx={{ borderTop: `1px solid ${grey[200]}`, pt: 1.5 }}>
@@ -40,7 +41,13 @@ export function NavFooter({ profileImageUrl, profileName, profileEmail, profileT
       }
       <Stack spacing={1.5} >
         <Stack direction="row" spacing={1.5} sx={{ borderTop: `1px solid ${grey[200]}`, pt: 1.5 }}>
-          <Image style={{ flexShrink: 0 }} size="xs" src={profileImageUrl} />
+          <Image
+            style={{ flexShrink: 0 }}
+            size="xs"
+            src={profileImageUrl}
+            onClick={onClickProfileImg}
+            hoverIcon={PencilSimple}
+          />
           <Stack>
             <div style={{ fontSize: 13, fontWeight: 500 }}>{profileName}</div>
             {profileTier && <div style={{ fontSize: 12 }}>{profileTier}</div>}
