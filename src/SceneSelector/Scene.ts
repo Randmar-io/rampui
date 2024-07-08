@@ -15,7 +15,7 @@ interface MediaFile {
 }
 
 export const categoryMapping: { [key: string]: string } = {
- " Cozy": "Default",
+  "Cozy": "Default",
   "Office": "Default",
   "Art": "Default",
   "Dock": "Default",

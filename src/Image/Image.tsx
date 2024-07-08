@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
-import { Image as ImageIcon, MagnifyingGlassPlus, Icon as PhosphorIcon } from "@phosphor-icons/react";
-import React, { useEffect, useState } from "react";
+import { MagnifyingGlassPlus, Icon as PhosphorIcon } from "@phosphor-icons/react";
+import React, { useState } from "react";
 import { Modal } from "../Modal";
 
 const sizeMap = {
@@ -12,7 +12,6 @@ const sizeMap = {
 }
 
 interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
-  altIcon?: PhosphorIcon;
   size?: "xs" | "sm" | "md" | "lg" | "xl";
   aspectRatio?: string;
   width?: string | number;
@@ -22,30 +21,10 @@ interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   onClick?: () => void;
 }
 
-export function Image({ src, alt, style, altIcon: AltIcon, hoverIcon: HoverIcon, onClick, size, aspectRatio, zoomable, backgroundColor }: ImageProps) {
-  const [error, setError] = useState(false);
+export function Image({ src, alt, style, hoverIcon: HoverIcon, onClick, size, aspectRatio, zoomable, backgroundColor }: ImageProps) {
   const [hovered, setHovered] = useState(false);
   const [open, setOpen] = useState(false);
-  const isInteractive = zoomable || onClick !== undefined;
-
-  useEffect(() => {
-    if (!src) {
-      setError(true);
-      return;
-    };
-
-    const imageDoesExist = async () => {
-      try {
-        const response = await fetch(src);
-        if (response.ok) return true;
-        else return false;
-      } catch (error) {
-        return false;
-      }
-    }
-
-    imageDoesExist().then(exists => setError(!exists));
-  }, [src]);
+  const isInteractive = onClick !== undefined || (!!src && zoomable);
 
   const baseStyle = {
     width: sizeMap[size || "md"],
@@ -79,21 +58,13 @@ export function Image({ src, alt, style, altIcon: AltIcon, hoverIcon: HoverIcon,
     if (onClick) {
       setHovered(false);
       onClick()
-    } else if (zoomable) {
+    } else if (zoomable && !!src) {
       setOpen(true);
       setHovered(false);
     }
   };
 
-  function iconSize() {
-    let imageSize;
-    if (typeof baseStyle.width === "string") imageSize = parseInt(baseStyle.width);
-    else imageSize = baseStyle.width;
-
-    return imageSize / 5 + 8;
-  }
-
-  const mainMarkup = (
+  return (
     <>
       <div
         style={{
@@ -109,9 +80,7 @@ export function Image({ src, alt, style, altIcon: AltIcon, hoverIcon: HoverIcon,
         onClick={handleClick}
       >
         <img
-          src={src}
-          onLoad={() => setError(false)}
-          onError={() => setError(true)}
+          src={src || "https://ralfvanveen.com/wp-content/uploads/2021/06/Placeholder-_-Glossary.svg"}
           alt={alt}
           style={{ ...baseStyle, position: 'relative', objectFit: "contain", borderRadius: 8 }}
         />
@@ -124,49 +93,11 @@ export function Image({ src, alt, style, altIcon: AltIcon, hoverIcon: HoverIcon,
       </div>
       <Modal open={open} onClose={() => setOpen(false)}>
         <img
-          src={src}
-          style={{ maxWidth: "100%", maxHeight: "80vh", objectFit: "contain" }}
-          onLoad={() => setError(false)}
-          onError={() => setError(true)}
+          src={src || "https://ralfvanveen.com/wp-content/uploads/2021/06/Placeholder-_-Glossary.svg"}
           alt={alt}
+          style={{ maxWidth: "100%", maxHeight: "80vh", objectFit: "contain" }}
         />
       </Modal>
     </>
   );
-
-  if (error)
-    return (
-      <div
-        style={{
-          position: 'relative',
-          width: sizeMap[size || "md"],
-          aspectRatio: "1 / 1",
-          backgroundColor: "#fafafa",
-          border: "1px solid #e3e3e3",
-          borderRadius: 8,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          cursor: onClick ? "pointer" : undefined,
-        }}
-        onMouseEnter={() => onClick && setHovered(true)}
-        onMouseLeave={() => onClick && setHovered(false)}
-        onClick={handleClick}
-      >
-        {
-          AltIcon ?
-            <AltIcon size={iconSize()} color="#949494" />
-            :
-            <ImageIcon size={iconSize()} color="#949494" />
-        }
-        {
-          onClick &&
-          <Overlay>
-            {HoverIcon ? <HoverIcon {...hoverIconStyle} /> : <MagnifyingGlassPlus {...hoverIconStyle} />}
-          </Overlay>
-        }
-      </div>
-    );
-
-  return mainMarkup;
 };

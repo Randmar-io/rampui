@@ -16,8 +16,6 @@ export function SceneSelector({ selectedScene, setSelectedScene }: SceneSelector
   const [categorizedScenes, setCategorizedScenes] = useState<CategorizedScenes>({ "Default": [] });
   const [selectedCategory, setSelectedCategory] = useState<string>("Default");
 
-  console.log(scenes);
-
   useEffect(() => {
     async function fetchScenesAndCategorize() {
       try {
@@ -51,10 +49,8 @@ export function SceneSelector({ selectedScene, setSelectedScene }: SceneSelector
   useEffect(() => {
     if (categorizedScenes[selectedCategory]) {
       setScenes(categorizedScenes[selectedCategory]);
-      setSelectedScene(categorizedScenes[selectedCategory][0]?.Name);
     } else {
       setScenes([]);
-      setSelectedScene("");
     }
   }, [selectedCategory, categorizedScenes]);
 
