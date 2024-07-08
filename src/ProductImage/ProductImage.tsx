@@ -1,5 +1,5 @@
 import { Stack } from '@mui/system';
-import { Basket, CubeFocus, Download } from '@phosphor-icons/react';
+import { CubeFocus, Download } from '@phosphor-icons/react';
 import React, { useEffect, useState } from 'react';
 import { Button } from '../Button';
 import { Image } from '../Image';
@@ -82,7 +82,6 @@ export function ProductImage({ randmarSKU, size, alt, secondaryContent }: Produc
           size={size || "xl"}
           zoomable
           src={`https://api.randmar.io/Product/${randmarSKU}/Image`}
-          altIcon={Basket}
         />
       </Stack>
     </>

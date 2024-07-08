@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { Modal } from "@mui/base/Modal";
 import { Grid } from "@mui/material";
 import { Box, Stack } from "@mui/system";
-import { ArrowsInSimple, ArrowsOutSimple, Circle, EnvelopeSimple, Factory, GlobeSimple, Phone } from "@phosphor-icons/react";
+import { ArrowsInSimple, ArrowsOutSimple, Circle, EnvelopeSimple, GlobeSimple, Phone } from "@phosphor-icons/react";
 import { motion } from "framer-motion";
 import React, { useState } from "react";
 import { Chip } from "../Chip";
@@ -102,7 +102,6 @@ export function ManufacturerCard({ manufacturer, actions, expandable, detailView
         <Image
           src={`https://api.randmar.io/V4/Application/${manufacturer.manufacturerId}/Account/Logo`}
           alt={`${manufacturerName} logo`}
-          altIcon={Factory}
         />
       </Box>
       <Grid item xs={12} md={9}>
