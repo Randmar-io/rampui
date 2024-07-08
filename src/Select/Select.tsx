@@ -1,5 +1,6 @@
 import { MenuItem, Select as MuiSelect, SelectProps as MuiSelectProps } from "@mui/material";
 import React from "react";
+import { Typography } from "../Typography";
 
 interface Option {
   value: string;
@@ -27,7 +28,7 @@ export function Select({ options, selected, setSelected, sx, label, ...muiSelect
     <div style={{ height: 'max-content' }}>
       {
         label &&
-        <p style={{ fontSize: 12, color: "#616161", marginBottom: 4 }}>{label}</p>
+        <Typography variant="bodySm" color="subdued" style={{ marginBottom: 4 }}>{label}</Typography>
       }
       <MuiSelect
         value={selected}
