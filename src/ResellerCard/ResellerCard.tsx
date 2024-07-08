@@ -123,7 +123,6 @@ export function ResellerCard({ reseller, actions, expandable, detailView, qualif
         <Image
           src={`https://api.randmar.io/V4/Application/${reseller.resellerId}/Account/Logo`}
           alt={`${resellerName} logo`}
-          altIcon={Storefront}
         />
       </Box>
       <Grid item xs={12} md={9}>
