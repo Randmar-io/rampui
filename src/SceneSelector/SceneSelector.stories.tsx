@@ -1,0 +1,26 @@
+import type { Meta, StoryObj } from '@storybook/react';
+import React from 'react';
+import { SceneSelector } from './SceneSelector';
+
+const meta: Meta<typeof SceneSelector> = {
+  title: 'SceneSelector',
+  component: SceneSelector,
+  tags: ['autodocs'],
+};
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+function SceneSelectorStory() {
+  const [selectedScene, setSelectedScene] = React.useState("Cozy");
+
+  return <SceneSelector selectedScene={selectedScene} setSelectedScene={setSelectedScene} />;
+}
+
+export const Primary: Story = {
+  render: () => (
+    <div style={{ width: 400 }}>
+      <SceneSelectorStory />
+    </div>
+  )
+};

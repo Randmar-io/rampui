@@ -1,63 +1,133 @@
-import { Grid, styled } from "@mui/material";
-import { Box } from "@mui/system";
-import React from "react";
+import { Grid } from "@mui/material";
+import { Box, Stack } from "@mui/system";
+import React, { useEffect, useState } from "react";
+import { Select } from "../Select";
+import { Typography } from "../Typography";
 import { grey, red } from "../colors";
-
-export enum Scene {
-  Cozy = "Cozy",
-  Office = "Office",
-  Art = "Art",
-  Dock = "Dock",
-  Retail = "Retail",
-  White = "White",
-}
+import { CategorizedScenes, Scene, categoryMapping } from "./Scene";
 
 export interface SceneSelectorProps {
-  selectedScene: Scene;
-  setSelectedScene: (scene: Scene) => void;
-
+  selectedScene: string;
+  setSelectedScene: (sceneName: string) => void;
 }
 
 export function SceneSelector({ selectedScene, setSelectedScene }: SceneSelectorProps) {
-  const SceneImage = styled('img')`
-    width: 100%;
-    cursor: pointer;
-    border-radius: 12px;
-    border: 2px solid;
-  `;
+  const [scenes, setScenes] = useState<Scene[]>([]);
+  const [categorizedScenes, setCategorizedScenes] = useState<CategorizedScenes>({ "Default": [] });
+  const [selectedCategory, setSelectedCategory] = useState<string>("Default");
+
+  useEffect(() => {
+    async function fetchScenesAndCategorize() {
+      try {
+        const response = await fetch('https://api.randmar.io/ShortsGenerationContent/Scenes');
+        const scenes: Scene[] = await response.json();
+  
+        const updatedCategorizedScenes: CategorizedScenes = {
+          "Default": []
+        };
+  
+        for (let scene of scenes) {
+          const sceneCategory = categoryMapping[scene.Name] || "Other";
+  
+          if (!updatedCategorizedScenes[sceneCategory]) {
+            updatedCategorizedScenes[sceneCategory] = [];
+          }
+  
+          updatedCategorizedScenes[sceneCategory].push(scene);
+        }
+  
+        setCategorizedScenes(updatedCategorizedScenes);
+        setSelectedCategory("Default");
+      } catch (error) {
+        console.error('Error fetching and categorizing scenes:', error);
+      }
+    }
+  
+    fetchScenesAndCategorize();
+  }, []);
+
+  useEffect(() => {
+    if (categorizedScenes[selectedCategory]) {
+      setScenes(categorizedScenes[selectedCategory]);
+      setSelectedScene(categorizedScenes[selectedCategory][0].Name);
+    } else {
+      setScenes([]);
+      setSelectedScene("");
+    }
+  }, [selectedCategory, categorizedScenes]);
+
+  const categories = Object.keys(categorizedScenes).sort((a, b) => {
+    if (a === "Default") return -1;
+    if (b === "Default") return 1;
+    if (a === "Other") return 1;
+    if (b === "Other") return -1;
+    return a.localeCompare(b);
+  });
 
   return (
     <div>
-      <p style={{ fontSize: 12, color: "#616161", marginBottom: 8 }}>Scene</p>
+      <Typography variant="bodySm" color="subdued" style={{ marginBottom: "8px"}}>Scene</Typography>
+
+      <Select 
+        options={categories} 
+        selected={selectedCategory}
+        setSelected={setSelectedCategory} 
+        sx={{ marginBottom: "12px" }}
+      />
+      
       <Grid container spacing={2}>
         {
-          Object.values(Scene).map((s, i) => {
-            const selected = selectedScene === s;
+          scenes.map((scene, i) => {
+            const selected = selectedScene === scene.Name;
 
             return (
               <Grid item key={i} xs={6} md={4}>
-                <Box sx={{
-                  borderRadius: '12px',
-                  backgroundColor: selected ? red[50] : undefined,
-                  ":hover": {
-                    backgroundColor: red[50]
+                <Stack
+                  onClick={() => setSelectedScene(scene.Name)}
+                  sx={{
+                    height: '100%',
+                    borderRadius: '12px',
+                    backgroundColor: selected ? red[50] : undefined,
+                    ":hover": {
+                      backgroundColor: red[50]
+                    }
+                  }}
+                >
+                  {
+                    scene.Thumbnail ?
+                      <img
+                        src={`https://api.randmar.io/ShortsGenerationContent/Scene/${scene.Name}/Thumbnail`}
+                        style={{
+                          width: '100%',
+                          aspectRatio: '1 / 1',
+                          cursor: 'pointer',
+                          borderStyle: 'solid',
+                          borderWidth: '1px 1px 0 1px',
+                          borderRadius: '12px 12px 0 0',
+                          borderColor: selected ? red[500] : grey[300],
+                          objectFit: 'cover',
+                        }}
+                      />
+                      :
+                      <div style={{
+                        width: '100%',
+                        aspectRatio: '1 / 1',
+                        cursor: 'pointer',
+                        borderStyle: 'solid',
+                        borderWidth: '1px 1px 0 1px',
+                        borderRadius: '12px 12px 0 0',
+                        borderColor: selected ? red[500] : grey[300],
+                        backgroundColor: grey[50],
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}>
+                        <Typography variant="bodySm" color="subdued" align="center">No thumbnail available</Typography>
+                      </div>
                   }
-                }}>
-                  <SceneImage
-                    onClick={() => setSelectedScene(s)}
-                    src={`https://api.randmar.io/ShortsGenerationContent/Scene/${s}/Thumbnail`}
-                    style={{
-                      width: ' 100%',
-                      cursor: 'pointer',
-                      borderStyle: 'solid',
-                      borderWidth: '1px 1px 0 1px',
-                      borderRadius: '12px 12px 0 0',
-                      borderColor: selected ? red[500] : grey[300],
-                      marginBottom: -7,
-                    }}
-                  />
                   <Box
                     sx={{
+                      flexGrow: 1,
                       p: 1,
                       textAlign: "center",
                       borderStyle: 'solid',
@@ -72,9 +142,9 @@ export function SceneSelector({ selectedScene, setSelectedScene }: SceneSelector
                       fontWeight: selected ? 500 : 400,
                     }}
                   >
-                    {s}
+                    {scene.Name}
                   </Box>
-                </Box>
+                </Stack>
               </Grid>
             )
           })

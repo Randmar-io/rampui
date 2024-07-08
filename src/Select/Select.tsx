@@ -45,7 +45,7 @@ export function Select({ options, selected, setSelected, sx, label, ...muiSelect
         {...muiSelectProps}
       >
         {parsedOptions.map(option => (
-          <MenuItem value={option.value} key={option.value}>
+          <MenuItem value={option.value} key={option.value} sx={{ fontSize: 13 }}>
             {option.displayText ?? option.value}
           </MenuItem>
         ))}
