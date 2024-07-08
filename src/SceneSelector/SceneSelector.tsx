@@ -16,40 +16,42 @@ export function SceneSelector({ selectedScene, setSelectedScene }: SceneSelector
   const [categorizedScenes, setCategorizedScenes] = useState<CategorizedScenes>({ "Default": [] });
   const [selectedCategory, setSelectedCategory] = useState<string>("Default");
 
+  console.log(scenes);
+
   useEffect(() => {
     async function fetchScenesAndCategorize() {
       try {
         const response = await fetch('https://api.randmar.io/ShortsGenerationContent/Scenes');
         const scenes: Scene[] = await response.json();
-  
+
         const updatedCategorizedScenes: CategorizedScenes = {
           "Default": []
         };
-  
+
         for (let scene of scenes) {
-          const sceneCategory = categoryMapping[scene.Name] || "Other";
-  
+          const sceneCategory = categoryMapping[scene?.Name] || "Other";
+
           if (!updatedCategorizedScenes[sceneCategory]) {
             updatedCategorizedScenes[sceneCategory] = [];
           }
-  
+
           updatedCategorizedScenes[sceneCategory].push(scene);
         }
-  
+
         setCategorizedScenes(updatedCategorizedScenes);
         setSelectedCategory("Default");
       } catch (error) {
         console.error('Error fetching and categorizing scenes:', error);
       }
     }
-  
+
     fetchScenesAndCategorize();
   }, []);
 
   useEffect(() => {
     if (categorizedScenes[selectedCategory]) {
       setScenes(categorizedScenes[selectedCategory]);
-      setSelectedScene(categorizedScenes[selectedCategory][0].Name);
+      setSelectedScene(categorizedScenes[selectedCategory][0]?.Name);
     } else {
       setScenes([]);
       setSelectedScene("");
@@ -66,24 +68,24 @@ export function SceneSelector({ selectedScene, setSelectedScene }: SceneSelector
 
   return (
     <div>
-      <Typography variant="bodySm" color="subdued" style={{ marginBottom: "8px"}}>Scene</Typography>
+      <Typography variant="bodySm" color="subdued" style={{ marginBottom: "4px" }}>Scene</Typography>
 
-      <Select 
-        options={categories} 
+      <Select
+        options={categories}
         selected={selectedCategory}
-        setSelected={setSelectedCategory} 
+        setSelected={setSelectedCategory}
         sx={{ marginBottom: "12px" }}
       />
-      
+
       <Grid container spacing={2}>
         {
-          scenes.map((scene, i) => {
-            const selected = selectedScene === scene.Name;
+          scenes && scenes.map((scene, i) => {
+            const selected = selectedScene === scene?.Name;
 
             return (
               <Grid item key={i} xs={6} md={4}>
                 <Stack
-                  onClick={() => setSelectedScene(scene.Name)}
+                  onClick={() => setSelectedScene(scene?.Name)}
                   sx={{
                     height: '100%',
                     borderRadius: '12px',
@@ -96,7 +98,7 @@ export function SceneSelector({ selectedScene, setSelectedScene }: SceneSelector
                   {
                     scene.Thumbnail ?
                       <img
-                        src={`https://api.randmar.io/ShortsGenerationContent/Scene/${scene.Name}/Thumbnail`}
+                        src={`https://api.randmar.io/ShortsGenerationContent/Scene/${scene?.Name}/Thumbnail`}
                         style={{
                           width: '100%',
                           aspectRatio: '1 / 1',
@@ -142,7 +144,7 @@ export function SceneSelector({ selectedScene, setSelectedScene }: SceneSelector
                       fontWeight: selected ? 500 : 400,
                     }}
                   >
-                    {scene.Name}
+                    {scene?.Name}
                   </Box>
                 </Stack>
               </Grid>

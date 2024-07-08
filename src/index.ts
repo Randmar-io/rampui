@@ -24,6 +24,7 @@ export * from "./Provider";
 export * from "./ResellerCard";
 export * from "./SceneSelector";
 export * from "./SearchBar";
+export * from "./Select";
 export * from "./TextField";
 export * from "./Typography";
 export * from "./VoiceSelector";
