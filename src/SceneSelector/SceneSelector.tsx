@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Select } from "../Select";
 import { Typography } from "../Typography";
 import { grey, red } from "../colors";
+import Preview from "./Preview";
 import { CategorizedScenes, Scene, categoryMapping } from "./Scene";
 
 export interface SceneSelectorProps {
@@ -93,19 +94,26 @@ export function SceneSelector({ selectedScene, setSelectedScene }: SceneSelector
                 >
                   {
                     scene.Thumbnail ?
-                      <img
-                        src={`https://api.randmar.io/ShortsGenerationContent/Scene/${scene?.Name}/Thumbnail`}
-                        style={{
-                          width: '100%',
-                          aspectRatio: '1 / 1',
-                          cursor: 'pointer',
-                          borderStyle: 'solid',
-                          borderWidth: '1px 1px 0 1px',
-                          borderRadius: '12px 12px 0 0',
-                          borderColor: selected ? red[500] : grey[300],
-                          objectFit: 'cover',
-                        }}
-                      />
+                      <div style={{ position: "relative", userSelect: "none" }}>
+                        <img
+                          src={`https://api.randmar.io/ShortsGenerationContent/Scene/${scene?.Name}/Thumbnail`}
+                          style={{
+                            width: '100%',
+                            aspectRatio: '1 / 1',
+                            cursor: 'pointer',
+                            borderStyle: 'solid',
+                            borderWidth: '1px 1px 0 1px',
+                            borderRadius: '12px 12px 0 0',
+                            borderColor: selected ? red[500] : grey[300],
+                            objectFit: 'cover',
+                            marginBottom: '-4px',
+                          }}
+                        />
+                        {
+                          scene.Preview &&
+                          <Preview sceneName={scene.Name} />
+                        }
+                      </div>
                       :
                       <div style={{
                         width: '100%',
