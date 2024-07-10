@@ -3,48 +3,66 @@ import { Stack } from "@mui/system";
 import { Pause, Play } from "@phosphor-icons/react";
 import React, { useEffect, useRef, useState } from "react";
 import { Button } from "../Button";
+import { Select } from "../Select"; // Assuming you have a Select component
 import grey from "../colors/grey";
 import red from "../colors/red";
 
 export enum Voice {
   Andrew = 'en-US-AndrewMultilingualNeural',
-  Brian = 'en-US-BrianMultilingualNeural',
-  Davis = 'en-US-DavisNeural',
-  Emma = 'en-US-EmmaMultilingualNeural',
-  Nancy = 'en-US-NancyNeural',
-  Sara = 'en-US-SaraNeural',
+  Aria = 'en-US-AriaNeural',
+  Ava = 'en-US-AvaMultilingualNeural',
+  Brandon = 'en-US-BrandonNeural',
+  Jacob = 'en-US-JacobNeural',
+  Jane = 'en-US-JaneNeural',
+  Jenny = 'en-US-JennyNeural',
+  Tony = 'en-US-TonyNeural',
 }
 
 const displayName = {
   [Voice.Andrew]: 'Andrew',
-  [Voice.Brian]: 'Brian',
-  [Voice.Davis]: 'Davis',
-  [Voice.Emma]: 'Emma',
-  [Voice.Nancy]: 'Nancy',
-  [Voice.Sara]: 'Sara',
+  [Voice.Aria]: 'Aria',
+  [Voice.Ava]: 'Ava',
+  [Voice.Brandon]: 'Brandon',
+  [Voice.Jacob]: 'Jacob',
+  [Voice.Jane]: 'Jane',
+  [Voice.Jenny]: 'Jenny',
+  [Voice.Tony]: 'Tony',
+};
+
+const voices = {
+  Female: [Voice.Aria, Voice.Ava, Voice.Jane, Voice.Jenny],
+  Male: [Voice.Andrew, Voice.Brandon, Voice.Jacob, Voice.Tony],
 };
 
 export interface VoiceSelectorProps {
   selectedVoice: Voice;
   setSelectedVoice: (voice: Voice) => void;
-
 }
 
 export function VoiceSelector({ selectedVoice, setSelectedVoice }: VoiceSelectorProps) {
+  const [voiceGender, setVoiceGender] = useState<string>('Female');
+
   return (
     <div>
       <p style={{ fontSize: 12, color: "#616161", marginBottom: 4 }}>Voice</p>
+      <Select
+        options={Object.keys(voices)}
+        selected={voiceGender}
+        setSelected={setVoiceGender}
+        sx={{ marginBottom: "12px" }}
+      />
       <Grid container spacing={1}>
         {
-          Object.values(Voice).map((v, i) => (
-            <Grid item key={i} xs={6} md={4}>
+          (voiceGender === "Male" || voiceGender === "Female") &&
+          voices[voiceGender].map((v, i) => (
+            <Grid item key={i} xs={6} md={3}>
               <VoiceOption voice={v} selected={selectedVoice === v} setSelected={setSelectedVoice} />
             </Grid>
           ))
         }
       </Grid>
     </div>
-  )
+  );
 }
 
 interface VoiceOptionProps {
