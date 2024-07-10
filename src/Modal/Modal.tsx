@@ -17,11 +17,12 @@ const maxWidthMapping = {
 interface ModalProps extends MuiModalProps {
   title?: string;
   actions?: React.ReactNode[];
-  maxWidth?: Size;
+  maxWidth?: Size | false;
   flush?: boolean;
+  hideCloseIcon?: boolean;
 }
 
-export function Modal({ children, title, actions, onClose, open, maxWidth, flush, ...rest }: ModalProps) {
+export function Modal({ children, title, actions, onClose, open, maxWidth, flush, hideCloseIcon, ...rest }: ModalProps) {
   return (
     <AnimatePresence>
       {
@@ -32,13 +33,16 @@ export function Modal({ children, title, actions, onClose, open, maxWidth, flush
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: '100%' }}
             transition={{ duration: 0.15, ease: 'easeInOut' }}
-            style={{  width: `min(${maxWidthMapping[maxWidth || "sm"]}, 100%)` }}
+            style={{ width: maxWidth === false ? undefined : `min(${maxWidthMapping[maxWidth || "sm"]}, 100%)` }}
           >
-            <CloseIcon onClick={e => {
-              if (onClose) onClose(e, "backdropClick")
-            }}>
-              <X size={16} />
-            </CloseIcon>
+            {
+              !hideCloseIcon &&
+              <CloseIcon onClick={e => {
+                if (onClose) onClose(e, "backdropClick")
+              }}>
+                <X size={16} />
+              </CloseIcon>
+            }
             {
               title &&
               <div style={{
@@ -54,7 +58,7 @@ export function Modal({ children, title, actions, onClose, open, maxWidth, flush
               borderTopRightRadius: title ? '0' : 'var(--r-border-radius-md)',
               borderBottomLeftRadius: actions ? '0' : 'var(--r-border-radius-md)',
               borderBottomRightRadius: actions ? '0' : 'var(--r-border-radius-md)',
-              padding:  flush ? 0 : '0 var(--r-spacing-40)',
+              padding: flush ? 0 : '0 var(--r-spacing-40)',
             }}>
               {children}
             </Content>
@@ -113,8 +117,9 @@ const Body = styled(motion.div)`
 `;
 
 const Content = styled.div`
-  overflow-y: scroll;
-  max-height: 80vh;
+  padding-top: var(--r-spacing-40);
+  padding-bottom: var(--r-spacing-40);
+  max-height: 100%;
   overflow-y: auto;
 
   &::-webkit-scrollbar {
