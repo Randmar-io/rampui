@@ -12,22 +12,25 @@ interface PreviewProps {
 export default function Preview({ sceneName }: PreviewProps) {
   const [open, setOpen] = useState(false);
   const [videoUrl, setVideoUrl] = useState<string>();
+  const [audioUrl, setAudioUrl] = useState<string>();
   const [loading, setLoading] = useState(false);
 
   async function handlePlayClick(e: React.MouseEvent) {
     e.stopPropagation();
     setOpen(true);
     setLoading(true);
-    const vidUrl = await fetchVideoUrl();
+    const vidUrl = await fetchMediaUrl('Preview');
+    const audioUrl = await fetchMediaUrl('AmbientSound');
     setVideoUrl(vidUrl);
+    setAudioUrl(audioUrl);
     setLoading(false);
   }
 
-  async function fetchVideoUrl() {
-    const res = await fetch(`https://api.randmar.io/ShortsGenerationContent/Scene/${encodeURIComponent(sceneName)}/Preview`);
-    const videoBlob = await res.blob();
-    const videoUrl = URL.createObjectURL(videoBlob);
-    return videoUrl;
+  async function fetchMediaUrl(media: 'Preview' | 'AmbientSound') {
+    const res = await fetch(`https://api.randmar.io/ShortsGenerationContent/Scene/${encodeURIComponent(sceneName)}/${media}`);
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+    return url;
   }
 
   return (
@@ -63,16 +66,24 @@ export default function Preview({ sceneName }: PreviewProps) {
               <CircularProgress />
             </div>
             :
-            <video
-              autoPlay
-              loop
-              style={{
-                height: '90vh',
-                aspectRatio: "9 / 16",
-                objectFit: "cover",
-              }}
-              src={videoUrl}
-            />
+            <>
+              <video
+                autoPlay
+                loop
+                style={{
+                  height: '90vh',
+                  aspectRatio: "9 / 16",
+                  objectFit: "cover",
+                }}
+                src={videoUrl}
+              />
+              <audio
+                autoPlay
+                loop
+                src={audioUrl}
+              />
+            </>
+
         }
       </Modal>
     </>
