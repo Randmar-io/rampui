@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from "react";
+import { blue } from '../colors';
 import { LinkCard } from './LinkCard';
 
 const meta: Meta<typeof LinkCard> = {
@@ -22,6 +23,7 @@ export function LinkCardWithProps() {
       to="https://www.google.com"
       external
       imgUrl="https://png.pngtree.com/png-clipart/20230504/original/pngtree-realistic-building-3d-with-transparent-background-png-image_9138858.png"
+      color={blue}
     />
   </div>
 }
