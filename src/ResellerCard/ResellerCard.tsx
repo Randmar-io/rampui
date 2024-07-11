@@ -121,7 +121,7 @@ export function ResellerCard({ reseller, actions, expandable, detailView, qualif
     <Box sx={{ display: 'flex', gap: 2 }}>
       <Box sx={{ flexShrink: 0 }}>
         <Image
-          src={`https://api.randmar.io/V4/Application/${reseller.resellerId}/Account/Logo`}
+          src={`https://api.randmar.io/V4/Partner/${reseller.resellerId}/Account/Logo`}
           alt={`${resellerName} logo`}
         />
       </Box>
