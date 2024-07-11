@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import React from 'react';
+import React, { useCallback, useState } from 'react';
+import { Button } from '../Button';
 import { SearchBar } from './SearchBar';
 
 const meta: Meta<typeof SearchBar> = {
@@ -13,13 +14,23 @@ type Story = StoryObj<typeof meta>;
 
 export const SearchBarStory = () => {
   const [query, setQuery] = React.useState<string>('');
+  const [focusSearchBar, setFocusSearchBar] = useState<() => void>(() => { });
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    console.log('Submit', query);
+  const handleFocusRequest = useCallback((focusFunction: () => void) => {
+    setFocusSearchBar(() => focusFunction);
+  }, []);
+
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    alert(`You searched for: ${query}`);
   }
 
-  return <SearchBar value={query} setValue={setQuery} onSubmit={handleSubmit} />;
+  return (
+    <div>
+      <Button onClick={() => focusSearchBar()}>Focus</Button>
+      <SearchBar value={query} setValue={setQuery} onSubmit={handleSubmit} onFocusRequest={handleFocusRequest} />
+    </div>
+  );
 }
 
 export const Primary: Story = {
