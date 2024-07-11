@@ -3,7 +3,7 @@ import { Stack } from "@mui/system";
 import { Pause, Play } from "@phosphor-icons/react";
 import React, { useEffect, useRef, useState } from "react";
 import { Button } from "../Button";
-import { Select } from "../Select"; // Assuming you have a Select component
+import { Select } from "../Select";
 import grey from "../colors/grey";
 import red from "../colors/red";
 
@@ -74,12 +74,11 @@ interface VoiceOptionProps {
 function VoiceOption({ voice, selected, setSelected }: VoiceOptionProps) {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const sound = new Audio(`https://api.randmar.io/ShortsGenerationContent/Voices/${voice}.mp3`);
 
   useEffect(() => {
     return () => {
-      sound.pause();
-      sound.removeEventListener('ended', handleAudioEnded);
+      audioRef.current?.pause();
+      audioRef.current?.removeEventListener('ended', handleAudioEnded);
     };
   }, []);
 
@@ -98,7 +97,7 @@ function VoiceOption({ voice, selected, setSelected }: VoiceOptionProps) {
     setIsPlaying(false);
   };
 
-  sound.addEventListener('ended', handleAudioEnded);
+  audioRef.current?.addEventListener('ended', handleAudioEnded);
 
   return (
     <Stack
