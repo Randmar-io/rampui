@@ -2,14 +2,15 @@ import styled from "@emotion/styled";
 import { InputBase, InputBaseProps } from "@mui/material";
 import { Stack } from "@mui/system";
 import { MagnifyingGlass, X } from "@phosphor-icons/react";
-import React, { useEffect, useRef } from "react";
+import React, { forwardRef, useEffect, useImperativeHandle, useRef } from "react";
 import { Button } from "../Button";
 import { grey } from "../colors";
 
 interface SearchBarProps extends Omit<InputBaseProps, 'onSubmit'> {
-  value: string
+  value: string;
   setValue: (value: string) => void;
   onSubmit?: React.FormEventHandler<HTMLFormElement>;
+  onFocusRequest?: (focusFunction: () => void) => void;
 }
 
 const SearchBarContainer = styled('form')`
@@ -17,7 +18,7 @@ const SearchBarContainer = styled('form')`
   align-items: center;
   justify-content: space-between;
   background-color: white;
-  width: '100%';
+  width: 100%;
   padding: 2px 4px 2px 14px;
   border-radius: 100px;
   border: 3px solid transparent;
@@ -31,7 +32,7 @@ const SearchBarContainer = styled('form')`
     border: 3px solid ${({ theme }) => theme.color[200]};
   }
 
-  @media screen and (min-width: 900px){
+  @media screen and (min-width: 900px) {
     width: 300px;
   }
 `;
@@ -46,8 +47,21 @@ const Key = styled('span')`
   white-space: nowrap;
 `;
 
-export const SearchBar = ({ value, setValue, onSubmit, ...props }: SearchBarProps) => {
+const SearchBar = forwardRef<HTMLInputElement, SearchBarProps>(({ value, setValue, onSubmit, onFocusRequest, ...props }, ref) => {
   const inputRef = useRef<HTMLInputElement>(null);
+
+  useImperativeHandle(ref, () => inputRef.current!, [inputRef]);
+
+  useEffect(() => {
+    if (onFocusRequest) {
+      onFocusRequest(() => {
+        if (inputRef.current) {
+          inputRef.current.focus();
+          inputRef.current.select();
+        }
+      });
+    }
+  }, [onFocusRequest]);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -103,4 +117,7 @@ export const SearchBar = ({ value, setValue, onSubmit, ...props }: SearchBarProp
       </div>
     </SearchBarContainer>
   );
-};
+});
+
+export { SearchBar };
+
