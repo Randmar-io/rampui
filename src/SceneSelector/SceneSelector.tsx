@@ -1,9 +1,12 @@
-import { Grid } from "@mui/material";
+import { Grid, InputAdornment } from "@mui/material";
 import { Box, Stack } from "@mui/system";
+import { MagnifyingGlass } from "@phosphor-icons/react";
 import React, { useEffect, useState } from "react";
 import { Select } from "../Select";
+import { TextField } from "../TextField";
 import { Typography } from "../Typography";
 import { grey, red } from "../colors";
+import { useDebounce } from "../utility/Debounce";
 import Preview from "./Preview";
 import { CategorizedScenes, Scene, categoryMapping } from "./Scene";
 
@@ -16,12 +19,15 @@ export function SceneSelector({ selectedScene, setSelectedScene }: SceneSelector
   const [scenes, setScenes] = useState<Scene[]>([]);
   const [categorizedScenes, setCategorizedScenes] = useState<CategorizedScenes>({ "Default": [] });
   const [selectedCategory, setSelectedCategory] = useState<string>("Default");
+  const [searchQuery, setSearchQuery] = useState<string>('');
 
   useEffect(() => {
     async function fetchScenesAndCategorize() {
       try {
         const response = await fetch('https://api.randmar.io/ShortsGenerationContent/Scenes');
         const scenes: Scene[] = await response.json();
+
+        setScenes(scenes);
 
         const updatedCategorizedScenes: CategorizedScenes = {
           "Default": []
@@ -47,14 +53,6 @@ export function SceneSelector({ selectedScene, setSelectedScene }: SceneSelector
     fetchScenesAndCategorize();
   }, []);
 
-  useEffect(() => {
-    if (categorizedScenes[selectedCategory]) {
-      setScenes(categorizedScenes[selectedCategory]);
-    } else {
-      setScenes([]);
-    }
-  }, [selectedCategory, categorizedScenes]);
-
   const categories = Object.keys(categorizedScenes).sort((a, b) => {
     if (a === "Default") return -1;
     if (b === "Default") return 1;
@@ -63,24 +61,56 @@ export function SceneSelector({ selectedScene, setSelectedScene }: SceneSelector
     return a.localeCompare(b);
   });
 
+  const handleSetSelectedCategory = (category: string) => {
+    setSearchQuery('');
+    setSelectedCategory(category);
+  }
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const debouncedHandleChange = useDebounce(handleChange, 500);
+
+  const scenesToDisplay = () => {
+    if (searchQuery && searchQuery.length > 1)
+      return scenes.filter(scene => scene?.Name.toLowerCase().includes(searchQuery.toLowerCase()));
+
+    if (categorizedScenes && selectedCategory)
+      return categorizedScenes[selectedCategory];
+
+    return [];
+  }
+
   return (
     <div>
       <Typography variant="bodySm" color="subdued" style={{ marginBottom: "4px" }}>Scene</Typography>
 
-      <Select
-        options={categories}
-        selected={selectedCategory}
-        setSelected={setSelectedCategory}
-        sx={{ marginBottom: "12px" }}
-      />
+      <Stack direction={{ xs: "column", md: "row" }} justifyContent="space-between" spacing={1} sx={{ marginBottom: "12px" }}>
+        <Select
+          options={categories}
+          selected={selectedCategory}
+          setSelected={handleSetSelectedCategory}
+          sx={{ width: { xs: "100%", md: 200 } }}
+        />
+        <TextField
+          placeholder="Search for scene"
+          startAdornment={
+            <InputAdornment position="start">
+              <MagnifyingGlass weight="bold" />
+            </InputAdornment>
+          }
+          onChange={debouncedHandleChange}
+        />
+      </Stack>
 
       <Grid container spacing={2}>
         {
-          scenes && scenes.map((scene, i) => {
+          scenesToDisplay().map((scene, i) => {
             const selected = selectedScene === scene?.Name;
 
             return (
-              <Grid item key={i} xs={6} md={4}>
+              <Grid item key={i} xs={6} md={3} lg={2}>
                 <Stack
                   onClick={() => setSelectedScene(scene?.Name)}
                   sx={{
