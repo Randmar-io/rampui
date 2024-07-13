@@ -19,7 +19,7 @@ function SceneSelectorStory() {
 
 export const Primary: Story = {
   render: () => (
-    <div style={{ width: 400 }}>
+    <div style={{ maxWidth: 800 }}>
       <SceneSelectorStory />
     </div>
   )
