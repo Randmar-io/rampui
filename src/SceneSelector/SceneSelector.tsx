@@ -82,6 +82,15 @@ export function SceneSelector({ selectedScene, setSelectedScene }: SceneSelector
     return [];
   }
 
+  const thumbnailStyle = (selected?: boolean) => ({
+    width: '100%',
+    aspectRatio: '1 / 1',
+    borderStyle: 'solid',
+    borderWidth: '1px 1px 0 1px',
+    borderRadius: '12px 12px 0 0',
+    borderColor: selected ? red[500] : grey[300],
+  })
+
   return (
     <div>
       <Typography variant="bodySm" color="subdued" style={{ marginBottom: "4px" }}>Scene</Typography>
@@ -106,84 +115,84 @@ export function SceneSelector({ selectedScene, setSelectedScene }: SceneSelector
 
       <Grid container spacing={2}>
         {
-          scenesToDisplay().map((scene, i) => {
-            const selected = selectedScene === scene?.Name;
+          searchQuery && searchQuery.length > 1 && scenesToDisplay().length === 0 ?
+            <Grid item xs={12}>
+              <Typography variant="bodyMd" color="subdued" align="center" style={{ padding: "32px" }}>
+                No scenes found
+              </Typography>
+            </Grid>
+            :
+            scenesToDisplay().map((scene, i) => {
+              const selected = selectedScene === scene?.Name;
 
-            return (
-              <Grid item key={i} xs={6} md={3} lg={2}>
-                <Stack
-                  onClick={() => setSelectedScene(scene?.Name)}
-                  sx={{
-                    height: '100%',
-                    borderRadius: '12px',
-                    backgroundColor: selected ? red[50] : undefined,
-                    ":hover": {
-                      backgroundColor: red[50]
+              return (
+                <Grid item key={i} xs={6} md={3} lg={2}>
+                  <Stack
+                    onClick={() => setSelectedScene(scene?.Name)}
+                    sx={{
+                      height: '100%',
+                      borderRadius: '12px',
+                      backgroundColor: selected ? red[50] : undefined,
+                      cursor: "pointer",
+                      ":hover": {
+                        backgroundColor: red[50]
+                      }
+                    }}
+                  >
+                    {
+                      scene.Thumbnail ?
+                        <div style={{ position: "relative", userSelect: "none", }}>
+                          <img
+                            src={`https://api.randmar.io/ShortsGenerationContent/Scene/${scene?.Name}/Thumbnail`}
+                            style={{
+                              ...thumbnailStyle(selected),
+                              borderColor: selected ? red[500] : grey[300],
+                              display: 'block',
+                              objectFit: 'cover',
+                            }}
+                          />
+                          {
+                            scene.Preview &&
+                            <Preview sceneName={scene.Name} />
+                          }
+                        </div>
+                        :
+                        <div style={{
+                          ...thumbnailStyle(selected),
+                          backgroundColor: grey[50],
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                        }}>
+                          <Typography variant="bodySm" color="subdued" align="center">No thumbnail available</Typography>
+                        </div>
                     }
-                  }}
-                >
-                  {
-                    scene.Thumbnail ?
-                      <div style={{ position: "relative", userSelect: "none" }}>
-                        <img
-                          src={`https://api.randmar.io/ShortsGenerationContent/Scene/${scene?.Name}/Thumbnail`}
-                          style={{
-                            width: '100%',
-                            aspectRatio: '1 / 1',
-                            cursor: 'pointer',
-                            borderStyle: 'solid',
-                            borderWidth: '1px 1px 0 1px',
-                            borderRadius: '12px 12px 0 0',
-                            borderColor: selected ? red[500] : grey[300],
-                            objectFit: 'cover',
-                            marginBottom: '-4px',
-                          }}
-                        />
-                        {
-                          scene.Preview &&
-                          <Preview sceneName={scene.Name} />
-                        }
-                      </div>
-                      :
-                      <div style={{
-                        width: '100%',
-                        aspectRatio: '1 / 1',
-                        cursor: 'pointer',
+                    <Box
+                      sx={{
+                        flexGrow: 1,
+                        p: 1,
+                        textAlign: "center",
                         borderStyle: 'solid',
-                        borderWidth: '1px 1px 0 1px',
-                        borderRadius: '12px 12px 0 0',
+                        borderWidth: '0 1px 1px 1px',
+                        borderRadius: '0 0 12px 12px',
                         borderColor: selected ? red[500] : grey[300],
-                        backgroundColor: grey[50],
+                        color: selected ? red[700] : grey[600],
+                        cursor: "pointer",
+                        fontSize: 13,
+                        backgroundColor: 'inherit',
+                        userSelect: "none",
+                        fontWeight: selected ? 500 : 400,
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                      }}>
-                        <Typography variant="bodySm" color="subdued" align="center">No thumbnail available</Typography>
-                      </div>
-                  }
-                  <Box
-                    sx={{
-                      flexGrow: 1,
-                      p: 1,
-                      textAlign: "center",
-                      borderStyle: 'solid',
-                      borderWidth: '0 1px 1px 1px',
-                      borderRadius: '0 0 12px 12px',
-                      borderColor: selected ? red[500] : grey[300],
-                      color: selected ? red[700] : grey[600],
-                      cursor: "pointer",
-                      fontSize: 13,
-                      backgroundColor: 'inherit',
-                      userSelect: "none",
-                      fontWeight: selected ? 500 : 400,
-                    }}
-                  >
-                    {scene?.Name}
-                  </Box>
-                </Stack>
-              </Grid>
-            )
-          })
+                      }}
+                    >
+                      {scene?.Name}
+                    </Box>
+                  </Stack>
+                </Grid>
+              )
+            })
         }
       </Grid>
     </div>
