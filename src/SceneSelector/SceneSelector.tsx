@@ -1,7 +1,8 @@
 import { Grid, InputAdornment } from "@mui/material";
 import { Box, Stack } from "@mui/system";
-import { MagnifyingGlass } from "@phosphor-icons/react";
+import { ArrowLeft, ArrowRight, MagnifyingGlass } from "@phosphor-icons/react";
 import React, { useEffect, useState } from "react";
+import { Button } from "../Button";
 import { Select } from "../Select";
 import { TextField } from "../TextField";
 import { Typography } from "../Typography";
@@ -20,6 +21,10 @@ export function SceneSelector({ selectedScene, setSelectedScene }: SceneSelector
   const [categorizedScenes, setCategorizedScenes] = useState<CategorizedScenes>({ "Default": [] });
   const [selectedCategory, setSelectedCategory] = useState<string>("Default");
   const [searchQuery, setSearchQuery] = useState<string>('');
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const scenesPerPage = 12;
+  const startIndex = (currentPage - 1) * scenesPerPage;
+  const endIndex = startIndex + scenesPerPage;
 
   useEffect(() => {
     async function fetchScenesAndCategorize() {
@@ -72,7 +77,7 @@ export function SceneSelector({ selectedScene, setSelectedScene }: SceneSelector
 
   const debouncedHandleChange = useDebounce(handleChange, 500);
 
-  const scenesToDisplay = () => {
+  const filteredScenes = () => {
     if (searchQuery && searchQuery.length > 1)
       return scenes.filter(scene => scene?.Name.toLowerCase().includes(searchQuery.toLowerCase()));
 
@@ -82,6 +87,8 @@ export function SceneSelector({ selectedScene, setSelectedScene }: SceneSelector
     return [];
   }
 
+  const scenesToDisplay = filteredScenes().slice(startIndex, endIndex);
+
   const thumbnailStyle = (selected?: boolean) => ({
     width: '100%',
     aspectRatio: '1 / 1',
@@ -89,7 +96,7 @@ export function SceneSelector({ selectedScene, setSelectedScene }: SceneSelector
     borderWidth: '1px 1px 0 1px',
     borderRadius: '12px 12px 0 0',
     borderColor: selected ? red[500] : grey[300],
-  })
+  });
 
   return (
     <div>
@@ -115,14 +122,14 @@ export function SceneSelector({ selectedScene, setSelectedScene }: SceneSelector
 
       <Grid container spacing={2}>
         {
-          searchQuery && searchQuery.length > 1 && scenesToDisplay().length === 0 ?
+          searchQuery && searchQuery.length > 1 && scenesToDisplay.length === 0 ?
             <Grid item xs={12}>
               <Typography variant="bodyMd" color="subdued" align="center" style={{ padding: "32px" }}>
                 No scenes found
               </Typography>
             </Grid>
             :
-            scenesToDisplay().map((scene, i) => {
+            scenesToDisplay.map((scene, i) => {
               const selected = selectedScene === scene?.Name;
 
               return (
@@ -195,6 +202,24 @@ export function SceneSelector({ selectedScene, setSelectedScene }: SceneSelector
             })
         }
       </Grid>
+      <Stack direction="row" alignItems="center" justifyContent="space-between" my={1}>
+        <Button
+          variant="tertiary"
+          starticon={ArrowLeft}
+          onClick={() => setCurrentPage(prevPage => prevPage - 1)}
+          disabled={currentPage === 1}
+        >
+          Previous
+        </Button>
+        <Button
+          variant="tertiary"
+          endicon={ArrowRight}
+          onClick={() => setCurrentPage(prevPage => prevPage + 1)}
+          disabled={currentPage === Math.ceil(filteredScenes().length / scenesPerPage)}
+        >
+          Next
+        </Button>
+      </Stack>
     </div>
   )
 }
