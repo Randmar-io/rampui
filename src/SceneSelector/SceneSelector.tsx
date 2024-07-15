@@ -19,7 +19,7 @@ export interface SceneSelectorProps {
 export function SceneSelector({ selectedScene, setSelectedScene }: SceneSelectorProps) {
   const [scenes, setScenes] = useState<Scene[]>([]);
   const [categorizedScenes, setCategorizedScenes] = useState<CategorizedScenes>({ "Default": [] });
-  const [selectedCategory, setSelectedCategory] = useState<string>("Default");
+  const [selectedCategory, setSelectedCategory] = useState<string>(categoryMapping[selectedScene] || "Default");
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [currentPage, setCurrentPage] = useState<number>(1);
   const scenesPerPage = 12;
@@ -49,7 +49,8 @@ export function SceneSelector({ selectedScene, setSelectedScene }: SceneSelector
         }
 
         setCategorizedScenes(updatedCategorizedScenes);
-        setSelectedCategory("Default");
+        if (categoryMapping[selectedScene]) setSelectedCategory(categoryMapping[selectedScene]);
+        else setSelectedCategory("Default");
       } catch (error) {
         console.error('Error fetching and categorizing scenes:', error);
       }
@@ -77,12 +78,14 @@ export function SceneSelector({ selectedScene, setSelectedScene }: SceneSelector
 
   const debouncedHandleChange = useDebounce(handleChange, 500);
 
-  const filteredScenes = () => {
-    if (searchQuery && searchQuery.length > 1)
+  const filteredScenes = (): Scene[] => {
+    if (searchQuery && searchQuery.length > 1) {
       return scenes.filter(scene => scene?.Name.toLowerCase().includes(searchQuery.toLowerCase()));
+    }
 
-    if (categorizedScenes && selectedCategory)
+    if (categorizedScenes && selectedCategory && categorizedScenes[selectedCategory]) {
       return categorizedScenes[selectedCategory];
+    }
 
     return [];
   }
