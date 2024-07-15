@@ -4,8 +4,7 @@ import { Pause, Play } from "@phosphor-icons/react";
 import React, { useEffect, useRef, useState } from "react";
 import { Button } from "../Button";
 import { Select } from "../Select";
-import grey from "../colors/grey";
-import red from "../colors/red";
+import { grey, red } from "../colors";
 
 export enum Voice {
   Andrew = 'en-US-AndrewMultilingualNeural',
@@ -37,10 +36,17 @@ const voices = {
 export interface VoiceSelectorProps {
   selectedVoice: Voice;
   setSelectedVoice: (voice: Voice) => void;
+  generateTTSUrl?: (voiceName: string) => Promise<string>;
 }
 
-export function VoiceSelector({ selectedVoice, setSelectedVoice }: VoiceSelectorProps) {
+export function VoiceSelector({ selectedVoice, setSelectedVoice, generateTTSUrl }: VoiceSelectorProps) {
   const [voiceGender, setVoiceGender] = useState<string>('Female');
+  const [selectedVoices, setSelectedVoices] = useState<Voice[]>(voices["Female"]);
+
+  useEffect(() => {
+    if ((voiceGender === "Male" || voiceGender === "Female"))
+      setSelectedVoices(voices[voiceGender]);
+  }, [voiceGender]);
 
   return (
     <div>
@@ -53,10 +59,9 @@ export function VoiceSelector({ selectedVoice, setSelectedVoice }: VoiceSelector
       />
       <Grid container spacing={1}>
         {
-          (voiceGender === "Male" || voiceGender === "Female") &&
-          voices[voiceGender].map((v, i) => (
+          selectedVoices.map((v, i) => (
             <Grid item key={i} xs={6} md={3}>
-              <VoiceOption voice={v} selected={selectedVoice === v} setSelected={setSelectedVoice} />
+              <VoiceOption voice={v} selected={selectedVoice === v} setSelected={setSelectedVoice} generateTTSUrl={generateTTSUrl} />
             </Grid>
           ))
         }
@@ -69,11 +74,18 @@ interface VoiceOptionProps {
   voice: Voice;
   selected: boolean;
   setSelected: (voice: Voice) => void;
+  generateTTSUrl?: (voiceName: string) => Promise<string>;
 }
 
-function VoiceOption({ voice, selected, setSelected }: VoiceOptionProps) {
+function VoiceOption({ voice, selected, setSelected, generateTTSUrl }: VoiceOptionProps) {
   const audioRef = useRef<HTMLAudioElement>(null);
+  const [audioUrl, setAudioUrl] = useState<string>('');
   const [isPlaying, setIsPlaying] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setAudioUrl('');
+  }, [voice, generateTTSUrl]);
 
   useEffect(() => {
     return () => {
@@ -82,22 +94,57 @@ function VoiceOption({ voice, selected, setSelected }: VoiceOptionProps) {
     };
   }, []);
 
-  const togglePlay = (e: React.MouseEvent<HTMLElement>) => {
+  useEffect(() => {
+    if (!audioUrl) return;
+    audioRef.current?.addEventListener('canplay', handleCanPlay);
+    return () => {
+      audioRef.current?.removeEventListener('canplay', handleCanPlay);
+    };
+  }, [audioUrl]);
+
+  const togglePlay = async (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
     if (isPlaying) {
       audioRef.current?.pause();
       setIsPlaying(false);
     } else {
-      audioRef.current?.play();
-      setIsPlaying(true);
+      if (!audioUrl) await getAndSetAudioUrl();
+
+      audioRef.current?.addEventListener('canplay', handleCanPlay);
+      audioRef.current?.load();
     }
   };
+
+  const getAndSetAudioUrl = async () => {
+    if (generateTTSUrl) {
+      setLoading(true);
+      const audioUrl = await generateTTSUrl(voice);
+      setAudioUrl(audioUrl);
+      setLoading(false);
+    } else {
+      setAudioUrl(`https://api.randmar.io/ShortsGenerationContent/Voices/${voice}.mp3`);
+    }
+  }
 
   const handleAudioEnded = () => {
     setIsPlaying(false);
   };
 
-  audioRef.current?.addEventListener('ended', handleAudioEnded);
+  const handleCanPlay = () => {
+    audioRef.current?.play();
+    setIsPlaying(true);
+    audioRef.current?.removeEventListener('canplay', handleCanPlay);
+  };
+
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.addEventListener('ended', handleAudioEnded);
+    }
+    return () => {
+      audioRef.current?.removeEventListener('ended', handleAudioEnded);
+      audioRef.current?.removeEventListener('canplay', handleCanPlay);
+    };
+  }, [audioUrl]);
 
   return (
     <Stack
@@ -125,7 +172,7 @@ function VoiceOption({ voice, selected, setSelected }: VoiceOptionProps) {
       <span>{displayName[voice]}</span>
       <audio
         ref={audioRef}
-        src={`https://api.randmar.io/ShortsGenerationContent/Voices/${voice}.mp3`}
+        src={audioUrl}
       />
       <Button
         variant="tertiary"
@@ -134,6 +181,7 @@ function VoiceOption({ voice, selected, setSelected }: VoiceOptionProps) {
         starticon={isPlaying ? Pause : Play}
         size="small"
         iconProps={{ color: selected ? red[600] : grey[500] }}
+        loading={loading}
       />
     </Stack>
   );
