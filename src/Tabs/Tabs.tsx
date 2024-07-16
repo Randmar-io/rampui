@@ -75,7 +75,8 @@ const TabPanel = styled(BaseTabPanel)`
   box-shadow: var(--r-shadow-sm);
   border-radius: var(--r-border-radius-md);
   background-color: white;
-  padding: var(--r-spacing-40);
+  padding: var(--r-spacing-50);
+  height: max-content;
 `;
 
 const TabsContainer = styled(BaseTabs)`

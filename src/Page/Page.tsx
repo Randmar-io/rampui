@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { Stack } from "@mui/system";
 import React, { useEffect } from "react";
+import { Typography } from "../Typography";
 
 export interface PageProps {
   children?: React.ReactNode;
@@ -16,12 +17,12 @@ const PageHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: start;
-  margin-bottom: var(--r-spacing-50);
+  margin-bottom: var(--r-spacing-40);
 `;
 
 
 const PageContainer = styled.div<PageProps>`
-  max-width: ${props => props.narrowWidth ? '768px' : props.midWidth ? '1024px' : '100%'};
+  max-width: ${props => props.narrowWidth ? '768px' : props.midWidth ? '1280px' : '100%'};
   margin-left: auto;
   margin-right: auto;
 `;
@@ -36,8 +37,8 @@ export function Page({ children, title, subtitle, primaryAction, secondaryAction
       {(title || subtitle || primaryAction || secondaryActions) && (
         <PageHeader>
           <Stack spacing={0.5}>
-            <div style={{ fontSize: '1.25rem', fontWeight: 600 }}>{title}</div>
-            <div style={{ fontSize: '0.8125rem', fontWeight: 500, color: "#6b6b6b" }}>{subtitle}</div>
+            {title && <Typography variant="headingLg">{title}</Typography>}
+            {subtitle && <Typography color="subdued" weight="semibold">{subtitle}</Typography>}
           </Stack>
           <Stack direction="row" spacing={0.75}>
             {secondaryActions}

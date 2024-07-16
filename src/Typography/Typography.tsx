@@ -46,7 +46,7 @@ const styles = {
       color: grey[400],
     },
     regular: {
-      color: grey[600],
+      color: grey[500],
     },
   },
 };
@@ -60,21 +60,21 @@ interface TypographyProps extends React.HTMLAttributes<HTMLElement> {
 }
 
 export const Typography = ({ variant, weight, color, align, children, style, ...props }: TypographyProps) => {
-  const Tag = 
-    variant === 'headingLg' ? 'h2' : 
-    variant === 'headingMd' ? 'h3' : 
-    variant === 'headingSm' ? 'h4' : 
-    variant === 'headingXs' ? 'h5' : 
-    'p';
+  const Tag =
+    variant === 'headingLg' ? 'h2' :
+      variant === 'headingMd' ? 'h3' :
+        variant === 'headingSm' ? 'h4' :
+          variant === 'headingXs' ? 'h5' :
+            'p';
 
   const computedStyle = {
     ...styles[variant || 'bodyMd'],
     ...styles.colors[color || 'regular'],
-    fontWeight: 
+    fontWeight:
       weight === 'bold' ? 600 :
-      weight === 'semibold' ? 500 :
-      weight === 'regular' ? 400 :
-      variant?.includes('heading') ? 600 : 400,
+        weight === 'semibold' ? 500 :
+          weight === 'regular' ? 400 :
+            variant?.includes('heading') ? 600 : 400,
     textAlign: align,
     ...style
   };
