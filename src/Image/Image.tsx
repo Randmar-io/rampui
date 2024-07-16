@@ -3,7 +3,7 @@ import { MagnifyingGlassPlus, Icon as PhosphorIcon } from "@phosphor-icons/react
 import React, { useState } from "react";
 import { Modal } from "../Modal";
 
-const sizeMap = {
+export const imgSizeMap = {
   xs: "48px",
   sm: "64px",
   md: "96px",
@@ -27,7 +27,7 @@ export function Image({ src, alt, style, hoverIcon: HoverIcon, onClick, size, as
   const isInteractive = onClick !== undefined || (!!src && zoomable);
 
   const baseStyle = {
-    width: sizeMap[size || "md"],
+    width: imgSizeMap[size || "md"],
     maxWidth: 'max-content',
     aspectRatio: aspectRatio || '1/1',
     display: "flex",
