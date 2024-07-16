@@ -31,7 +31,7 @@ const CardBase = styled(Paper)<{ hoverColor?: Color }>(({ theme, hoverColor }) =
 
 export function LinkCard({ title, description, imgUrl, to, external, onClick, color: colorFromProps }: LinkCardProps) {
   const [hovered, setHovered] = useState(false);
-  const color = colors[colorFromProps || "default"];
+  const color = colorFromProps ? colors[colorFromProps] : undefined;
 
   return (
     <a
