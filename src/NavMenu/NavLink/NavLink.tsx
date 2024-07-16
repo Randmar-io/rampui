@@ -40,7 +40,7 @@ const NavLinkContainer = styled('li')<NavLinkProps>(({ selected, theme }) => `
   }
 
   &:hover {
-    background-color: #f7f7f7;    
+    background-color: #f8f8f8;    
   }
 `);
 
