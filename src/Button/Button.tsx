@@ -1,5 +1,5 @@
 import { Stack } from "@mui/system";
-import { Icon as PhosphorIcon, IconProps as PhosphorIconProps } from "@phosphor-icons/react";
+import { IconProps as PhosphorIconProps } from "@phosphor-icons/react";
 import React, { forwardRef, useState } from "react";
 import { Modal } from "../Modal";
 import { ButtonBase } from "./ButtonBase";
@@ -16,8 +16,8 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   variant?: "primary" | "secondary" | "tertiary";
   size?: "small" | "medium" | "large";
   color?: "default" | "reseller" | "manufacturer" | "shopify" | "success" | "error";
-  starticon?: PhosphorIcon;
-  endicon?: PhosphorIcon;
+  starticon?: React.ElementType<PhosphorIconProps>;
+  endicon?: React.ElementType<PhosphorIconProps>;
   fullWidth?: boolean;
   loading?: boolean;
   iconProps?: PhosphorIconProps;
@@ -74,7 +74,7 @@ const ButtonContent = ({ starticon: StartIcon, endicon: EndIcon, children, loadi
   );
 };
 
-export const Button = forwardRef(({ loading, disabled, confirmationDialog, ...rest }: ButtonProps, ref) => {
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({ loading, disabled, confirmationDialog, ...rest }: ButtonProps, ref) => {
   if (confirmationDialog) {
     const [open, setOpen] = useState(false);
     const [isLoading, setLoading] = useState(false);
