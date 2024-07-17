@@ -1,3 +1,4 @@
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { buttonClasses } from '@mui/base/Button';
 import { Tab as BaseTab, tabClasses } from '@mui/base/Tab';
@@ -5,6 +6,7 @@ import { TabPanel as BaseTabPanel } from '@mui/base/TabPanel';
 import { Tabs as BaseTabs } from '@mui/base/Tabs';
 import { TabsList as BaseTabsList } from '@mui/base/TabsList';
 import * as React from 'react';
+import { colors } from '../colors/util';
 
 interface Tab {
   label?: string;
@@ -12,21 +14,22 @@ interface Tab {
 }
 
 interface TabsProps {
-  tabs: Tab[];
+  tabs?: Tab[];
+  color?: "default" | "reseller" | "manufacturer" | "shopify" | "success" | "error";
 }
 
-export function Tabs({ tabs }: TabsProps) {
+export function Tabs({ tabs, color }: TabsProps) {
   return (
     <TabsContainer defaultValue={0} orientation="vertical">
       <TabsList>
         {
-          tabs.map((tab, index) => (
-            <Tab key={index}>{tab.label}</Tab>
+          tabs?.map((tab, index) => (
+            <Tab key={index} color={color}>{tab.label}</Tab>
           ))
         }
       </TabsList>
       {
-        tabs.map((tab, index) => (
+        tabs?.map((tab, index) => (
           <TabPanel key={index} value={index}>{tab.content}</TabPanel>
         ))
       }
@@ -34,48 +37,47 @@ export function Tabs({ tabs }: TabsProps) {
   );
 }
 
-const Tab = styled(BaseTab)(({ theme }) => `
-  color: #545454;
-  cursor: pointer;
-  font-size: 13px;
-  font-weight: 500;
-  background-color: transparent;
-  width: 100%;
-  padding: var(--r-spacing-20) var(--r-spacing-40);
-  border: none;
-  border-radius: var(--r-border-radius-sm);
-  display: flex;
-  align-items: center;
+const Tab = styled(BaseTab)<TabsProps>(({ theme, color: propsColor }) => {
+  const color = propsColor ? colors[propsColor] : theme.color;
 
-  &:hover {
-    background-color: #f8f8f8;
-  }
+  return css`
+    color: #545454;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    background-color: transparent;
+    width: 100%;
+    padding: var(--r-spacing-20) var(--r-spacing-40);
+    border: none;
+    border-radius: var(--r-border-radius-sm);
+    display: flex;
+    align-items: center;
 
-  &.${buttonClasses.focusVisible} {
-    background-color: ${theme.color[50]};
-    color: ${theme.color[500]};
-    font-weight: 600;
-  }
+    &:hover {
+      background-color: #f8f8f8;
+    }
 
-  &.${tabClasses.disabled} {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
+    &.${buttonClasses.focusVisible} {
+      background-color: ${color[50]};
+      color: ${color[500]};
+      font-weight: 600;
+    }
 
-  &.${tabClasses.selected} {
-    background-color: ${theme.color[50]};
-    color: ${theme.color[500]};
-    font-weight: 600;
-  }
-`);
+    &.${tabClasses.disabled} {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    &.${tabClasses.selected} {
+      background-color: ${color[50]};
+      color: ${color[500]};
+      font-weight: 600;
+    }
+  `
+});
 
 const TabPanel = styled(BaseTabPanel)`
   width: 100%;
-  font-size: 13px;
-  box-shadow: var(--r-shadow-sm);
-  border-radius: var(--r-border-radius-md);
-  background-color: white;
-  padding: var(--r-spacing-50);
   height: max-content;
 `;
 
@@ -84,7 +86,7 @@ const TabsContainer = styled(BaseTabs)`
   gap: 16px;
 `;
 
-const TabsList = styled(BaseTabsList)(({ theme }) => `
+const TabsList = styled(BaseTabsList)`
   min-width: 240px;
   height: max-content;
   background-color: white;
@@ -97,4 +99,4 @@ const TabsList = styled(BaseTabsList)(({ theme }) => `
   align-content: space-between;
   box-shadow: var(--r-shadow-sm);
   border-radius: var(--r-border-radius-md);
-`);
+`;

@@ -14,13 +14,12 @@ const StyledLink = styled('a')<LinkProps>((props) => {
 
   return css`
     text-decoration: none;
-    color: ${color[700]};
-    border-bottom: 1px solid ${color[600]};
+    color: ${color[600]};
+    border-bottom: 1px solid ${color[500]};
     display: flex;
     align-items: center;
     gap: var(--r-spacing-5);
     width: max-content;
-    margin-bottom: var(--r-spacing-80);
 
     &:hover {
       border-color: transparent;
