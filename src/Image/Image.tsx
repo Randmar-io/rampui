@@ -4,11 +4,11 @@ import React, { useState } from "react";
 import { Modal } from "../Modal";
 
 export const imgSizeMap = {
-  xs: "48px",
-  sm: "64px",
-  md: "96px",
-  lg: "144px",
-  xl: "192px",
+  xs: 48,
+  sm: 64,
+  md: 96,
+  lg: 144,
+  xl: 192,
 }
 
 interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
