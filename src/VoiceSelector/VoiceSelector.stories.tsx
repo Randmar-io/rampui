@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
-import { Voice, VoiceSelector } from './VoiceSelector';
+import { VoiceSelector } from './VoiceSelector';
 
 const meta: Meta<typeof VoiceSelector> = {
   title: 'VoiceSelector',
@@ -12,14 +12,14 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 function VoiceSelectorStory() {
-  const [selectedVoice, setSelectedVoice] = React.useState<Voice>(Voice.Aria);
+  const [selectedVoice, setSelectedVoice] = React.useState<string>("en-US-ElizabethNeural");
 
   return <VoiceSelector selectedVoice={selectedVoice} setSelectedVoice={setSelectedVoice} />;
 }
 
 export const Primary: Story = {
   render: () => (
-    <div style={{ width: 450 }}>
+    <div style={{ width: 800 }}>
       <VoiceSelectorStory />
     </div>
   )
