@@ -1,24 +1,23 @@
-export const styles = [
-    "General",
-    "Angry",
-    "Chat",
-    "Cheerful",
-    "Excited",
-    "Friendly",
-    "Hopeful",
-    "Sad",
-    "Shouting",
-    "Terrified",
-    "Unfriendly",
-    "Whispering",
-    "Assistant",
-    "Customer Service",
-    "Newscast",
-    "Empathetic",
-    "Narration - Professional",
-    "Newscast - Casual",
-    "Newscast - Formal"
-];
+export const stylesMap: { [key: string]: string } = {
+    "angry": "😡 Angry",
+    "chat": "💬 Chat",
+    "cheerful": "😊 Cheerful",
+    "excited": "🤩 Excited",
+    "friendly": "🤗 Friendly",
+    "hopeful": "🙌 Hopeful",
+    "sad": "😢 Sad",
+    "shouting": "📢 Shouting",
+    "terrified": "😱 Terrified",
+    "unfriendly": "😒 Unfriendly",
+    "whispering": "🤫 Whispering",
+    "assistant": "💁‍♂️ Assistant",
+    "customerservice": "📞 Customer Service",
+    "newscast": "📺 Newscast",
+    "empathetic": "❤️ Empathetic",
+    "narration-professional": "🎙️ Narration - Professional",
+    "newscast-casual": "👕 Newscast - Casual",
+    "newscast-formal": "👔 Newscast - Formal"
+};
 
 export const personalities = [
     "Serious",

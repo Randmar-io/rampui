@@ -88,7 +88,7 @@ export const ButtonBase = styled(MuiBaseButton, {
       color: ${color[500]};
 
       &:hover {
-        background: ${grey[100]};
+        background: rgba(0, 0, 0, 0.07);
       }
 
       &:active {

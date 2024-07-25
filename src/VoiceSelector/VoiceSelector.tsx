@@ -5,12 +5,12 @@ import React, { useEffect, useState } from "react";
 import { Button } from "../Button";
 import Filter from "../Filter/Filter";
 import { VoiceOption } from "./VoiceOption";
-import { ageGroups, genders, personalities, tailoredScenarios, voiceData } from "./voiceData";
+import { ageGroups, genders, personalities, stylesMap, tailoredScenarios, voiceData } from "./voiceData";
 
 export interface VoiceSelectorProps {
   selectedVoice: string;
   setSelectedVoice: (voice: string) => void;
-  generateTTSUrl?: (voiceName: string) => Promise<string>;
+  generateTTSUrl?: (voiceName: string, voiceStyle?: string) => Promise<string>;
 }
 
 export function VoiceSelector({ selectedVoice, setSelectedVoice, generateTTSUrl }: VoiceSelectorProps) {
@@ -28,11 +28,11 @@ export function VoiceSelector({ selectedVoice, setSelectedVoice, generateTTSUrl 
   useEffect(() => {
     let filtered = voiceData;
 
-    // if (styleFilters.length > 0) {
-    //   filtered = filtered.filter(voice =>
-    //     styleFilters.every(filter => voice.properties.VoiceStyleNames?.includes(filter))
-    //   );
-    // }
+    if (styleFilters.length > 0) {
+      filtered = filtered.filter(voice =>
+        styleFilters.every(filter => voice.properties.VoiceStyleNames?.includes(filter))
+      );
+    }
 
     if (genderFilters.length > 0) {
       filtered = filtered.filter(voice =>
@@ -67,12 +67,12 @@ export function VoiceSelector({ selectedVoice, setSelectedVoice, generateTTSUrl 
     <div>
       <p style={{ fontSize: 12, color: "#616161", marginBottom: 4 }}>Voice</p>
       <div style={{ display: "flex", flexWrap: "wrap", gap: 4, marginBottom: 12 }}>
-        {/* <Filter
+        <Filter
           filterName="Style"
-          filters={styles}
+          filters={Object.keys(stylesMap)}
           selectedFilters={styleFilters}
           setSelectedFilters={setStyleFilters}
-        /> */}
+        />
         <Filter
           filterName="Personality"
           filters={personalities}
@@ -103,7 +103,12 @@ export function VoiceSelector({ selectedVoice, setSelectedVoice, generateTTSUrl 
         {
           voicesToDisplay.map((v, i) => (
             <Grid item key={i} xs={6} md={3}>
-              <VoiceOption voice={v.shortName} selected={selectedVoice === v.shortName} setSelected={setSelectedVoice} generateTTSUrl={generateTTSUrl} />
+              <VoiceOption
+                voice={v}
+                selectedVoiceName={selectedVoice === v.shortName}
+                setSelectedVoiceName={setSelectedVoice}
+                generateTTSUrl={generateTTSUrl}
+              />
             </Grid>
           ))
         }
