@@ -13,6 +13,7 @@ const StyledLink = styled('a')<LinkProps>((props) => {
   const color = props.color ? colors[props.color] : props.theme.color;
 
   return css`
+    font-size: 13px;
     text-decoration: none;
     color: ${color[600]};
     border-bottom: 1px solid ${color[500]};
