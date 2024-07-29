@@ -108,24 +108,25 @@ const CloseIcon = styled.div`
 
 const Body = styled(motion.div)`
   background-color: #fff;
-  height: max-content;
+  height: auto;
+  max-height: 90vh;
   margin: var(--r-spacing-20);
   border-radius: var(--r-border-radius-md);
   box-shadow: var(--r-shadow-sm);
-  max-height: 90vh;
+  overflow: hidden;
   position: relative;
 `;
 
 const Content = styled.div`
   padding-top: var(--r-spacing-40);
   padding-bottom: var(--r-spacing-40);
-  max-height: 100%;
   overflow-y: auto;
+  max-height: calc(90vh - 80px);
 
   &::-webkit-scrollbar {
     display: none;
   }
-`
+`;
 
 const ModalBase = styled(MuiBaseModal)`
   position: fixed;

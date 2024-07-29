@@ -1,11 +1,11 @@
 import { OutlinedInput, OutlinedInputProps } from "@mui/material";
 import React from "react";
 
-interface TextFieldProps extends OutlinedInputProps {
+export interface TextFieldProps extends OutlinedInputProps {
   value?: React.ReactNode;
 }
 
-export function TextField({ readOnly, sx, label, value, fullWidth, inputProps, ...rest }: TextFieldProps) {
+export function TextField({ readOnly, label, value, sx, fullWidth, inputProps, ...rest }: TextFieldProps) {
   const labelMarkup = label ? <p style={{ fontSize: 12, paddingBottom: 4, color: "#616161" }}>{label}</p> : null;
 
   if (readOnly) return (

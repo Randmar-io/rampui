@@ -4,7 +4,7 @@ import { Activator, Content } from "./components";
 
 export interface EducationProps {
   title?: string;
-  description?: string;
+  description?: React.ReactNode;
   academyLink?: string;
   youtubeVideoLink?: string;
 }

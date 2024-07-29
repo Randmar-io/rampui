@@ -5,34 +5,42 @@ const styles = {
   headingLg: {
     fontSize: '20px',
     fontWeight: 600,
+    lineHeight: '24px',
   },
   headingMd: {
     fontSize: '16px',
     fontWeight: 600,
+    lineHeight: '22px',
   },
   headingSm: {
     fontSize: '14px',
     fontWeight: 600,
+    lineHeight: '20px',
   },
   headingXs: {
     fontSize: '13px',
     fontWeight: 600,
+    lineHeight: '20px',
   },
   bodyLg: {
     fontSize: '14px',
     fontWeight: 400,
+    lineHeight: '20px',
   },
   bodyMd: {
     fontSize: '13px',
     fontWeight: 400,
+    lineHeight: '20px',
   },
   bodySm: {
     fontSize: '12px',
     fontWeight: 400,
+    lineHeight: '16px',
   },
   bodyXs: {
     fontSize: '11px',
     fontWeight: 400,
+    lineHeight: '12px',
   },
 
   colors: {
