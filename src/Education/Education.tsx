@@ -5,7 +5,7 @@ import { Activator, Content } from "./components";
 export interface EducationProps {
   title?: string;
   description?: string;
-  blogPostLink?: string;
+  academyLink?: string;
   youtubeVideoLink?: string;
 }
 

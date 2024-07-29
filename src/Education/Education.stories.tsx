@@ -18,8 +18,8 @@ type Story = StoryObj<typeof meta>;
 const props: EducationProps = {
   title: "Pricing Tiers",
   description: "At Randmar, we believe in providing tailored solutions to meet the unique needs of our resellers. Our pricing tiers are designed to offer flexibility and support as you grow your business.",
-  blogPostLink: "https://www.randmar.io/pricing",
-  youtubeVideoLink: "https://www.youtube.com/embed/w-x2k0OAGnE",
+  academyLink: "https://www.randmar.io/pricing",
+  youtubeVideoLink: "https://www.youtube.com/embed/NnptHOIrO_A",
 }
 
 export function EducationWithProps() {
