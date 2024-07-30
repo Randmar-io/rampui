@@ -1,7 +1,7 @@
 import { Skeleton } from "@mui/material";
 import { Stack } from "@mui/system";
 import { PencilSimple, SignOut } from "@phosphor-icons/react";
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "../Button";
 import { Image } from "../Image";
 import { grey } from "../colors";
@@ -15,9 +15,12 @@ interface NavFooterProps {
   secondaryActions?: React.ReactNode[];
   loading?: boolean;
   onClickProfileImg?: () => void;
+  onClickEdit?: () => void;
 }
 
-export function NavFooter({ profileImageUrl, profileName, profileEmail, profileTier, onSignOut, secondaryActions, loading, onClickProfileImg }: NavFooterProps) {
+export function NavFooter({ profileImageUrl, profileName, profileEmail, profileTier, onSignOut, secondaryActions, loading, onClickProfileImg, onClickEdit }: NavFooterProps) {
+  const [showEditButton, setShowEditButton] = useState(false);
+
   if (loading) return (
     <Stack spacing={1.5} >
       <Stack direction="row" spacing={1.5} sx={{ borderTop: `1px solid ${grey[200]}`, pt: 1.5 }}>
@@ -39,7 +42,7 @@ export function NavFooter({ profileImageUrl, profileName, profileEmail, profileT
           {secondaryActions}
         </Stack>
       }
-      <Stack spacing={1.5} >
+      <Stack spacing={1.5} onMouseEnter={() => setShowEditButton(true)} onMouseLeave={() => setShowEditButton(false)}>
         <Stack direction="row" spacing={1.5} sx={{ borderTop: `1px solid ${grey[200]}`, pt: 1.5 }}>
           <Image
             style={{ flexShrink: 0 }}
@@ -48,10 +51,26 @@ export function NavFooter({ profileImageUrl, profileName, profileEmail, profileT
             onClick={onClickProfileImg}
             hoverIcon={PencilSimple}
           />
-          <Stack>
-            <div style={{ fontSize: 13, fontWeight: 500 }}>{profileName}</div>
-            {profileTier && <div style={{ fontSize: 12 }}>{profileTier}</div>}
-            <div style={{ fontSize: 12, color: '#646464' }}>{profileEmail}</div>
+          <Stack direction="row" justifyContent="space-between" spacing={1} width="100%">
+            <Stack sx={{ flexGrow: 1 }}>
+              <div style={{ fontSize: 13, fontWeight: 500 }}>{profileName}</div>
+              {profileTier && <div style={{ fontSize: 12 }}>{profileTier}</div>}
+              <div style={{ fontSize: 12, color: '#646464' }}>{profileEmail}</div>
+            </Stack>
+            {
+              !!onClickEdit &&
+              <Button
+                variant="tertiary"
+                iconOnly
+                starticon={PencilSimple}
+                size="small"
+                onClick={onClickEdit}
+                style={{
+                  flexShrink: 0,
+                  visibility: showEditButton ? 'visible' : 'hidden'
+                }}
+              />
+            }
           </Stack>
         </Stack>
         <Button fullWidth starticon={SignOut} onClick={onSignOut}>
