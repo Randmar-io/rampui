@@ -5,21 +5,22 @@ import React, { useEffect, useRef, useState } from "react";
 import { Button } from "../Button";
 import { grey, red } from "../colors";
 import { StyleSelect } from "./StyleSelect";
+import { VoiceSelectorProps } from "./VoiceSelector";
 import { VoiceData, voiceDisplayName } from "./voiceData";
 
-interface VoiceOptionProps {
+interface VoiceOptionProps extends VoiceSelectorProps {
   voice: VoiceData;
-  selectedVoiceName: boolean;
-  setSelectedVoiceName: (voice: string) => void;
-  generateTTSUrl?: (voiceName: string, voiceStyle?: string) => Promise<string>;
 }
 
-export function VoiceOption({ voice, selectedVoiceName, setSelectedVoiceName, generateTTSUrl }: VoiceOptionProps) {
+export function VoiceOption({ voice, selectedVoice, setSelectedVoice, generateTTSUrl }: VoiceOptionProps) {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [audioUrl, setAudioUrl] = useState<string>('');
   const [isPlaying, setIsPlaying] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [selectedStyle, setSelectedStyle] = useState<string>();
+  const [selectedVoiceStyle, setSelectedVoiceStyle] = useState<string>();
+  const isSelected = voice.shortName === selectedVoice.name;
+
+  const styleNames = voice.properties.VoiceStyleNames || "";
 
   useEffect(() => {
     setAudioUrl('');
@@ -41,10 +42,10 @@ export function VoiceOption({ voice, selectedVoiceName, setSelectedVoiceName, ge
   }, [audioUrl]);
 
   useEffect(() => {
-    if (selectedStyle) {
+    if (selectedVoiceStyle) {
       getAndSetAudioUrl();
     }
-  }, [selectedStyle]);
+  }, [selectedVoiceStyle]);
 
   const togglePlay = async (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
@@ -62,7 +63,7 @@ export function VoiceOption({ voice, selectedVoiceName, setSelectedVoiceName, ge
   const getAndSetAudioUrl = async () => {
     if (generateTTSUrl) {
       setLoading(true);
-      const audioUrl = await generateTTSUrl(voice.shortName, selectedStyle);
+      const audioUrl = await generateTTSUrl(voice.shortName, selectedVoiceStyle);
       setAudioUrl(audioUrl);
       setLoading(false);
     }
@@ -88,25 +89,33 @@ export function VoiceOption({ voice, selectedVoiceName, setSelectedVoiceName, ge
     };
   }, [audioUrl]);
 
-  const styleNames = voice.properties.VoiceStyleNames || "";
+  useEffect(() => {
+    if (selectedVoice.name === voice.shortName)
+      setSelectedVoice({ name: voice.shortName, style: selectedVoiceStyle });
+  }, [selectedVoiceStyle]);
+
+  function handleClick(e: React.MouseEvent<HTMLElement>) {
+    e.stopPropagation();
+    setSelectedVoice({ name: voice.shortName, style: selectedVoiceStyle });
+  }
 
   return (
     <Stack
       direction="row"
       alignItems="center"
       justifyContent="space-between"
-      onClick={() => setSelectedVoiceName(voice.shortName)}
+      onClick={handleClick}
       sx={{
         p: 1,
         pl: 1.5,
-        border: `1px solid ${selectedVoiceName ? red[600] : '#c4c4c4'}`,
-        color: selectedVoiceName ? red[700] : grey[600],
+        border: `1px solid ${isSelected ? red[600] : '#c4c4c4'}`,
+        color: isSelected ? red[700] : grey[600],
         borderRadius: 1,
         cursor: "pointer",
         fontSize: 13,
-        backgroundColor: selectedVoiceName ? red[50] : "white",
+        backgroundColor: isSelected ? red[50] : "white",
         userSelect: "none",
-        fontWeight: selectedVoiceName ? 500 : 400,
+        fontWeight: isSelected ? 500 : 400,
 
         ":hover": {
           backgroundColor: red[50],
@@ -123,8 +132,8 @@ export function VoiceOption({ voice, selectedVoiceName, setSelectedVoiceName, ge
           styleNames.length > 0 &&
           <StyleSelect
             styles={styleNames.split(",")}
-            selectedStyle={selectedStyle}
-            setSelectedStyle={setSelectedStyle}
+            selectedStyle={selectedVoiceStyle}
+            setSelectedStyle={setSelectedVoiceStyle}
           />
         }
         {
@@ -136,7 +145,7 @@ export function VoiceOption({ voice, selectedVoiceName, setSelectedVoiceName, ge
               iconOnly
               starticon={isPlaying ? Pause : Play}
               size="small"
-              iconProps={{ color: selectedVoiceName ? red[600] : grey[500] }}
+              iconProps={{ color: isSelected ? red[600] : grey[500] }}
               loading={loading}
             />
           </Tooltip>
