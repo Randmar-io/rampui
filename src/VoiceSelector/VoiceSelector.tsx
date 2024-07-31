@@ -7,9 +7,14 @@ import Filter from "../Filter/Filter";
 import { VoiceOption } from "./VoiceOption";
 import { ageGroups, genders, personalities, stylesMap, tailoredScenarios, voiceData } from "./voiceData";
 
+export interface Voice {
+  name: string;
+  style?: string;
+}
+
 export interface VoiceSelectorProps {
-  selectedVoice: string;
-  setSelectedVoice: (voice: string) => void;
+  selectedVoice: Voice;
+  setSelectedVoice: (voice: Voice) => void;
   generateTTSUrl?: (voiceName: string, voiceStyle?: string) => Promise<string>;
 }
 
@@ -105,8 +110,8 @@ export function VoiceSelector({ selectedVoice, setSelectedVoice, generateTTSUrl 
             <Grid item key={i} xs={6} md={3}>
               <VoiceOption
                 voice={v}
-                selectedVoiceName={selectedVoice === v.shortName}
-                setSelectedVoiceName={setSelectedVoice}
+                selectedVoice={selectedVoice}
+                setSelectedVoice={setSelectedVoice}
                 generateTTSUrl={generateTTSUrl}
               />
             </Grid>

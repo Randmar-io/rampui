@@ -45,7 +45,7 @@ const StyledMenuItem = styled(MenuItem)`
 interface StyleSelectProps {
   styles: string[];
   selectedStyle?: string;
-  setSelectedStyle: (style: string) => void;
+  setSelectedStyle?: (style: string) => void;
 }
 
 export function StyleSelect({ styles, selectedStyle, setSelectedStyle }: StyleSelectProps) {
@@ -60,6 +60,7 @@ export function StyleSelect({ styles, selectedStyle, setSelectedStyle }: StyleSe
   };
 
   const handleSelect = (style: string) => {
+    if (!setSelectedStyle) return;
     if (style === selectedStyle) setSelectedStyle("");
     else setSelectedStyle(style);
     handleClose();

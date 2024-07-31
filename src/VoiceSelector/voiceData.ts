@@ -75,6 +75,41 @@ export const tailoredScenarios = [
     "Customer Service"
 ];
 
+export enum VoiceNames {
+    Alloy = "en-US-AlloyTurboMultilingualNeural",
+    Amber = "en-US-AmberNeural",
+    Ana = "en-US-AnaNeural",
+    Andrew = "en-US-AndrewNeural",
+    Aria = "en-US-AriaNeural",
+    Ashley = "en-US-AshleyNeural",
+    Ava = "en-US-AvaNeural",
+    Blue = "en-US-BlueNeural",
+    Brandon = "en-US-BrandonNeural",
+    Brian = "en-US-BrianNeural",
+    Christopher = "en-US-ChristopherNeural",
+    Cora = "en-US-CoraNeural",
+    Davis = "en-US-DavisNeural",
+    Elizabeth = "en-US-ElizabethNeural",
+    Emma = "en-US-EmmaNeural",
+    Eric = "en-US-EricNeural",
+    Guy = "en-US-GuyNeural",
+    Jacob = "en-US-JacobNeural",
+    Jane = "en-US-JaneNeural",
+    Jason = "en-US-JasonNeural",
+    Jenny = "en-US-JennyNeural",
+    Kai = "en-US-KaiNeural",
+    Luna = "en-US-LunaNeural",
+    Michelle = "en-US-MichelleNeural",
+    Monica = "en-US-MonicaNeural",
+    Nancy = "en-US-NancyNeural",
+    Nova = "en-US-NovaTurboMultilingualNeural",
+    Roger = "en-US-RogerNeural",
+    Ryan = "en-US-RyanMultilingualNeural",
+    Sara = "en-US-SaraNeural",
+    Steffan = "en-US-SteffanNeural",
+    Tony = "en-US-TonyNeural",
+}
+
 export const voiceDisplayName: { [key: string]: string } = {
     "en-US-AlloyTurboMultilingualNeural": "Alloy",
     "en-US-AmberNeural": "Amber",
