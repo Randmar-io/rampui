@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { Stack } from "@mui/system";
 import { Headset } from "@phosphor-icons/react";
 import React from "react";
 import { Button } from "../../Button";
@@ -29,16 +30,16 @@ export interface ContentProps extends EducationProps {
   setShow: (show: boolean) => void;
 }
 
-export function Content({ show, setShow, title, description, academyLink, youtubeVideoLink }: ContentProps) {
+export function Content({ show, setShow, title, description, academyLinks, youtubeVideoLink }: ContentProps) {
   return (
     <Modal open={!!show} onClose={() => setShow(false)} title={title} maxWidth="sm">
       <div>
         {description && <Description>{description}</Description>}
         {
-          academyLink &&
-          <Link href={academyLink} external>
-            Read more
-          </Link>
+          (academyLinks || []).length > 0 &&
+          <Stack direction="row" spacing={2} alignItems="center">
+            {academyLinks?.map(({ title, url }) => (<Link key={url} href={url} external>{title}</Link>))}
+          </Stack>
         }
         {
           youtubeVideoLink &&
