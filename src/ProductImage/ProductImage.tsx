@@ -49,6 +49,7 @@ export function ProductImage({ randmarSKU, size, alt, secondaryContent }: Produc
 
   const buttonSize = (size === "xl" || size === undefined) ? "medium" : "small";
   const spacing = (size === "xl" || size === undefined) ? 2 : 1;
+  const imgSize = imgSizeMap[size || "xl"];
 
   return (
     <>
@@ -81,7 +82,8 @@ export function ProductImage({ randmarSKU, size, alt, secondaryContent }: Produc
           alt={alt}
           size={size || "xl"}
           zoomable
-          src={`https://api.randmar.io/Product/${randmarSKU}/Image?width=${imgSizeMap[size || "xl"]}&height=${imgSizeMap[size || "xl"]}`}
+          src={`https://api.randmar.io/Product/${randmarSKU}/Image?width=${imgSize * 1.5}&height=${imgSize * 1.5}`}
+          fullSizeSrc={`https://api.randmar.io/Product/${randmarSKU}/Image`}
         />
       </Stack>
     </>
