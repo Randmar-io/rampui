@@ -1,6 +1,6 @@
 import { Tooltip } from '@mui/material';
 import { Stack } from '@mui/system';
-import { Check, CopySimple, DownloadSimple } from '@phosphor-icons/react';
+import { Check, CopySimple, DownloadSimple, Play } from '@phosphor-icons/react';
 import React, { useEffect, useState } from 'react';
 import { Button } from '../Button';
 import { Image, imgSizeMap } from '../Image';
@@ -71,6 +71,11 @@ export function ProductImage({ randmarSKU, size, alt, secondaryContent }: Produc
     }, 2000)
   }
 
+  function handleOpenVideo(e: React.MouseEvent) {
+    e.stopPropagation();
+    setOpen(true);
+  }
+
   const imgSize = imgSizeMap[size || "xl"];
 
   return (
@@ -97,14 +102,26 @@ export function ProductImage({ randmarSKU, size, alt, secondaryContent }: Produc
         }
       </Modal >
 
-      <Image
-        alt={alt}
-        size={size || "xl"}
-        zoomable={!hasVideo}
-        onClick={hasVideo ? () => setOpen(true) : undefined}
-        src={`https://api.randmar.io/Product/${randmarSKU}/Image?width=${imgSize * 1.5}&height=${imgSize * 1.5}`}
-        fullSizeSrc={`https://api.randmar.io/Product/${randmarSKU}/Image`}
-      />
+      <div style={{ position: 'relative', width: 'max-content', height: 'max-content' }}>
+        <Image
+          alt={alt}
+          size={size || "xl"}
+          zoomable
+          src={`https://api.randmar.io/Product/${randmarSKU}/Image?width=${imgSize * 1.5}&height=${imgSize * 1.5}`}
+          fullSizeSrc={`https://api.randmar.io/Product/${randmarSKU}/Image`}
+        />
+        {
+          hasVideo &&
+          <Button
+            variant="secondary"
+            size="small"
+            style={{ position: 'absolute', top: 4, right: 4 }}
+            starticon={Play}
+            iconOnly
+            onClick={handleOpenVideo}
+          />
+        }
+      </div>
     </>
   );
 }
