@@ -1,10 +1,10 @@
+import { Tooltip } from '@mui/material';
 import { Stack } from '@mui/system';
-import { CubeFocus, Download } from '@phosphor-icons/react';
+import { Check, CopySimple, DownloadSimple } from '@phosphor-icons/react';
 import React, { useEffect, useState } from 'react';
 import { Button } from '../Button';
 import { Image, imgSizeMap } from '../Image';
 import { Modal } from '../Modal';
-import { ModelViewer } from '../ModelViewer';
 import { Size } from '../utility/Types';
 
 interface ProductImageProps {
@@ -16,74 +16,95 @@ interface ProductImageProps {
 
 export function ProductImage({ randmarSKU, size, alt, secondaryContent }: ProductImageProps) {
   const [open, setOpen] = useState(false);
-  const [has3DModel, setHas3DModel] = useState(false);
+  const [hasVideo, setHasVideo] = useState(false);
+  const [copyClicked, setCopyClicked] = useState(false);
+  const [loadingDownload, setLoadingDownload] = useState(false);
+  const vidUrl = `https://api.randmar.io/Product/${randmarSKU}/Video`;
 
-  const checkFor3DModel = async () => {
-    const res = await fetch(`https://api.randmar.io/Product/${randmarSKU}/3DModel/Exists`)
-    const has3DModel: boolean = await res.json();
-    setHas3DModel(has3DModel);
+  const checkForVideo = async () => {
+    const res = await fetch(vidUrl + "/Exists");
+    const hasVideo: boolean = await res.json();
+    setHasVideo(hasVideo);
   }
 
   useEffect(() => {
-    checkFor3DModel();
+    checkForVideo();
   }, []);
 
   const modelWithSecondaryContent = (
     <Stack direction="row">
-      <ModelViewer source={`https://api.randmar.io/Product/${randmarSKU}/3DModel`} />
+      <video style={{ borderRadius: 12, width: '100%', maxHeight: '90vh' }} controls autoPlay muted loop>
+        <source src={`https://api.randmar.io/Product/${randmarSKU}/Video`} type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
       <div style={{ flexGrow: 1, minWidth: 400, height: '70vh' }}>
         {secondaryContent}
       </div>
     </Stack>
   )
 
-  const download3DModel = async () => {
-    const filename = `${randmarSKU}_3DModel.glb`;
-    const response = await fetch(`https://api.randmar.io/Product/${randmarSKU}/3DModel`);
-    const blob = await response.blob();
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = filename;
-    link.click();
-  };
+  async function handleDownload() {
+    if (hasVideo) {
+      setLoadingDownload(true);
 
-  const buttonSize = (size === "xl" || size === undefined) ? "medium" : "small";
-  const spacing = (size === "xl" || size === undefined) ? 2 : 1;
+      const response = await fetch(vidUrl);
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `${randmarSKU || 'product'}-video.mp4`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+
+      setLoadingDownload(false);
+    }
+  }
+
+  function handleCopy() {
+    navigator.clipboard.writeText(vidUrl);
+    setCopyClicked(true);
+    setTimeout(() => {
+      setCopyClicked(false);
+    }, 2000)
+  }
+
+  const imgSize = imgSizeMap[size || "xl"];
 
   return (
     <>
-      <Modal open={open} onClose={() => setOpen(false)}>
+      <Modal open={open} onClose={() => setOpen(false)} flush maxWidth="xs" hideCloseIcon>
         {
           secondaryContent ?
             modelWithSecondaryContent
             :
-            <ModelViewer source={`https://api.randmar.io/Product/${randmarSKU}/3DModel`} />
+            <div style={{ width: '100%', position: 'relative' }}>
+              <video style={{ width: '100%' }} controls autoPlay muted loop>
+                <source src={`https://api.randmar.io/Product/${randmarSKU}/Video`} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              <Stack direction="row" spacing={0.5} p={1} alignItems="center" justifyContent="right" style={{ position: 'absolute', top: 0, right: 0 }}>
+                <Tooltip title="Copy video link">
+                  <Button variant="secondary" starticon={copyClicked ? Check : CopySimple} iconOnly onClick={handleCopy} />
+                </Tooltip>
+                <Tooltip title="Download video">
+                  <Button variant="secondary" starticon={DownloadSimple} iconOnly onClick={handleDownload} loading={loadingDownload} />
+                </Tooltip>
+              </Stack>
+            </div>
         }
       </Modal >
 
-      <Stack alignItems="center" spacing={spacing}>
-        {
-          has3DModel &&
-          <Stack direction="row" spacing={0.5} alignItems="center">
-            <Button variant="secondary" size={buttonSize} starticon={CubeFocus} onClick={() => setOpen(true)}>
-              View 3D Model
-            </Button>
-            <Button
-              variant="secondary"
-              size={buttonSize}
-              starticon={Download}
-              style={{ height: buttonSize === "small" ? 26.1 : 31.6 }}
-              onClick={download3DModel}
-            />
-          </Stack>
-        }
-        <Image
-          alt={alt}
-          size={size || "xl"}
-          zoomable
-          src={`https://api.randmar.io/Product/${randmarSKU}/Image?width=${imgSizeMap[size || "xl"]}&height=${imgSizeMap[size || "xl"]}`}
-        />
-      </Stack>
+      <Image
+        alt={alt}
+        size={size || "xl"}
+        zoomable={!hasVideo}
+        onClick={hasVideo ? () => setOpen(true) : undefined}
+        src={`https://api.randmar.io/Product/${randmarSKU}/Image?width=${imgSize * 1.5}&height=${imgSize * 1.5}`}
+        fullSizeSrc={`https://api.randmar.io/Product/${randmarSKU}/Image`}
+      />
     </>
   );
 }

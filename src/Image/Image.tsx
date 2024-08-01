@@ -13,6 +13,7 @@ export const imgSizeMap = {
 
 interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   size?: "xs" | "sm" | "md" | "lg" | "xl";
+  fullSizeSrc?: string;
   aspectRatio?: string;
   width?: string | number;
   zoomable?: boolean;
@@ -21,13 +22,14 @@ interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   onClick?: () => void;
 }
 
-export function Image({ src, alt, style, hoverIcon: HoverIcon, onClick, size, aspectRatio, zoomable, backgroundColor }: ImageProps) {
+export function Image({ src, fullSizeSrc, alt, style, hoverIcon: HoverIcon, onClick, size, aspectRatio, zoomable, backgroundColor }: ImageProps) {
   const [hovered, setHovered] = useState(false);
   const [open, setOpen] = useState(false);
   const isInteractive = onClick !== undefined || (!!src && zoomable);
+  const imgSize = imgSizeMap[size || "md"];
 
   const baseStyle = {
-    width: imgSizeMap[size || "md"],
+    width: imgSize,
     maxWidth: 'max-content',
     aspectRatio: aspectRatio || '1/1',
     display: "flex",
@@ -91,11 +93,11 @@ export function Image({ src, alt, style, hoverIcon: HoverIcon, onClick, size, as
           </Overlay>
         }
       </div>
-      <Modal open={open} onClose={() => setOpen(false)}>
+      <Modal open={open} onClose={() => setOpen(false)} maxWidth="sm">
         <img
-          src={src || "https://ralfvanveen.com/wp-content/uploads/2021/06/Placeholder-_-Glossary.svg"}
+          src={fullSizeSrc || src || "https://ralfvanveen.com/wp-content/uploads/2021/06/Placeholder-_-Glossary.svg"}
           alt={alt}
-          style={{ maxWidth: "100%", maxHeight: "80vh", objectFit: "contain" }}
+          style={{ width: "100%", objectFit: "contain" }}
         />
       </Modal>
     </>
