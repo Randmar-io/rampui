@@ -169,5 +169,5 @@ const Option = styled(BaseOption)(({ theme }) => `
 `);
 
 const Popup = styled('div')`
-  z-index: 1;
+  z-index: 60;
 `;
