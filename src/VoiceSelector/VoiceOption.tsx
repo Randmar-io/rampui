@@ -23,6 +23,10 @@ export function VoiceOption({ voice, selectedVoice, setSelectedVoice, generateTT
   const styleNames = voice.properties.VoiceStyleNames || "";
 
   useEffect(() => {
+    if (isSelected) setSelectedVoiceStyle(selectedVoice.style);
+  }, []);
+
+  useEffect(() => {
     setAudioUrl('');
   }, [voice, generateTTSUrl]);
 
