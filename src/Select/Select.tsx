@@ -1,6 +1,8 @@
-import { MenuItem, Select as MuiSelect, SelectProps as MuiSelectProps } from "@mui/material";
+import { SelectProps as MuiSelectProps, SelectChangeEvent } from "@mui/material";
 import React from "react";
 import { Typography } from "../Typography";
+import { BaseSelect } from "./BaseSelect";
+import { MenuItem } from "./MenuItem";
 
 interface Option {
   value: string;
@@ -13,9 +15,9 @@ interface CustomSelectProps {
   setSelected: (selected: string) => void;
 }
 
-type SelectProps = MuiSelectProps<string> & CustomSelectProps;
+export type SelectProps = MuiSelectProps & CustomSelectProps;
 
-export function Select({ options, selected, setSelected, sx, label, ...muiSelectProps }: SelectProps) {
+export function Select({ options, selected, setSelected, label, ...muiSelectProps }: SelectProps) {
   const parsedOptions = options.map(option => {
     if (typeof option === 'string') {
       return { value: option, displayText: option };
@@ -24,33 +26,28 @@ export function Select({ options, selected, setSelected, sx, label, ...muiSelect
     }
   });
 
+  const handleChange = (event: SelectChangeEvent<unknown>, child: React.ReactNode) => {
+    console.log(event.target.value);
+    setSelected(event.target.value as string);
+  };
+
   return (
     <div style={{ height: 'max-content' }}>
       {
         label &&
         <Typography variant="bodySm" color="subdued" style={{ marginBottom: 4 }}>{label}</Typography>
       }
-      <MuiSelect
+      <BaseSelect
         value={selected}
-        onChange={e => setSelected(e.target.value as string)}
-        sx={{
-          borderRadius: 1,
-          backgroundColor: 'white',
-          minWidth: 200,
-          '& .MuiSelect-select': {
-            padding: '6px 12px',
-            fontSize: 13,
-          },
-          ...sx,
-        }}
+        onChange={handleChange}
         {...muiSelectProps}
       >
         {parsedOptions.map(option => (
-          <MenuItem value={option.value} key={option.value} sx={{ fontSize: 13 }}>
+          <MenuItem value={option.value} key={option.value}>
             {option.displayText ?? option.value}
           </MenuItem>
         ))}
-      </MuiSelect>
+      </BaseSelect>
     </div>
   );
 }
