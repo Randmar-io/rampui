@@ -9,7 +9,6 @@ import React from 'react';
 import { BaseSelect } from '../Select/BaseSelect';
 import { MenuItem } from '../Select/MenuItem';
 import { grey } from '../colors';
-import "./styles.css";
 
 const extensions = [StarterKit, Underline];
 
@@ -23,6 +22,10 @@ const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({ theme }) => ({
     padding: "3px 5px",
     [`&.${toggleButtonGroupClasses.disabled}`]: {
       border: 0,
+    },
+    [`&.${toggleButtonGroupClasses.selected}`]: {
+      color: theme.color[600],
+      backgroundColor: theme.color[50],
     },
   },
   [`& .${toggleButtonGroupClasses.middleButton},& .${toggleButtonGroupClasses.lastButton}`]:
@@ -41,7 +44,7 @@ const MenuBar = () => {
 
   return (
     <>
-      <Stack direction="row" spacing={1} p={1} sx={{ backgroundColor: "#fafafa", borderRadius: "12px 12px 0 0", borderBottom: "1px solid #eaeaea" }}>
+      <Stack direction="row" spacing={1} p={0.75} sx={{ backgroundColor: "#fafafa", borderRadius: "12px 12px 0 0", borderBottom: "1px solid #eaeaea" }}>
         <BaseSelect
           size="small"
           value={editor.isActive('paragraph') ? 0 : (editor.getAttributes('heading').level || '')}
@@ -93,11 +96,28 @@ const Container = styled('div')(({ theme }) => `
   border-radius: 12px;
   box-sizing: border-box;
   border-color: ${grey[200]};
+  color: #424242;
+
   &:hover:not(:focus-within) {
     border-color: #c4c4c4;
   }
+
   &:focus-within {
     border-color: #aeaeae;
+  }
+
+  .tiptap {
+    overflow: hidden;
+    min-height: 200px;
+    padding: 12px
+  }
+
+  ul, ol {
+    padding-left: 20px;
+  }
+
+  .ProseMirror:focus {
+    outline: none;
   }
 `)
 
