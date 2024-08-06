@@ -31,7 +31,7 @@ export function Image({ src, fullSizeSrc, alt, style, hoverIcon: HoverIcon, onCl
   const baseStyle = {
     width: imgSize,
     maxWidth: 'max-content',
-    aspectRatio: aspectRatio || '1/1',
+    height: 'max-content',
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
@@ -84,7 +84,7 @@ export function Image({ src, fullSizeSrc, alt, style, hoverIcon: HoverIcon, onCl
         <img
           src={src || "https://ralfvanveen.com/wp-content/uploads/2021/06/Placeholder-_-Glossary.svg"}
           alt={alt}
-          style={{ ...baseStyle, position: 'relative', objectFit: "contain", borderRadius: 8 }}
+          style={{ ...baseStyle, position: 'relative', objectFit: "contain", borderRadius: 8, aspectRatio: aspectRatio || '1 / 1' }}
         />
         {
           isInteractive &&

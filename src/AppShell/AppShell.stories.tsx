@@ -45,7 +45,7 @@ export const AppShellWithItems = () => {
   const footer = (
     <NavFooter
       profileImageUrl="https://api.randmar.io/v4/Partner/2/Account/Logo?width=64&height=64"
-      profileName="Brother"
+      profileName="Carlyle Printers Services and Supplies"
       profileEmail="admin@brother.ca"
       onSignOut={() => console.log("Sign out")}
       onClickEdit={() => alert("Edit")}
