@@ -37,7 +37,7 @@ export function Content({ show, setShow, title, description, academyLinks, youtu
         {description && <Description>{description}</Description>}
         {
           (academyLinks || []).length > 0 &&
-          <Stack direction="row" spacing={2} alignItems="center">
+          <Stack spacing={1} alignItems="center">
             {academyLinks?.map(({ title, url }) => (<Link key={url} href={url} external>{title}</Link>))}
           </Stack>
         }

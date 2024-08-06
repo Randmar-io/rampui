@@ -4,6 +4,7 @@ import { PencilSimple, SignOut } from "@phosphor-icons/react";
 import React, { useState } from "react";
 import { Button } from "../Button";
 import { Image } from "../Image";
+import { Typography } from "../Typography";
 import { grey } from "../colors";
 
 interface NavFooterProps {
@@ -52,8 +53,8 @@ export function NavFooter({ profileImageUrl, profileName, profileEmail, profileT
             hoverIcon={PencilSimple}
           />
           <Stack direction="row" justifyContent="space-between" spacing={1} width="100%">
-            <Stack sx={{ flexGrow: 1 }}>
-              <div style={{ fontSize: 13, fontWeight: 500 }}>{profileName}</div>
+            <Stack sx={{ flexGrow: 1 }} spacing={0.25}>
+              <Typography weight="semibold" style={{ lineHeight: 1.2 }}>{profileName}</Typography>
               {profileTier && <div style={{ fontSize: 12 }}>{profileTier}</div>}
               <div style={{ fontSize: 12, color: '#646464' }}>{profileEmail}</div>
             </Stack>
