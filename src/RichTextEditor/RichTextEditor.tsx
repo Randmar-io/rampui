@@ -97,6 +97,7 @@ const Container = styled('div')(({ theme }) => `
   box-sizing: border-box;
   border-color: ${grey[200]};
   color: #424242;
+  font-size: 13px;
 
   &:hover:not(:focus-within) {
     border-color: #c4c4c4;
@@ -108,7 +109,7 @@ const Container = styled('div')(({ theme }) => `
 
   .tiptap {
     overflow: hidden;
-    min-height: 200px;
+    min-height: 140px;
     padding: 12px
   }
 
