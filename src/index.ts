@@ -22,6 +22,7 @@ export * from "./ProductImage";
 export * from "./ProductInventoryGrid";
 export * from "./Provider";
 export * from "./ResellerCard";
+export * from "./RichTextEditor";
 export * from "./SceneSelector";
 export * from "./SearchBar";
 export * from "./Select";
@@ -30,4 +31,3 @@ export * from "./TextField";
 export * from "./Typography";
 export * from "./VoiceSelector";
 export * from "./colors";
-

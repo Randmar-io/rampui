@@ -12,22 +12,19 @@ interface PreviewProps {
 export default function Preview({ sceneName }: PreviewProps) {
   const [open, setOpen] = useState(false);
   const [videoUrl, setVideoUrl] = useState<string>();
-  const [audioUrl, setAudioUrl] = useState<string>();
   const [loading, setLoading] = useState(false);
 
   async function handlePlayClick(e: React.MouseEvent) {
     e.stopPropagation();
     setOpen(true);
     setLoading(true);
-    const vidUrl = await fetchMediaUrl('Preview');
-    const audioUrl = await fetchMediaUrl('AmbientSound');
+    const vidUrl = await fetchVidUrl();
     setVideoUrl(vidUrl);
-    setAudioUrl(audioUrl);
     setLoading(false);
   }
 
-  async function fetchMediaUrl(media: 'Preview' | 'AmbientSound') {
-    const res = await fetch(`https://api.randmar.io/ShortsGenerationContent/Scene/${encodeURIComponent(sceneName)}/${media}`);
+  async function fetchVidUrl() {
+    const res = await fetch(`https://api.randmar.io/ShortsGenerationContent/Scene/${encodeURIComponent(sceneName)}/Preview`);
     const blob = await res.blob();
     const url = URL.createObjectURL(blob);
     return url;
@@ -68,19 +65,15 @@ export default function Preview({ sceneName }: PreviewProps) {
             :
             <>
               <video
+                controls
                 autoPlay
                 loop
                 style={{
-                  height: '90vh',
+                  height: '80vh',
                   aspectRatio: "9 / 16",
                   objectFit: "cover",
                 }}
                 src={videoUrl}
-              />
-              <audio
-                autoPlay
-                loop
-                src={audioUrl}
               />
             </>
 
