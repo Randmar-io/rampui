@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import { Button } from "../Button";
 import Filter from "../Filter/Filter";
 import { VoiceOption } from "./VoiceOption";
-import { ageGroups, genders, personalities, stylesMap, tailoredScenarios, voiceData } from "./voiceData";
+import { ageGroups, genders, personalities, stylesMap, stylesReverseMap, tailoredScenarios, voiceData } from "./voiceData";
 
 export interface Voice {
   name: string;
@@ -35,7 +35,7 @@ export function VoiceSelector({ selectedVoice, setSelectedVoice, generateTTSUrl 
 
     if (styleFilters.length > 0) {
       filtered = filtered.filter(voice =>
-        styleFilters.every(filter => voice.properties.VoiceStyleNames?.includes(filter))
+        styleFilters.every(filter => voice.properties.VoiceStyleNames?.includes(stylesReverseMap[filter]))
       );
     }
 
@@ -74,7 +74,7 @@ export function VoiceSelector({ selectedVoice, setSelectedVoice, generateTTSUrl 
       <div style={{ display: "flex", flexWrap: "wrap", gap: 4, marginBottom: 12 }}>
         <Filter
           filterName="Style"
-          filters={Object.keys(stylesMap)}
+          filters={Object.values(stylesMap)}
           selectedFilters={styleFilters}
           setSelectedFilters={setStyleFilters}
         />
