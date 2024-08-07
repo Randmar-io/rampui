@@ -112,6 +112,7 @@ export function VoiceOption({ voice, selectedVoice, setSelectedVoice, generateTT
       sx={{
         p: 1,
         pl: 1.5,
+        height: 44,
         border: `1px solid ${isSelected ? red[600] : '#c4c4c4'}`,
         color: isSelected ? red[700] : grey[600],
         borderRadius: 1,
