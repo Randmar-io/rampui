@@ -19,6 +19,8 @@ export const stylesMap: { [key: string]: string } = {
     "newscast-formal": "👔 Newscast - Formal"
 };
 
+export const stylesReverseMap: { [key: string]: string } = Object.fromEntries(Object.entries(stylesMap).map(([key, value]) => [value, key]));
+
 export const personalities = [
     "Serious",
     "Clear",
