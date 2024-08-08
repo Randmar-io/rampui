@@ -1,6 +1,7 @@
 export * from "./AppShell";
 export * from "./Button";
 export * from "./Card";
+export * from "./Charts";
 export * from "./Chip";
 export * from "./DocumentCard";
 export * from "./Education";
