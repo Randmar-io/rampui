@@ -15,11 +15,10 @@ interface NavFooterProps {
   onSignOut?: () => void;
   secondaryActions?: React.ReactNode[];
   loading?: boolean;
-  onClickProfileImg?: () => void;
   onClickEdit?: () => void;
 }
 
-export function NavFooter({ profileImageUrl, profileName, profileEmail, profileTier, onSignOut, secondaryActions, loading, onClickProfileImg, onClickEdit }: NavFooterProps) {
+export function NavFooter({ profileImageUrl, profileName, profileEmail, profileTier, onSignOut, secondaryActions, loading, onClickEdit }: NavFooterProps) {
   const [showEditButton, setShowEditButton] = useState(false);
 
   if (loading) return (
@@ -49,8 +48,6 @@ export function NavFooter({ profileImageUrl, profileName, profileEmail, profileT
             style={{ flexShrink: 0 }}
             size="xs"
             src={profileImageUrl}
-            onClick={onClickProfileImg}
-            hoverIcon={PencilSimple}
           />
           <Stack direction="row" justifyContent="space-between" spacing={1} width="100%">
             <Stack sx={{ flexGrow: 1 }} spacing={0.25}>

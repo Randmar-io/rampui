@@ -16,9 +16,10 @@ export interface VoiceSelectorProps {
   selectedVoice: Voice;
   setSelectedVoice: (voice: Voice) => void;
   generateTTSUrl?: (voiceName: string, voiceStyle?: string) => Promise<string>;
+  itemColSpan?: number;
 }
 
-export function VoiceSelector({ selectedVoice, setSelectedVoice, generateTTSUrl }: VoiceSelectorProps) {
+export function VoiceSelector({ selectedVoice, setSelectedVoice, generateTTSUrl, itemColSpan }: VoiceSelectorProps) {
   const [styleFilters, setStyleFilters] = useState<string[]>([]);
   const [genderFilters, setGenderFilters] = useState<string[]>([]);
   const [personalityFilters, setPersonalityFilters] = useState<string[]>([]);
@@ -107,7 +108,7 @@ export function VoiceSelector({ selectedVoice, setSelectedVoice, generateTTSUrl 
       <Grid container spacing={1}>
         {
           voicesToDisplay.map((v, i) => (
-            <Grid item key={i} xs={6} md={3}>
+            <Grid item key={i} xs={itemColSpan || 6} md={itemColSpan || 3}>
               <VoiceOption
                 voice={v}
                 selectedVoice={selectedVoice}

@@ -33,10 +33,11 @@ const VoiceSelectorStoryInModal = () => {
   return (
     <div>
       <Button onClick={() => setOpen(true)}>Open</Button>
-      <Modal title='Voice Selector' open={open} onClose={() => setOpen(false)} maxWidth="md">
+      <Modal title='Voice Selector' open={open} onClose={() => setOpen(false)} maxWidth="sm">
         <VoiceSelector
           selectedVoice={selectedVoice}
           setSelectedVoice={setSelectedVoice}
+          itemColSpan={4}
         />
       </Modal>
     </div>

@@ -113,8 +113,8 @@ export function VoiceOption({ voice, selectedVoice, setSelectedVoice, generateTT
         p: 1,
         pl: 1.5,
         height: 44,
-        border: `1px solid ${isSelected ? red[600] : '#c4c4c4'}`,
-        color: isSelected ? red[700] : grey[600],
+        border: `1px solid ${isSelected ? red[400] : grey[200]}`,
+        color: isSelected ? red[600] : grey[600],
         borderRadius: 1,
         cursor: "pointer",
         fontSize: 13,
@@ -150,7 +150,7 @@ export function VoiceOption({ voice, selectedVoice, setSelectedVoice, generateTT
               iconOnly
               starticon={isPlaying ? Pause : Play}
               size="small"
-              iconProps={{ color: isSelected ? red[600] : grey[500] }}
+              iconProps={{ color: isSelected ? red[600] : grey[300] }}
               loading={loading}
             />
           </Tooltip>
