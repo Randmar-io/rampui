@@ -156,7 +156,7 @@ export function SceneSelector({ selectedScene, setSelectedScene }: SceneSelector
                             src={`https://api.randmar.io/ShortsGenerationContent/Scene/${scene?.Name}/Thumbnail`}
                             style={{
                               ...thumbnailStyle(selected),
-                              borderColor: selected ? red[500] : grey[300],
+                              borderColor: selected ? red[400] : grey[300],
                               display: 'block',
                               objectFit: 'cover',
                             }}
@@ -185,7 +185,7 @@ export function SceneSelector({ selectedScene, setSelectedScene }: SceneSelector
                         borderStyle: 'solid',
                         borderWidth: '0 1px 1px 1px',
                         borderRadius: '0 0 12px 12px',
-                        borderColor: selected ? red[500] : grey[300],
+                        borderColor: selected ? red[400] : grey[300],
                         color: selected ? red[700] : grey[600],
                         cursor: "pointer",
                         fontSize: 13,

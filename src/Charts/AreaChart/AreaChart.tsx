@@ -1,6 +1,7 @@
 import { useTheme } from "@emotion/react";
 import React from "react";
 import { Area, CartesianGrid, AreaChart as RechartsAreaChart, Tooltip, XAxis } from 'recharts';
+import { Color as ThemeColor, baseThemeColor } from "../../Provider/theme";
 import { ChartTooltipContent } from "./ChartTooltipContent";
 
 interface DataPoint {
@@ -11,11 +12,13 @@ export interface AreaChartProps {
   data: DataPoint[];
   units?: string;
   unitsPosition?: "left" | "right";
+  color?: ThemeColor;
 }
 
-export function AreaChart({ data, units, unitsPosition = "right" }: AreaChartProps) {
+export function AreaChart({ data, units, unitsPosition = "right", color: propsColor }: AreaChartProps) {
   const dataKeys = Object.keys(data[0]);
-  const { color } = useTheme();
+  const theme = useTheme();
+  const color = propsColor ? baseThemeColor[propsColor] : theme.color; // If color is not specified, use the theme color
 
   return (
     <RechartsAreaChart width={400} height={200} data={data} margin={{ left: 20, right: 20 }}>:
