@@ -64,9 +64,7 @@ export function Modal({ children, title, actions, onClose, open, maxWidth, flush
             </Content>
             {
               actions &&
-              <Actions style={{
-                padding: 'var(--r-spacing-40)',
-              }}>
+              <Actions>
                 {actions}
               </Actions>
             }
@@ -82,6 +80,7 @@ const Actions = styled.div`
   align-items: center;
   justify-content: end;
   gap: var(--r-spacing-15);
+  padding: var(--r-spacing-30);
 `
 
 const CloseIcon = styled.div`
@@ -115,6 +114,8 @@ const Body = styled(motion.div)`
   box-shadow: var(--r-shadow-sm);
   overflow: hidden;
   position: relative;
+  display: flex;
+  flex-direction: column;
 `;
 
 const Content = styled.div`
