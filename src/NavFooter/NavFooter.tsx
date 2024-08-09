@@ -1,6 +1,6 @@
 import { Skeleton } from "@mui/material";
 import { Stack } from "@mui/system";
-import { PencilSimple, SignOut } from "@phosphor-icons/react";
+import { PencilSimple, Icon as PhosphorIcon, SignOut } from "@phosphor-icons/react";
 import React, { useState } from "react";
 import { Button } from "../Button";
 import { Image } from "../Image";
@@ -16,9 +16,22 @@ interface NavFooterProps {
   secondaryActions?: React.ReactNode[];
   loading?: boolean;
   onClickEdit?: () => void;
+  onClickLogo?: () => void;
+  logoHoverIcon?: PhosphorIcon
 }
 
-export function NavFooter({ profileImageUrl, profileName, profileEmail, profileTier, onSignOut, secondaryActions, loading, onClickEdit }: NavFooterProps) {
+export function NavFooter({
+  profileImageUrl,
+  profileName,
+  profileEmail,
+  profileTier,
+  onSignOut,
+  secondaryActions,
+  loading,
+  onClickEdit,
+  onClickLogo,
+  logoHoverIcon
+}: NavFooterProps) {
   const [showEditButton, setShowEditButton] = useState(false);
 
   if (loading) return (
@@ -48,6 +61,8 @@ export function NavFooter({ profileImageUrl, profileName, profileEmail, profileT
             style={{ flexShrink: 0 }}
             size="xs"
             src={profileImageUrl}
+            onClick={onClickLogo}
+            hoverIcon={logoHoverIcon}
           />
           <Stack direction="row" justifyContent="space-between" spacing={1} width="100%">
             <Stack sx={{ flexGrow: 1 }} spacing={0.25}>

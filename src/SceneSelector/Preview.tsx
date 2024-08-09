@@ -1,8 +1,7 @@
-import { CircularProgress } from "@mui/material";
 import { Box } from "@mui/system";
 import { Play } from "@phosphor-icons/react";
 import React, { useState } from "react";
-import { Modal } from "../Modal";
+import { VideoModal } from "../VideoModal";
 import { grey, red } from "../colors";
 
 interface PreviewProps {
@@ -11,29 +10,11 @@ interface PreviewProps {
 
 export default function Preview({ sceneName }: PreviewProps) {
   const [open, setOpen] = useState(false);
-  const [videoUrl, setVideoUrl] = useState<string>();
-  const [loading, setLoading] = useState(false);
-
-  async function handlePlayClick(e: React.MouseEvent) {
-    e.stopPropagation();
-    setOpen(true);
-    setLoading(true);
-    const vidUrl = await fetchVidUrl();
-    setVideoUrl(vidUrl);
-    setLoading(false);
-  }
-
-  async function fetchVidUrl() {
-    const res = await fetch(`https://api.randmar.io/ShortsGenerationContent/Scene/${encodeURIComponent(sceneName)}/Preview`);
-    const blob = await res.blob();
-    const url = URL.createObjectURL(blob);
-    return url;
-  }
 
   return (
     <>
       <Box
-        onClick={handlePlayClick}
+        onClick={() => setOpen(true)}
         sx={{
           display: "flex",
           backgroundColor: "white",
@@ -56,29 +37,11 @@ export default function Preview({ sceneName }: PreviewProps) {
         <Play size={14} weight="bold" />
       </Box>
 
-      <Modal open={open} onClose={() => setOpen(false)} flush hideCloseIcon maxWidth={false}>
-        {
-          loading ?
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '90vh', aspectRatio: '9 / 16' }}>
-              <CircularProgress />
-            </div>
-            :
-            <>
-              <video
-                controls
-                autoPlay
-                loop
-                style={{
-                  height: '80vh',
-                  aspectRatio: "9 / 16",
-                  objectFit: "cover",
-                }}
-                src={videoUrl}
-              />
-            </>
-
-        }
-      </Modal>
+      <VideoModal
+        open={open}
+        setOpen={setOpen}
+        videoUrl={`https://api.randmar.io/ShortsGenerationContent/Scene/${encodeURIComponent(sceneName)}/Preview`}
+      />
     </>
   );
 }

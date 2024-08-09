@@ -1,5 +1,5 @@
 import { Stack } from "@mui/system";
-import { Airplane, Factory, Headset, House, Notebook, Plugs, ShoppingBagOpen, Storefront, Users, Warehouse } from "@phosphor-icons/react";
+import { Airplane, Factory, Headset, House, Notebook, Play, Plugs, ShoppingBagOpen, Storefront, Users, Warehouse } from "@phosphor-icons/react";
 import type { Meta, StoryObj } from '@storybook/react';
 import React from "react";
 import { Button } from '../Button';
@@ -61,6 +61,8 @@ export const AppShellWithItems = () => {
           setSelected={() => { }}
         />
       ]}
+      onClickLogo={() => console.log("Logo clicked")}
+      logoHoverIcon={Play}
     />
   );
 
