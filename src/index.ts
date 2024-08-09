@@ -30,5 +30,6 @@ export * from "./Select";
 export * from "./Tabs";
 export * from "./TextField";
 export * from "./Typography";
+export * from "./VideoModal";
 export * from "./VoiceSelector";
 export * from "./colors";
