@@ -14,9 +14,10 @@ import { CategorizedScenes, Scene, categoryMapping } from "./Scene";
 export interface SceneSelectorProps {
   selectedScene: string;
   setSelectedScene: (sceneName: string) => void;
+  itemColSpan?: number;
 }
 
-export function SceneSelector({ selectedScene, setSelectedScene }: SceneSelectorProps) {
+export function SceneSelector({ selectedScene, setSelectedScene, itemColSpan }: SceneSelectorProps) {
   const [scenes, setScenes] = useState<Scene[]>([]);
   const [categorizedScenes, setCategorizedScenes] = useState<CategorizedScenes>({ "Default": [] });
   const [selectedCategory, setSelectedCategory] = useState<string>(categoryMapping[selectedScene] || "Default");
@@ -136,7 +137,7 @@ export function SceneSelector({ selectedScene, setSelectedScene }: SceneSelector
               const selected = selectedScene === scene?.Name;
 
               return (
-                <Grid item key={i} xs={6} md={3} lg={2}>
+                <Grid item key={i} xs={itemColSpan || 6} md={itemColSpan || 3} lg={itemColSpan || 2}>
                   <Stack
                     onClick={() => setSelectedScene(scene?.Name)}
                     sx={{
