@@ -1,5 +1,5 @@
 import { Stack } from "@mui/system";
-import { Airplane, Factory, Headset, House, Notebook, Play, Plugs, ShoppingBagOpen, Storefront, Users, Warehouse } from "@phosphor-icons/react";
+import { Airplane, Factory, Headset, House, Notebook, Plugs, ShoppingBagOpen, Storefront, Users, Warehouse } from "@phosphor-icons/react";
 import type { Meta, StoryObj } from '@storybook/react';
 import React from "react";
 import { Button } from '../Button';
@@ -44,7 +44,7 @@ export const AppShellWithItems = () => {
 
   const footer = (
     <NavFooter
-      profileImageUrl="https://api.randmar.io/v4/Partner/2/Account/Logo?width=64&height=64"
+      applicationId="2"
       profileName="Carlyle Printers Services and Supplies"
       profileEmail="admin@brother.ca"
       onSignOut={() => console.log("Sign out")}
@@ -61,8 +61,6 @@ export const AppShellWithItems = () => {
           setSelected={() => { }}
         />
       ]}
-      onClickLogo={() => console.log("Logo clicked")}
-      logoHoverIcon={Play}
     />
   );
 
