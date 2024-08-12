@@ -1,14 +1,14 @@
 import { Skeleton } from "@mui/material";
 import { Stack } from "@mui/system";
-import { PencilSimple, Icon as PhosphorIcon, SignOut } from "@phosphor-icons/react";
+import { PencilSimple, SignOut } from "@phosphor-icons/react";
 import React, { useState } from "react";
 import { Button } from "../Button";
-import { Image } from "../Image";
+import { ProfileImage } from "../ProfileImage";
 import { Typography } from "../Typography";
 import { grey } from "../colors";
 
 interface NavFooterProps {
-  profileImageUrl?: string;
+  applicationId: string;
   profileName?: string;
   profileEmail?: string;
   profileTier?: string;
@@ -16,21 +16,17 @@ interface NavFooterProps {
   secondaryActions?: React.ReactNode[];
   loading?: boolean;
   onClickEdit?: () => void;
-  onClickLogo?: () => void;
-  logoHoverIcon?: PhosphorIcon
 }
 
 export function NavFooter({
-  profileImageUrl,
+  applicationId,
   profileName,
   profileEmail,
   profileTier,
   onSignOut,
   secondaryActions,
   loading,
-  onClickEdit,
-  onClickLogo,
-  logoHoverIcon
+  onClickEdit
 }: NavFooterProps) {
   const [showEditButton, setShowEditButton] = useState(false);
 
@@ -57,13 +53,7 @@ export function NavFooter({
       }
       <Stack spacing={1.5} onMouseEnter={() => setShowEditButton(true)} onMouseLeave={() => setShowEditButton(false)}>
         <Stack direction="row" spacing={1.5} sx={{ borderTop: `1px solid ${grey[200]}`, pt: 1.5 }}>
-          <Image
-            style={{ flexShrink: 0 }}
-            size="xs"
-            src={profileImageUrl}
-            onClick={onClickLogo}
-            hoverIcon={logoHoverIcon}
-          />
+          <ProfileImage applicationId={applicationId} />
           <Stack direction="row" justifyContent="space-between" spacing={1} width="100%">
             <Stack sx={{ flexGrow: 1 }} spacing={0.25}>
               <Typography weight="semibold" style={{ lineHeight: 1.2 }}>{profileName}</Typography>
