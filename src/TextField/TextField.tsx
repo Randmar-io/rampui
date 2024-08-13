@@ -10,6 +10,7 @@ export interface TextFieldProps extends OutlinedInputProps {
 const StyledInput = styled(OutlinedInput)<TextFieldProps>(({ theme }) => `
   padding: 8px 12px;
   background-color: white;
+  color: #424242;
   & .${outlinedInputClasses.notchedOutline} {
     border-color: ${grey[200]};
   }
