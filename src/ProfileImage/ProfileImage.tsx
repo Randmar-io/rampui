@@ -13,13 +13,19 @@ export function ProfileImage({ applicationId, size = "xs" }: ProfileImageProps) 
   const [open, setOpen] = useState(false);
   const imgSize = imgSizeMap[size];
 
+  function handleClick(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+    e.stopPropagation();
+    e.preventDefault();
+    setOpen(true);
+  }
+
   return (
     <React.Fragment>
       <Image
         style={{ flexShrink: 0 }}
         size={size}
         src={`https://api.randmar.io/v4/Partner/${applicationId}/Account/Logo?height=${imgSize * 1.5}&width=${imgSize * 1.5}`}
-        onClick={() => setOpen(true)}
+        onClick={handleClick}
         hoverIcon={Play}
       />
       <VideoModal open={open} setOpen={setOpen} videoUrl={`https://api.randmar.io/v4/Partner/${applicationId}/Account/Video`} />

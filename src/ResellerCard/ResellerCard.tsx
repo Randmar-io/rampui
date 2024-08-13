@@ -6,8 +6,8 @@ import { ArrowsInSimple, ArrowsOutSimple, EnvelopeSimple, GlobeSimple, Phone, Pr
 import { motion } from "framer-motion";
 import React, { useState } from "react";
 import { Chip, ChipProps } from "../Chip";
-import { Image } from "../Image";
 import { Paper } from "../Paper";
+import { ProfileImage } from "../ProfileImage";
 import blue from "../colors/blue";
 import purple from "../colors/purple";
 import red from "../colors/red";
@@ -120,10 +120,7 @@ export function ResellerCard({ reseller, actions, expandable, detailView, qualif
   const titleContent = (
     <Box sx={{ display: 'flex', gap: 2 }}>
       <Box sx={{ flexShrink: 0 }}>
-        <Image
-          src={`https://api.randmar.io/V4/Partner/${reseller.resellerId}/Account/Logo`}
-          alt={`${resellerName} logo`}
-        />
+        <ProfileImage applicationId={reseller.resellerId || ""} size="md" />
       </Box>
       <Grid item xs={12} md={9}>
         <motion.div layout="position">

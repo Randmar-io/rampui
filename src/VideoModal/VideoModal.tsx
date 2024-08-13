@@ -9,8 +9,14 @@ interface VideoModalProps {
 }
 
 export function VideoModal({ videoUrl, open, setOpen, videoComponentProps }: VideoModalProps) {
+  function handleClose(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+    e.stopPropagation();
+    e.preventDefault();
+    setOpen(false);
+  }
+
   return (
-    <Modal open={open} onClose={() => setOpen(false)} flush hideCloseIcon maxWidth={false}>
+    <Modal open={open} onClose={handleClose} flush hideCloseIcon maxWidth={false}>
       <video
         controls
         autoPlay

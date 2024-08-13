@@ -6,9 +6,9 @@ import { ArrowsInSimple, ArrowsOutSimple, Circle, EnvelopeSimple, GlobeSimple, P
 import { motion } from "framer-motion";
 import React, { useState } from "react";
 import { Chip } from "../Chip";
-import { Image } from "../Image";
 import { Link } from "../Link";
 import { Paper } from "../Paper";
+import { ProfileImage } from "../ProfileImage";
 import { TextField } from "../TextField";
 import purple from "../colors/purple";
 import red from "../colors/red";
@@ -99,10 +99,7 @@ export function ManufacturerCard({ manufacturer, actions, expandable, detailView
   const titleContent = (
     <Box sx={{ display: 'flex', gap: 2 }}>
       <Box sx={{ flexShrink: 0 }}>
-        <Image
-          src={`https://api.randmar.io/V4/Partner/${manufacturer.manufacturerId}/Account/Logo`}
-          alt={`${manufacturerName} logo`}
-        />
+        <ProfileImage applicationId={manufacturer.manufacturerId || ""} size="md" />
       </Box>
       <Grid item xs={12} md={9}>
         <motion.div layout="position">

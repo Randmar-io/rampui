@@ -85,7 +85,7 @@ export function ProductImage({ randmarSKU, size, alt, secondaryContent }: Produc
             modelWithSecondaryContent
             :
             <div style={{ width: '100%', position: 'relative' }}>
-              <video style={{ width: '100%' }} controls autoPlay muted loop>
+              <video style={{ width: '100%' }} controls autoPlay>
                 <source src={`https://api.randmar.io/Product/${randmarSKU}/Video`} type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
