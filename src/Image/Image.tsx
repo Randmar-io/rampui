@@ -19,7 +19,7 @@ interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   zoomable?: boolean;
   backgroundColor?: string;
   hoverIcon?: PhosphorIcon;
-  onClick?: () => void;
+  onClick?: React.MouseEventHandler<HTMLDivElement>;
 }
 
 export function Image({ src, fullSizeSrc, alt, style, hoverIcon: HoverIcon, onClick, size, aspectRatio, zoomable, backgroundColor }: ImageProps) {
@@ -56,10 +56,10 @@ export function Image({ src, fullSizeSrc, alt, style, hoverIcon: HoverIcon, onCl
     size: 24,
   };
 
-  function handleClick() {
+  function handleClick(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
     if (onClick) {
       setHovered(false);
-      onClick()
+      onClick(e)
     } else if (zoomable && !!src) {
       setOpen(true);
       setHovered(false);
