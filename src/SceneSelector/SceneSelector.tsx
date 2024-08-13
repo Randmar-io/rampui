@@ -71,16 +71,18 @@ export function SceneSelector({ selectedScene, setSelectedScene, itemColSpan }: 
   const handleSetSelectedCategory = (category: string) => {
     setSearchQuery('');
     setSelectedCategory(category);
+    setCurrentPage(1);
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCurrentPage(1);
     setSearchQuery(e.target.value);
   };
 
   const debouncedHandleChange = useDebounce(handleChange, 500);
 
   const filteredScenes = (): Scene[] => {
-    if (searchQuery && searchQuery.length > 1) {
+    if (searchQuery && searchQuery.length > 0) {
       return scenes.filter(scene => scene?.Name.toLowerCase().includes(searchQuery.toLowerCase()));
     }
 
