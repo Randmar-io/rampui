@@ -7,6 +7,7 @@ const StyledMenuItem = styled(MuiMenuItem)<MenuItemProps>(({ theme }) => `
   padding: 6px 10px;
   cursor: pointer;
   font-size: 13px;
+  color: #424242;
 
   &:hover {
     background-color: #f8f8f8;

@@ -6,6 +6,7 @@ import { grey } from "../colors";
 
 const StyledSelect = styled(Select)(({ theme }) => `
   border-radius: 12px;
+  color: #424242;
   background-color: white;
   min-width: 200px;
   & .MuiSelect-select {
