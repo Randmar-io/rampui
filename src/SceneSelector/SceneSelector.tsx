@@ -28,37 +28,51 @@ export function SceneSelector({ selectedScene, setSelectedScene, itemColSpan }: 
   const endIndex = startIndex + scenesPerPage;
 
   useEffect(() => {
-    async function fetchScenesAndCategorize() {
-      try {
-        const response = await fetch('https://api.randmar.io/ShortsGenerationContent/Scenes');
-        const scenes: Scene[] = await response.json();
-
-        setScenes(scenes);
-
-        const updatedCategorizedScenes: CategorizedScenes = {
-          "Default": []
-        };
-
-        for (let scene of scenes) {
-          const sceneCategory = categoryMapping[scene?.Name] || "Other";
-
-          if (!updatedCategorizedScenes[sceneCategory]) {
-            updatedCategorizedScenes[sceneCategory] = [];
-          }
-
-          updatedCategorizedScenes[sceneCategory].push(scene);
-        }
-
-        setCategorizedScenes(updatedCategorizedScenes);
-        if (categoryMapping[selectedScene]) setSelectedCategory(categoryMapping[selectedScene]);
-        else setSelectedCategory("Default");
-      } catch (error) {
-        console.error('Error fetching and categorizing scenes:', error);
-      }
-    }
 
     fetchScenesAndCategorize();
   }, []);
+
+  useEffect(() => {
+    fetchScenesAndCategorize();
+  }, []);
+
+  async function fetchScenesAndCategorize() {
+    try {
+      const response = await fetch('https://api.randmar.io/ShortsGenerationContent/Scenes');
+      const scenes: Scene[] = await response.json();
+
+      setScenes(scenes);
+
+      const updatedCategorizedScenes: CategorizedScenes = {
+        "Default": []
+      };
+
+      for (let scene of scenes) {
+        const sceneCategory = categoryMapping[scene?.Name] || "Other";
+
+        if (!updatedCategorizedScenes[sceneCategory]) {
+          updatedCategorizedScenes[sceneCategory] = [];
+        }
+
+        updatedCategorizedScenes[sceneCategory].push(scene);
+      }
+
+      setCategorizedScenes(updatedCategorizedScenes);
+
+      const sceneIndex = scenes.findIndex(scene => scene.Name === selectedScene);
+      if (sceneIndex !== -1) {
+        const category = categoryMapping[selectedScene] || "Other";
+        setSelectedCategory(category);
+
+        const sceneIndex = updatedCategorizedScenes[category].findIndex(scene => scene.Name === selectedScene);
+        const pageNumber = Math.ceil(sceneIndex / scenesPerPage);
+        setCurrentPage(pageNumber);
+      }
+    } catch (error) {
+      console.error('Error fetching and categorizing scenes:', error);
+    }
+  }
+
 
   const categories = Object.keys(categorizedScenes).sort((a, b) => {
     if (a === "Default") return -1;
@@ -93,6 +107,7 @@ export function SceneSelector({ selectedScene, setSelectedScene, itemColSpan }: 
     return [];
   }
 
+  const totalPages = Math.ceil(filteredScenes().length / scenesPerPage);
   const scenesToDisplay = filteredScenes().slice(startIndex, endIndex);
 
   const thumbnailStyle = (selected?: boolean) => ({
@@ -217,11 +232,12 @@ export function SceneSelector({ selectedScene, setSelectedScene, itemColSpan }: 
         >
           Previous
         </Button>
+        <Typography variant="bodySm" color="subdued">Page {currentPage} of {totalPages}</Typography>
         <Button
           variant="tertiary"
           endicon={ArrowRight}
           onClick={() => setCurrentPage(prevPage => prevPage + 1)}
-          disabled={currentPage === Math.ceil(filteredScenes().length / scenesPerPage)}
+          disabled={currentPage === totalPages}
         >
           Next
         </Button>

@@ -19,8 +19,6 @@ export const Default: Story = {
   render: () => {
     const [selected, setSelected] = React.useState<string>('Option 1');
 
-    console.log(selected);
-
     return (
       <Select
         options={['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5']}

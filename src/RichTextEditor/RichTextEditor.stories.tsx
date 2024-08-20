@@ -15,8 +15,6 @@ type Story = StoryObj<typeof meta>;
 function RichTextEditorStory() {
   const [content, setContent] = React.useState<string>('Edit this content');
 
-  console.log(content);
-
   return (
     <RichTextEditor initialContent='Edit this content' setContent={setContent} />
   );

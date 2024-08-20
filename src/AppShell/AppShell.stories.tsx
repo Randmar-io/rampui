@@ -47,7 +47,7 @@ export const AppShellWithItems = () => {
       applicationId="2"
       profileName="Carlyle Printers Services and Supplies"
       profileEmail="admin@brother.ca"
-      onSignOut={() => console.log("Sign out")}
+      onSignOut={() => alert("Sign out")}
       onClickEdit={() => alert("Edit")}
       secondaryActions={[
         <Button fullWidth>Partner Dashboard</Button>,
@@ -130,7 +130,7 @@ export const AppShellWithItems = () => {
               onConfirm: async () => {
                 return new Promise(resolve => {
                   setTimeout(() => {
-                    console.log("Confirmed");
+                    alert("Confirmed");
                     resolve();
                   }, 3000);
                 });

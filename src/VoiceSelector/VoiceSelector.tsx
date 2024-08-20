@@ -4,6 +4,7 @@ import { ArrowLeft, ArrowRight } from "@phosphor-icons/react";
 import React, { useEffect, useState } from "react";
 import { Button } from "../Button";
 import Filter from "../Filter/Filter";
+import { Typography } from "../Typography";
 import { VoiceOption } from "./VoiceOption";
 import { ageGroups, genders, personalities, stylesMap, stylesReverseMap, tailoredScenarios, voiceData } from "./voiceData";
 
@@ -30,6 +31,13 @@ export function VoiceSelector({ selectedVoice, setSelectedVoice, generateTTSUrl,
   const voicesPerPage = 12;
   const startIndex = (currentPage - 1) * voicesPerPage;
   const endIndex = startIndex + voicesPerPage;
+
+  useEffect(() => {
+    const selectedVoiceIndex = filteredVoices.findIndex(voice => voice.shortName === selectedVoice.name);
+
+    if (selectedVoiceIndex !== -1)
+      setCurrentPage(Math.ceil(selectedVoiceIndex / voicesPerPage))
+  }, []);
 
   useEffect(() => {
     let filtered = voiceData;
@@ -67,6 +75,7 @@ export function VoiceSelector({ selectedVoice, setSelectedVoice, generateTTSUrl,
     setFilteredVoices(filtered);
   }, [styleFilters, genderFilters, personalityFilters, ageGroupFilters, tailoredScenarioFilters, voiceData]);
 
+  const totalPages = Math.ceil(filteredVoices.length / voicesPerPage);
   const voicesToDisplay = filteredVoices.slice(startIndex, endIndex);
 
   return (
@@ -128,11 +137,12 @@ export function VoiceSelector({ selectedVoice, setSelectedVoice, generateTTSUrl,
         >
           Previous
         </Button>
+        <Typography variant="bodySm" color="subdued">Page {currentPage} of {totalPages}</Typography>
         <Button
           variant="tertiary"
           endicon={ArrowRight}
           onClick={() => setCurrentPage(prevPage => prevPage + 1)}
-          disabled={currentPage === Math.ceil(filteredVoices.length / voicesPerPage)}
+          disabled={currentPage === totalPages}
         >
           Next
         </Button>
