@@ -21,8 +21,6 @@ interface ChartTooltipContentProps {
 
 export function ChartTooltipContent({ active, payload, label, units, unitsPosition = "right" }: ChartTooltipContentProps) {
   if (active && payload && payload.length) {
-    console.log(payload);
-
     return (
       <Container>
         <Typography variant="bodyXs" style={{ fontWeight: 500, marginBottom: "6px" }}>{label}</Typography>

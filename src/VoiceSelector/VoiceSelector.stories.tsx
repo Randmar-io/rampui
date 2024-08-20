@@ -14,9 +14,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 function VoiceSelectorStory() {
-  const [selectedVoice, setSelectedVoice] = React.useState<Voice>({ name: "en-US-AriaNeural", style: "customerservice" });
-
-  console.log(selectedVoice);
+  const [selectedVoice, setSelectedVoice] = React.useState<Voice>({ name: "en-US-EricNeural" });
 
   return (
     <VoiceSelector
@@ -27,7 +25,7 @@ function VoiceSelectorStory() {
 }
 
 const VoiceSelectorStoryInModal = () => {
-  const [selectedVoice, setSelectedVoice] = React.useState<Voice>({ name: "en-US-AriaNeural", style: "customerservice" });
+  const [selectedVoice, setSelectedVoice] = React.useState<Voice>({ name: "en-US-EricNeural" });
   const [open, setOpen] = React.useState(false);
 
   return (

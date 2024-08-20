@@ -27,7 +27,6 @@ export function Select({ options, selected, setSelected, label, ...muiSelectProp
   });
 
   const handleChange = (event: SelectChangeEvent<unknown>, child: React.ReactNode) => {
-    console.log(event.target.value);
     setSelected(event.target.value as string);
   };
 

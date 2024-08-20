@@ -65,7 +65,7 @@ export function SceneSelector({ selectedScene, setSelectedScene, itemColSpan }: 
         setSelectedCategory(category);
 
         const sceneIndex = updatedCategorizedScenes[category].findIndex(scene => scene.Name === selectedScene);
-        const pageNumber = Math.floor(sceneIndex / scenesPerPage) + 1;
+        const pageNumber = Math.ceil(sceneIndex / scenesPerPage);
         setCurrentPage(pageNumber);
       }
     } catch (error) {
@@ -232,7 +232,7 @@ export function SceneSelector({ selectedScene, setSelectedScene, itemColSpan }: 
         >
           Previous
         </Button>
-        <Typography variant="bodySm" color="subdued" style={{ marginRight: "8px" }}>Page {currentPage} of {totalPages}</Typography>
+        <Typography variant="bodySm" color="subdued">Page {currentPage} of {totalPages}</Typography>
         <Button
           variant="tertiary"
           endicon={ArrowRight}
