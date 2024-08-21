@@ -4,14 +4,14 @@ import { CaretDown } from "@phosphor-icons/react";
 import React from "react";
 import { grey } from "../colors";
 
-const StyledSelect = styled(Select)(({ theme }) => `
-  border-radius: 12px;
+const StyledSelect = styled(Select)(({ size }) => `
+  border-radius: ${size === 'small' ? '10px' : '12px'};
   color: #424242;
   background-color: white;
-  min-width: 200px;
+  min-width: ${size === 'small' ? '160px' : '200px'};
   & .MuiSelect-select {
-    padding: 6px 12px;
-    font-size: 13px;
+    padding: ${size === 'small' ? '3px 10px' : '6px 12px'};
+    font-size: ${size === 'small' ? '12px' : '13px'};
   }
   & .${outlinedInputClasses.notchedOutline} {
     border-color: ${grey[200]};
@@ -25,7 +25,7 @@ const StyledSelect = styled(Select)(({ theme }) => `
   }
 `);
 
-export function BaseSelect(props: SelectProps) {
+export function BaseSelect({ size, ...rest }: SelectProps) {
   return (
     <StyledSelect
       MenuProps={{
@@ -43,8 +43,9 @@ export function BaseSelect(props: SelectProps) {
           },
         }
       }}
-      IconComponent={props => <CaretDown {...props} />}
-      {...props}
+      IconComponent={props => <CaretDown {...props} size={size === 'small' ? 14 : 16} />}
+      size={size}
+      {...rest}
     />
   )
 }
