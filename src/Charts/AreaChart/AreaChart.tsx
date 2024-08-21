@@ -4,7 +4,7 @@ import { Area, CartesianGrid, AreaChart as RechartsAreaChart, ResponsiveContaine
 import { Color as ThemeColor, baseThemeColor } from "../../Provider/theme";
 import { ChartTooltipContent } from "./ChartTooltipContent";
 
-interface DataPoint {
+export interface DataPoint {
   [key: string]: string | number;
 }
 
