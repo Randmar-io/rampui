@@ -39,7 +39,6 @@ export function AreaChart({ data, units, unitsPosition = "right", color: propsCo
           axisLine={false}
           tickMargin={8}
           minTickGap={24}
-          interval={"preserveStartEnd"}
           style={{ fontSize: 12 }}
         />
         <Area type="monotone" dataKey={dataKeys[1]} stroke={color[400]} fillOpacity={1} fill="url(#color)" />
