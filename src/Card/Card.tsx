@@ -3,6 +3,7 @@ import { Icon as PhosphorIcon } from "@phosphor-icons/react";
 import React from "react";
 import { Chip, ChipProps } from "../Chip";
 import { Paper } from "../Paper";
+import { Typography } from "../Typography";
 
 export interface CardProps {
   title?: string | React.ReactNode;
@@ -35,12 +36,12 @@ export function Card({ title, tags, icon: Icon, children, actions, headerColor, 
         }}
       >
         {Icon && <Icon size={20} />}
-        <p style={{ fontSize: 16, fontWeight: 600 }}>{title}</p>
+        <Typography variant="headingMd">{title}</Typography>
       </Stack>
       <div style={{ marginTop: 12 }}>
         {children}
       </div>
-      <Stack direction="row" justifyContent="flex-end" spacing={0.5}>
+      <Stack direction="row" justifyContent="flex-end" spacing={0.5} mt="16px" >
         {actions}
       </Stack>
     </Paper>
