@@ -14,7 +14,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 function VoiceSelectorStory() {
-  const [selectedVoice, setSelectedVoice] = React.useState<Voice>({ name: "en-US-EricNeural" });
+  const [selectedVoice, setSelectedVoice] = React.useState<Voice>({ name: "en-US-MonicaNeural" });
 
   return (
     <VoiceSelector
