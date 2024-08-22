@@ -12,7 +12,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 function SceneSelectorStory() {
-  const [selectedScene, setSelectedScene] = React.useState("Elevate");
+  const [selectedScene, setSelectedScene] = React.useState("Empty Warehouse");
 
   return <SceneSelector selectedScene={selectedScene} setSelectedScene={setSelectedScene} />;
 }

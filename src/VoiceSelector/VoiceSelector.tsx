@@ -36,7 +36,7 @@ export function VoiceSelector({ selectedVoice, setSelectedVoice, generateTTSUrl,
     const selectedVoiceIndex = filteredVoices.findIndex(voice => voice.shortName === selectedVoice.name);
 
     if (selectedVoiceIndex !== -1)
-      setCurrentPage(Math.ceil(selectedVoiceIndex / voicesPerPage))
+      setCurrentPage(Math.floor(selectedVoiceIndex / voicesPerPage) + 1)
   }, []);
 
   useEffect(() => {

@@ -65,7 +65,7 @@ export function SceneSelector({ selectedScene, setSelectedScene, itemColSpan }: 
         setSelectedCategory(category);
 
         const sceneIndex = updatedCategorizedScenes[category].findIndex(scene => scene.Name === selectedScene);
-        const pageNumber = Math.ceil(sceneIndex / scenesPerPage);
+        const pageNumber = Math.floor(sceneIndex / scenesPerPage) + 1;
         setCurrentPage(pageNumber);
       }
     } catch (error) {
