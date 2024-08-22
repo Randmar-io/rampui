@@ -32,7 +32,16 @@ export function AreaChart({ data, units, unitsPosition = "right", color: propsCo
           </linearGradient>
         </defs>
         <CartesianGrid stroke="#e0e0e0" strokeWidth={0.5} vertical={false} />
-        <XAxis dataKey={dataKeys[0]} stroke="#8d8d8d" tickLine={false} axisLine={false} tickMargin={8} style={{ fontSize: 12 }} />
+        <XAxis
+          dataKey={dataKeys[0]}
+          stroke="#8d8d8d"
+          tickLine={false}
+          axisLine={false}
+          tickMargin={8}
+          minTickGap={24}
+          interval={"preserveStartEnd"}
+          style={{ fontSize: 12 }}
+        />
         <Area type="monotone" dataKey={dataKeys[1]} stroke={color[400]} fillOpacity={1} fill="url(#color)" />
         <Tooltip
           contentStyle={{
