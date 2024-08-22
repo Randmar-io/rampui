@@ -28,11 +28,6 @@ export function SceneSelector({ selectedScene, setSelectedScene, itemColSpan }: 
   const endIndex = startIndex + scenesPerPage;
 
   useEffect(() => {
-
-    fetchScenesAndCategorize();
-  }, []);
-
-  useEffect(() => {
     fetchScenesAndCategorize();
   }, []);
 
@@ -172,6 +167,7 @@ export function SceneSelector({ selectedScene, setSelectedScene, itemColSpan }: 
                         <div style={{ position: "relative", userSelect: "none", }}>
                           <img
                             src={`https://api.randmar.io/ShortsGenerationContent/Scene/${scene?.Name}/Thumbnail`}
+                            key={scene?.Name}
                             style={{
                               ...thumbnailStyle(selected),
                               borderColor: selected ? red[400] : grey[300],
