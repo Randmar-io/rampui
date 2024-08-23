@@ -6,6 +6,7 @@ import { Button } from "../Button";
 import { grey, red } from "../colors";
 import { StyleSelect } from "./StyleSelect";
 import { VoiceSelectorProps } from "./VoiceSelector";
+import FrenchFlag from "./assets/FrenchFlag";
 import { VoiceData, voiceDisplayName } from "./voiceData";
 
 interface VoiceOptionProps extends VoiceSelectorProps {
@@ -127,7 +128,17 @@ export function VoiceOption({ voice, selectedVoice, setSelectedVoice, generateTT
         },
       }}
     >
-      <span>{voiceDisplayName[voice.shortName]}</span>
+      <Stack direction="row" alignItems="center" spacing={0.75}>
+        <span>{voiceDisplayName[voice.shortName]}</span>
+        {
+          voice.shortName.toLowerCase().includes("multilingual") &&
+          <Tooltip title="Speaks French">
+            <span>
+              <FrenchFlag />
+            </span>
+          </Tooltip>
+        }
+      </Stack>
       <audio
         ref={audioRef}
         src={audioUrl}
