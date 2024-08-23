@@ -64,6 +64,27 @@ export function Provider({ children, color }: ProviderProps) {
               min-width: 0;
             }
 
+            *::-webkit-scrollbar {
+              width: 18px;
+              border-top-right-radius: inherit;
+              border-bottom-right-radius: inherit;
+            }
+
+            *::-webkit-scrollbar-thumb {
+              background: #babac0;
+              border: 6px transparent solid;
+              border-radius: 9999px;
+              background-clip: padding-box;
+            }
+
+            *::-webkit-scrollbar-thumb:hover {
+              background-color: #a0a0a5;
+            }
+
+            *::-webkit-scrollbar-button {
+              display: none;
+            }
+
             body {
               background-color: #f8f8f8;
               font-family: 'Inter', sans-serif;

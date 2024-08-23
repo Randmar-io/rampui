@@ -123,10 +123,6 @@ const Content = styled.div`
   padding-bottom: var(--r-spacing-40);
   overflow-y: auto;
   max-height: calc(90vh - 80px);
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
 `;
 
 const ModalBase = styled(MuiBaseModal)`
