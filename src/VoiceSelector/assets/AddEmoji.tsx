@@ -1,7 +1,5 @@
 import React from "react";
 
-
-
 export default function AddEmoji() {
 	return (
 		<svg width="15px" height="15px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg">
