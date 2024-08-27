@@ -65,20 +65,24 @@ export function Provider({ children, color }: ProviderProps) {
             }
 
             *::-webkit-scrollbar {
-              width: 18px;
+              width: 16px;
               border-top-right-radius: inherit;
               border-bottom-right-radius: inherit;
             }
 
             *::-webkit-scrollbar-thumb {
-              background: #babac0;
-              border: 6px transparent solid;
-              border-radius: 9999px;
+              background: #dcdcdc;
+              border: 4px transparent solid;
+              border-radius: 8px;
               background-clip: padding-box;
             }
 
             *::-webkit-scrollbar-thumb:hover {
-              background-color: #a0a0a5;
+              background-color: #c4c4c4;
+            }
+
+            *::-webkit-scrollbar-thumb:active {
+              background-color: #bababa;
             }
 
             *::-webkit-scrollbar-button {
