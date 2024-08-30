@@ -71,18 +71,18 @@ export function Provider({ children, color }: ProviderProps) {
             }
 
             *::-webkit-scrollbar-thumb {
-              background: #dcdcdc;
+              background: #c4c4c4;
               border: 4px transparent solid;
               border-radius: 8px;
               background-clip: padding-box;
             }
 
             *::-webkit-scrollbar-thumb:hover {
-              background-color: #c4c4c4;
+              background-color: #b6b6b6;
             }
 
             *::-webkit-scrollbar-thumb:active {
-              background-color: #bababa;
+              background-color: #a9a9a9;
             }
 
             *::-webkit-scrollbar-button {
