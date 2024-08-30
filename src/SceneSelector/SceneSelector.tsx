@@ -3,6 +3,7 @@ import { Box, Stack } from "@mui/system";
 import { ArrowLeft, ArrowRight, MagnifyingGlass } from "@phosphor-icons/react";
 import React, { useEffect, useState } from "react";
 import { Button } from "../Button";
+import { Link } from "../Link";
 import { Select } from "../Select";
 import { TextField } from "../TextField";
 import { Typography } from "../Typography";
@@ -119,12 +120,15 @@ export function SceneSelector({ selectedScene, setSelectedScene, itemColSpan }: 
       <Typography variant="bodySm" color="subdued" style={{ marginBottom: "4px" }}>Scene</Typography>
 
       <Stack direction={{ xs: "column", md: "row" }} justifyContent="space-between" spacing={1} sx={{ marginBottom: "12px" }}>
-        <Select
-          options={categories}
-          selected={selectedCategory}
-          setSelected={handleSetSelectedCategory}
-          sx={{ width: { xs: "100%", md: 200 } }}
-        />
+        <Stack direction="row" alignItems="center" spacing={1}>
+          <Select
+            options={categories}
+            selected={selectedCategory}
+            setSelected={handleSetSelectedCategory}
+            sx={{ width: { xs: "100%", md: 200 } }}
+          />
+          <Link href="https://www.blenderkit.com/asset-gallery?query=category_subtree:scene+order:-quality" external>Explore more scenes</Link>
+        </Stack>
         <TextField
           placeholder="Search for scene"
           startAdornment={

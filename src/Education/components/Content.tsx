@@ -57,7 +57,7 @@ export function Content({ show, setShow, title, description, academyLinks, youtu
         <Help>
           <Typography variant="bodyMd">Need help or have questions?</Typography>
           <a
-            href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ2qldwIeWkcUVUN6CJ_WafW2gwTWhPbk3Od40voZYxGcoPajxRPVFfLDqCwG04DzWVknmHPYcXt"
+            href="https://calendar.app.google/38SnvM6vae622SNt6"
             target="_blank"
           >
             <Button starticon={Headset}>Book a call</Button>
