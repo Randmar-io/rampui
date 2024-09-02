@@ -22,6 +22,7 @@ const CardBase = styled(Paper)<{ hoverColor?: Color }>(({ theme, hoverColor }) =
   cursor: pointer;
   transition: all 0.25s ease-in-out;
   color: ${grey[500]};
+  height: 100%;
 
   :hover {
     transform: translateY(-4px);
@@ -38,7 +39,7 @@ export function LinkCard({ title, description, imgUrl, to, external, onClick, co
       href={to}
       onClick={onClick}
       target={external ? "_blank" : "_self"}
-      style={{ textDecoration: 'none' }}
+      style={{ textDecoration: 'none', height: '100%' }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
@@ -46,6 +47,7 @@ export function LinkCard({ title, description, imgUrl, to, external, onClick, co
         <Typography variant="headingSm" style={{ paddingBottom: 4, color: 'inherit' }}>{title}</Typography>
         <Typography variant="bodyMd" style={{ paddingBottom: 16, lineHeight: 1.2 }}>{description}</Typography>
         <Stack direction="row" justifyContent="space-between" alignItems="baseline">
+          <link rel="preload" href={imgUrl} as="image" />
           <img src={imgUrl} alt={title} style={{ maxHeight: 80 }} />
           <Button variant={hovered ? "secondary" : "primary"} size="large" iconOnly starticon={ArrowUpRight} color={colorFromProps} />
         </Stack>
