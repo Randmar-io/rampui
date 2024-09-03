@@ -12,23 +12,30 @@ const meta: Meta<typeof Tabs> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Primary: Story = {
-  render: () => (
-    <div style={{ width: 900 }}>
-      <Tabs tabs={[
-        {
-          label: 'First Tab',
-          content: <div style={{ height: 300 }}>First Tab Content</div>
-        },
-        {
-          label: 'Second Tab',
-          content: <div style={{ height: 500 }}>Second Tab Content</div>
-        },
-        {
-          label: 'Third Tab',
-          content: <div style={{ height: 200 }}>Third Tab Content</div>
-        },
-      ]} />
-    </div>
-  ),
+export const Horizontal: Story = {
+  args: {
+    orientation: 'horizontal',
+    tabs: [
+      {
+        label: 'First Tab',
+        content: <div style={{ height: 300 }}>First Tab Content</div>
+      },
+      {
+        label: 'Second Tab',
+        content: <div style={{ height: 500 }}>Second Tab Content</div>
+      },
+      {
+        label: 'Third Tab',
+        content: <div style={{ height: 200 }}>Third Tab Content</div>
+      },
+    ],
+
+  },
+  decorators: [
+    (Story) => (
+      <div style={{ width: 900 }}>
+        <Story />
+      </div>
+    )
+  ]
 };

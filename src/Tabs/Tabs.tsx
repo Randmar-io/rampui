@@ -16,15 +16,16 @@ interface Tab {
 interface TabsProps {
   tabs?: Tab[];
   color?: "default" | "reseller" | "manufacturer" | "shopify" | "success" | "error";
+  orientation?: "horizontal" | "vertical";
 }
 
-export function Tabs({ tabs, color }: TabsProps) {
+export function Tabs({ tabs, color, orientation = "vertical" }: TabsProps) {
   return (
-    <TabsContainer defaultValue={0} orientation="vertical">
-      <TabsList>
+    <TabsContainer defaultValue={0} orientation={orientation}>
+      <TabsList orientation={orientation}>
         {
           tabs?.map((tab, index) => (
-            <Tab key={index} color={color}>{tab.label}</Tab>
+            <Tab key={index} color={color} orientation={orientation}>{tab.label}</Tab>
           ))
         }
       </TabsList>
@@ -37,7 +38,7 @@ export function Tabs({ tabs, color }: TabsProps) {
   );
 }
 
-const Tab = styled(BaseTab)<TabsProps>(({ theme, color: propsColor }) => {
+const Tab = styled(BaseTab)<TabsProps>(({ theme, color: propsColor, orientation }) => {
   const color = propsColor ? colors[propsColor] : theme.color;
 
   return css`
@@ -46,7 +47,7 @@ const Tab = styled(BaseTab)<TabsProps>(({ theme, color: propsColor }) => {
     font-size: 13px;
     font-weight: 500;
     background-color: transparent;
-    width: 100%;
+    width: ${orientation === "horizontal" ? "max-content" : "100%"};
     padding: var(--r-spacing-20) var(--r-spacing-40);
     border: none;
     border-radius: var(--r-border-radius-sm);
@@ -81,22 +82,23 @@ const TabPanel = styled(BaseTabPanel)`
   height: max-content;
 `;
 
-const TabsContainer = styled(BaseTabs)`
+const TabsContainer = styled(BaseTabs)<TabsProps>(({ orientation }) => `
   display: flex;
+  flex-direction: ${orientation === "horizontal" ? "column" : "row"};
   gap: 16px;
-`;
+`);
 
-const TabsList = styled(BaseTabsList)`
-  min-width: 240px;
+const TabsList = styled(BaseTabsList)<TabsProps>(({ orientation }) => `
+  ${orientation === "horizontal" ? "width: max-content;" : "min-width: 240px;"}
   height: max-content;
   background-color: white;
   display: flex;
   padding: 6px;
   gap: 4px;
-  flex-direction: column;
+  flex-direction: ${orientation === "horizontal" ? "row" : "column"};
   align-items: center;
   justify-content: center;
   align-content: space-between;
   box-shadow: var(--r-shadow-sm);
   border-radius: var(--r-border-radius-md);
-`;
+`);
