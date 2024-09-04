@@ -5,33 +5,41 @@ import { Tab as BaseTab, tabClasses } from '@mui/base/Tab';
 import { TabPanel as BaseTabPanel } from '@mui/base/TabPanel';
 import { Tabs as BaseTabs } from '@mui/base/Tabs';
 import { TabsList as BaseTabsList } from '@mui/base/TabsList';
+import { Icon as PhosphorIcon } from '@phosphor-icons/react';
 import * as React from 'react';
 import { colors } from '../colors/util';
 
 interface Tab {
   label?: string;
   content?: React.ReactNode;
+  icon?: PhosphorIcon;
 }
 
 interface TabsProps {
   tabs?: Tab[];
   color?: "default" | "reseller" | "manufacturer" | "shopify" | "success" | "error";
   orientation?: "horizontal" | "vertical";
+  defaultTabIndex?: number;
 }
 
-export function Tabs({ tabs, color, orientation = "vertical" }: TabsProps) {
+export function Tabs({ tabs, color, orientation = "vertical", defaultTabIndex = 0 }: TabsProps) {
   return (
-    <TabsContainer defaultValue={0} orientation={orientation}>
+    <TabsContainer defaultValue={defaultTabIndex} orientation={orientation}>
       <TabsList orientation={orientation}>
         {
-          tabs?.map((tab, index) => (
-            <Tab key={index} color={color} orientation={orientation}>{tab.label}</Tab>
+          tabs?.map(({ label, icon: Icon }, index) => (
+            <Tab key={index} color={color} orientation={orientation}>
+              {Icon && <Icon size={14} weight='bold' style={{ marginRight: 8 }} />}
+              <span>
+                {label}
+              </span>
+            </Tab>
           ))
         }
       </TabsList>
       {
-        tabs?.map((tab, index) => (
-          <TabPanel key={index} value={index}>{tab.content}</TabPanel>
+        tabs?.map(({ content }, index) => (
+          <TabPanel key={index} value={index}>{content}</TabPanel>
         ))
       }
     </TabsContainer>
