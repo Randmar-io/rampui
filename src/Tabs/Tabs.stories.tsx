@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
+import { Acorn } from '@phosphor-icons/react';
 import React from 'react';
 import { Tabs } from './Tabs';
 
@@ -18,7 +19,8 @@ export const Horizontal: Story = {
     tabs: [
       {
         label: 'First Tab',
-        content: <div style={{ height: 300 }}>First Tab Content</div>
+        content: <div style={{ height: 300 }}>First Tab Content</div>,
+        icon: Acorn
       },
       {
         label: 'Second Tab',
