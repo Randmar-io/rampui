@@ -25,18 +25,24 @@ const grey = {
 
 export function Chip({ label, color, icon: Icon }: ChipProps) {
   return (
-    <div style={{
+    <span style={{
       padding: "4px 8px",
       backgroundColor: (color || grey)[100],
       borderRadius: 10,
       width: 'max-content',
-      display: 'flex',
+      display: 'inline-flex',
       alignItems: 'center',
       gap: 4,
+      height: 21.6
     }}
     >
-      {Icon && <Icon size={11} style={{ color: (color || grey)[600] }} weight="bold" />}
-      <p style={{ fontSize: 11, fontWeight: 500, color: (color || grey)[600] }}>{label}</p>
-    </div>
+      {
+        Icon &&
+        <span style={{ display: 'inline-flex', alignItems: 'center' }}>
+          <Icon size={11} style={{ color: (color || grey)[600] }} weight="bold" />
+        </span>
+      }
+      <span style={{ fontSize: 11, fontWeight: 500, color: (color || grey)[600] }}>{label}</span>
+    </span>
   );
 }
