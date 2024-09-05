@@ -6,6 +6,7 @@ import { borderTokens, heightTokens, shadowTokens, spacingTokens, widthTokens } 
 import { Color, baseThemeColor, components } from "./theme";
 
 import { createContext } from 'react';
+import { dataGridStyles } from "../DataGrid";
 
 export const ThemeContext = createContext<Color>('randmar');
 
@@ -56,6 +57,7 @@ export function Provider({ children, color }: ProviderProps) {
             ${shadowTokens}
             ${spacingTokens}
             ${widthTokens}
+            ${dataGridStyles}
 
             * {
               margin: 0;
@@ -71,18 +73,18 @@ export function Provider({ children, color }: ProviderProps) {
             }
 
             *::-webkit-scrollbar-thumb {
-              background: #c4c4c4;
+              background: #dcdcdc;
               border: 4px transparent solid;
               border-radius: 8px;
               background-clip: padding-box;
             }
 
             *::-webkit-scrollbar-thumb:hover {
-              background-color: #b6b6b6;
+              background-color: #c4c4c4;
             }
 
             *::-webkit-scrollbar-thumb:active {
-              background-color: #a9a9a9;
+              background-color: #bababa;
             }
 
             *::-webkit-scrollbar-button {

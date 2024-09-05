@@ -3,6 +3,7 @@ export * from "./Button";
 export * from "./Card";
 export * from "./Charts";
 export * from "./Chip";
+export * from "./DataGrid";
 export * from "./DocumentCard";
 export * from "./Education";
 export * from "./ExpandPanelIcon";
