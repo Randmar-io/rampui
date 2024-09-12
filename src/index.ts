@@ -31,6 +31,7 @@ export * from "./SearchBar";
 export * from "./Select";
 export * from "./Tabs";
 export * from "./TextField";
+export * from "./Timeline";
 export * from "./Typography";
 export * from "./VideoModal";
 export * from "./VoiceSelector";
