@@ -1,3 +1,5 @@
+import { useTheme } from "@emotion/react";
+import styled from "@emotion/styled";
 import { Skeleton } from "@mui/material";
 import { Stack } from "@mui/system";
 import { PencilSimple, SignOut } from "@phosphor-icons/react";
@@ -7,11 +9,24 @@ import { ProfileImage } from "../ProfileImage";
 import { Typography } from "../Typography";
 import { grey } from "../colors";
 
-interface NavFooterProps {
+const ProfileNameLink = styled.a(({ theme }) => (`
+  color: ${grey[500]};  
+  &:hover {
+    color: ${theme.color[500]};
+  }
+`))
+
+interface LinkProps {
+  url: string;
+  external?: boolean;
+}
+
+export interface NavFooterProps {
   applicationId: string;
   profileName?: string;
   profileEmail?: string;
   profileTier?: string;
+  profileNameLink?: LinkProps;
   onSignOut?: () => void;
   secondaryActions?: React.ReactNode[];
   loading?: boolean;
@@ -23,11 +38,13 @@ export function NavFooter({
   profileName,
   profileEmail,
   profileTier,
+  profileNameLink,
   onSignOut,
   secondaryActions,
   loading,
   onClickEdit
 }: NavFooterProps) {
+  const theme = useTheme();
   const [showEditButton, setShowEditButton] = useState(false);
 
   if (loading) return (
@@ -56,7 +73,14 @@ export function NavFooter({
           <ProfileImage applicationId={applicationId} />
           <Stack direction="row" justifyContent="space-between" spacing={1} width="100%">
             <Stack sx={{ flexGrow: 1 }} spacing={0.25}>
-              <Typography weight="semibold" style={{ lineHeight: 1.2 }}>{profileName}</Typography>
+              {
+                profileNameLink ?
+                  <ProfileNameLink href={profileNameLink.url} target={profileNameLink.external ? "_blank" : "_self"}>
+                    <Typography weight="semibold" style={{ lineHeight: 1.2, color: "inherit" }}>{profileName}</Typography>
+                  </ProfileNameLink>
+                  :
+                  <Typography weight="semibold" style={{ lineHeight: 1.2 }}>{profileName}</Typography>
+              }
               {profileTier && <div style={{ fontSize: 12 }}>{profileTier}</div>}
               <div style={{ fontSize: 12, color: '#646464' }}>{profileEmail}</div>
             </Stack>
