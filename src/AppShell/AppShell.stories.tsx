@@ -47,6 +47,7 @@ export const AppShellWithItems = () => {
       applicationId="2"
       profileName="Carlyle Printers Services and Supplies"
       profileEmail="admin@brother.ca"
+      profileNameLink={{ url: "https://www.brother.ca", external: true }}
       onSignOut={() => alert("Sign out")}
       onClickEdit={() => alert("Edit")}
       secondaryActions={[
