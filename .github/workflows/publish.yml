@@ -1,15 +1,12 @@
 name: Publish Package to npm
 permissions: write-all
 on:
-  pull_request:
-    types:
-      - closed
+  push:
     branches:
       - main
 jobs:
   update_version:
     name: Update version
-    if: contains(github.event.pull_request.labels.*.name, 'release-major') || contains(github.event.pull_request.labels.*.name, 'release-minor') || contains(github.event.pull_request.labels.*.name, 'release-patch')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -17,20 +14,9 @@ jobs:
         run: |
           git config --global user.email "echo@randmar.io"
           git config --global user.name "Echo"
-      - name: Check if patch release
-        if: contains(github.event.pull_request.labels.*.name, 'release-patch')
-        run: |
-          npm version patch
-          git push
       - name: Check if minor release
-        if: contains(github.event.pull_request.labels.*.name, 'release-minor')
         run: |
           npm version minor
-          git push
-      - name: Check if major release
-        if: contains(github.event.pull_request.labels.*.name, 'release-major')
-        run: |
-          npm version major
           git push
 
   build_and_release:
