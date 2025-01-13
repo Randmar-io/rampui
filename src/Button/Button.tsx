@@ -12,7 +12,7 @@ interface ConfirmationDialog {
 }
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  children?: React.ReactNode;
+  children?: React.ReactNode; 
   variant?: "primary" | "secondary" | "tertiary";
   size?: "small" | "medium" | "large";
   color?: "default" | "reseller" | "manufacturer" | "shopify" | "success" | "error";
