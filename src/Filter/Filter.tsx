@@ -58,7 +58,7 @@ const Button = React.forwardRef(function Button<
   TValue extends {},
   Multiple extends boolean,
 >(
-  props: SelectRootSlotProps<TValue, Multiple> & MultiSelectProps & StyledButtonProps,
+  props: Omit<SelectRootSlotProps<TValue, Multiple> & MultiSelectProps & StyledButtonProps, 'ref'>,
   ref: React.ForwardedRef<HTMLButtonElement>,
 ) {
   const { ownerState, filterName, handleClearAll, ...other } = props;
