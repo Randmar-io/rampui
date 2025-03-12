@@ -16,7 +16,7 @@ const NavLinkContainer = styled('li')<NavLinkProps>(({ selected, theme }) => `
   display: flex;
   align-items: center;
   padding: var(--r-spacing-20) var(--r-spacing-40);
-  gap: var(--r-spacing-25 );
+  gap: var(--r-spacing-25);
   background-color: ${selected ? theme.color[50] : "transparent"};
   font-size: 0.8125rem;
   border-radius: var(--r-border-radius-sm);
@@ -59,24 +59,22 @@ export function NavLink({ icon: Icon, label, selected, linkComponent, hidden, mo
 
   const navLinkStandard = (
     <NavLinkContainer selected={selected} {...rest}>
-      {
-        Icon &&
+      {Icon && (
         <CenteredFlexbox>
           <Icon color={selected ? theme.color[500] : "#545454"} size={16} weight={selected ? "bold" : "regular"} />
         </CenteredFlexbox>
-      }
+      )}
       <span style={{ fontWeight: selected ? 600 : 500, color: selected ? theme.color[600] : '#464646' }}>{label}</span>
     </NavLinkContainer>
   );
 
   const navLinkMobile = (
-    <NavLinkContainer selected={selected} {...rest} style={{ justifyContent: 'center', flexFlow: 'column', padding: 'var(--r-spacing-30)', }}>
-      {
-        Icon &&
+    <NavLinkContainer selected={selected} {...rest} style={{ justifyContent: 'center', flexFlow: 'column', padding: 'var(--r-spacing-30)' }}>
+      {Icon && (
         <CenteredFlexbox>
           <Icon color={selected ? theme.color[500] : "#545454"} size={16} weight={selected ? "bold" : "regular"} />
         </CenteredFlexbox>
-      }
+      )}
       <Label>{label}</Label>
     </NavLinkContainer>
   );
@@ -85,10 +83,9 @@ export function NavLink({ icon: Icon, label, selected, linkComponent, hidden, mo
 
   if (hidden) return null;
 
-  if (linkComponent) {
-    return React.isValidElement(linkComponent)
-      ? React.cloneElement(linkComponent as React.ReactElement, { ...linkComponent.props }, navLink)
-      : null;
+  if (linkComponent && React.isValidElement(linkComponent)) {
+    const props = linkComponent.props as Record<string, any>;
+    return React.cloneElement(linkComponent, { ...props }, navLink);
   }
 
   return navLink;

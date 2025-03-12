@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import React from "react";
 import { Typography } from "../Typography";
 import { Color, grey } from "../colors";
+import type { JSX } from "react";
 
 interface TimelineItem {
   title: string;
