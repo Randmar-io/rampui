@@ -59,13 +59,6 @@ export function Provider({ children, color }: ProviderProps) {
             ${widthTokens}
             ${dataGridStyles}
 
-            * {
-              margin: 0;
-              padding: 0;
-              box-sizing: border-box;
-              min-width: 0;
-            }
-
             *::-webkit-scrollbar {
               width: 16px;
               border-top-right-radius: inherit;
